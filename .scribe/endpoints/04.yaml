@@ -1,0 +1,316 @@
+name: JobOffer
+description: |-
+
+  EndPoints pour gérer les JobOffer
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/job_offers
+    metadata:
+      custom: []
+      groupName: JobOffer
+      groupDescription: |-
+
+        EndPoints pour gérer les JobOffer
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Affiche les JobOffer'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters:
+      attribute:
+        custom: []
+        name: attribute
+        description: "Description de l'attribut."
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      with_relation:
+        custom: []
+        name: with_relation
+        description: 'Afficher la relation.'
+        required: false
+        example: 'false'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      paginate:
+        custom: []
+        name: paginate
+        description: 'Utiliser la pagination.'
+        required: false
+        example: 'false'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanQueryParameters:
+      with_relation: 'false'
+      paginate: 'false'
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/job_offers
+    metadata:
+      custom: []
+      groupName: JobOffer
+      groupDescription: |-
+
+        EndPoints pour gérer les JobOffer
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Créer un nouveau JobOffer'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
+        custom: []
+        name: title
+        description: "L'attribut."
+        required: false
+        example: "Chargé D'affaire"
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      content:
+        custom: []
+        name: content
+        description: "L'attribut."
+        required: false
+        example: 'Cofina recrute.....'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      summary:
+        custom: []
+        name: summary
+        description: "L'attribut."
+        required: false
+        example: 'En résumé....'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      deadline:
+        custom: []
+        name: deadline
+        description: "L'attribut."
+        required: false
+        example: '2026-10-10'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      title: "Chargé D'affaire"
+      content: 'Cofina recrute.....'
+      summary: 'En résumé....'
+      deadline: '2026-10-10'
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/job_offers/{id}'
+    metadata:
+      custom: []
+      groupName: JobOffer
+      groupDescription: |-
+
+        EndPoints pour gérer les JobOffer
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Met à jour un JobOffer'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'Le JobOffer.'
+        required: false
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
+        custom: []
+        name: title
+        description: "L'attribut."
+        required: false
+        example: value
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      content:
+        custom: []
+        name: content
+        description: "L'attribut."
+        required: false
+        example: value
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      summary:
+        custom: []
+        name: summary
+        description: "L'attribut."
+        required: false
+        example: value
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      deadline:
+        custom: []
+        name: deadline
+        description: "L'attribut."
+        required: false
+        example: value
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      title: value
+      content: value
+      summary: value
+      deadline: value
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/job_offers/{id}'
+    metadata:
+      custom: []
+      groupName: JobOffer
+      groupDescription: |-
+
+        EndPoints pour gérer les JobOffer
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Supprime un JobOffer'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'Le JobOffer.'
+        required: false
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
