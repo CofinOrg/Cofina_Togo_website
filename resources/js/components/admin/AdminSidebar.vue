@@ -50,7 +50,7 @@
 
         <!-- Blog -->
         <router-link
-        to="/admin/add-blog"
+        to="/Cofinoistg@admin/add-blog"
         class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors group"
         active-class="bg-primary/10 text-gray-400"
 
@@ -63,7 +63,7 @@
 
         <!-- Insights / Analytics -->
         <router-link
-        to="/admin/insights"
+        to="/Cofinoistg@admin/insights"
         class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors group"
         active-class="bg-primary/10 text-gray-400"
 
@@ -81,7 +81,7 @@
 
         <!-- Offres d'emploi -->
         <router-link
-          to="/admin/offer"
+          to="/Cofinoistg@admin/offer"
           class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors group"
           active-class="bg-primary/10 text-gray-400"
         >
@@ -93,7 +93,7 @@
 
         <!-- Candidatures spontanées -->
         <router-link
-          to="/admin/spontaneous-applications"
+          to="/Cofinoistg@admin/spontaneous-applications"
           class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors group"
           active-class="bg-primary/10 text-gray-400"
 
@@ -114,7 +114,7 @@
 
         <!-- Utilisateurs -->
         <router-link
-          to="/admin/users"
+          to="/Cofinoistg@admin/users"
           class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors group"
           active-class="bg-primary/10 text-gray-400"
 
@@ -134,7 +134,7 @@
 
         <!-- Paramètres -->
         <router-link
-          to="/admin/settings"
+          to="/Cofinoistg@admin/settings"
           class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors group"
           active-class="bg-primary/10 text-gray-400"
 
