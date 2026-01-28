@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::table('users', function (Blueprint $table) {
             $table->enum('profile', ['admin', 'rh', 'marketing'])->default('marketing')->change();
-            ;
+
 
         });
     }

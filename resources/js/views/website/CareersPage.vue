@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { PcCaseIcon, SendHorizonalIcon } from 'lucide-vue-next';
-import CandidatureModal from '@/components/career/CandidatureModal.vue';
+import CandidatureModal from '../../components/career/CandidatureModal.vue';
 const activeTab = ref('offers');
 const isModalOpen = ref(false);
 
@@ -19,7 +19,7 @@ const jobs = ref([
   <main class="min-h-screen bg-white">
      <section class="relative h-[500px] bg-[#333] flex items-center">
       <div class="absolute inset-0">
-        <img src="../../assets/images/career/employment-opportunity-hiring-jobs-icon.jpg" alt="Produits COFINA" class="w-full h-full object-cover" />
+        <img src="../../assets/images/career/PROUDLY COFINOIS.png" alt="Produits COFINA" class="w-full h-full object-cover" />
       </div>
       <div class="container mx-auto px-6 relative z-10">
 
@@ -30,7 +30,7 @@ const jobs = ref([
       <div class="container mx-auto px-4 flex justify-center gap-6">
         <button
           @click="activeTab = 'offers'"
-          :class="activeTab === 'offers' ? 'bg-[#7a7a7a] text-white' : 'bg-white text-gray-500'"
+          :class="activeTab === 'offers' ? 'bg-primary text-white' : 'bg-white text-gray-500'"
           class="w-64 py-8 rounded-2xl shadow-2xl transition-all flex flex-col items-center gap-2 group"
         >
           <span class="text-3xl"><PcCaseIcon/></span>
@@ -43,6 +43,14 @@ const jobs = ref([
         >
           <span class="text-3xl text-primary"><SendHorizonalIcon/> </span>
           <span class="font-bold text-lg uppercase">Candidature spontanée</span>
+        </button>
+
+        <button
+          @click="isModalOpen = true"
+          class="w-64 py-8 rounded-2xl bg-white text-gray-500 shadow-2xl hover:bg-gray-50 transition-all flex flex-col items-center gap-2"
+        >
+          <span class="text-3xl text-primary"><SendHorizonalIcon/> </span>
+          <span class="font-bold text-lg uppercase">Campagne de recrutement</span>
         </button>
       </div>
     </section>

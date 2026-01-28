@@ -59,7 +59,7 @@ onMounted(() => {
     <section class="relative">
       <div class="h-[300px] md:h-[450px] overflow-hidden">
         <img
-          src="../../assets/images/about_images/cofina_building.jpg"
+          src="../../assets/images/about_images/Gemini_Generated_Image_21h5qu21h5qu21h5.png"
           alt="Cofina Building"
           class="w-full h-full object-cover"
         />

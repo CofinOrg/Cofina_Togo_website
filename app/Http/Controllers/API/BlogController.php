@@ -73,8 +73,9 @@ class BlogController extends APIController
             'title' => 'required|string',
             'content' => 'required|string|max:5000',
             'summary' => 'required|string|max:500',
-            'is_published' => 'required|boolean',
-            'published_at' => 'nullable|date',
+            'coverImage' => 'required|string|max:500',
+            'status' => 'required|string'
+
         ];
         $this->storeManualValidationsFunction = function ($requestData) use ($connectedUser) {
             return null;

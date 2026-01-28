@@ -35,14 +35,6 @@ Route::controller(AuthController::class)->group(function () {
         });
 
         //Blog
-        Route::prefix('blogs')->name('blog.')->controller(BlogController::class)->group(function () {
-            Route::get('/', 'index')->name('index');
-            Route::post('/', 'store')->name('store');
-            Route::get('/{id}', 'show')->name('show');
-            Route::put('/{id}', 'update')->name('update');
-            Route::delete('/{id}', 'destroy')->name('destroy');
-
-        });
 
         //BlogImg
         Route::prefix('blog_imgs')->name('blog_img.')->controller(BlogImgController::class)->group(function () {
@@ -62,5 +54,13 @@ Route::controller(AuthController::class)->group(function () {
             Route::delete('/{id}', 'destroy')->name('destroy');
         });
 
+        Route::prefix('blogs')->name('blog.')->controller(BlogController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+            Route::get('/{id}', 'show')->name('show');
+            Route::put('/{id}', 'update')->name('update');
+            Route::delete('/{id}', 'destroy')->name('destroy');
+
+        });
     });
 });

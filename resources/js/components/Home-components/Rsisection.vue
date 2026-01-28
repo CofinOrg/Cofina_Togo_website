@@ -42,7 +42,11 @@
           <div class="flex flex-wrap gap-3 md:gap-4">
             <!-- Carte 1 : Respect -->
             <div class="bg-white rounded-lg shadow-md px-4 py-3 flex items-center gap-3 hover:shadow-lg transition-all duration-300 animate-fade-in-card" style="animation-delay: 0.2s;">
-                <span class="text-background font-bold text-3xl">R</span>
+                <div class="flex items-center gap-0.5">
+                        <span class="text-primary font-bold text-4xl">2</span>
+                        <span class="text-background font-bold text-4xl">R</span>
+                </div>
+             <div class="h-8 w-px bg-gray-400"></div>
               <div>
                 <p class="text-gray-900 text-sm ">Respect</p>
                 <p class="text-gray-900 text-sm">Rigeur</p>
@@ -51,7 +55,11 @@
 
             <!-- Carte 2 : Service Simplifié -->
             <div class="bg-white rounded-lg shadow-md px-4 py-3 flex items-center gap-3 hover:shadow-lg transition-all duration-300 animate-fade-in-card" style="animation-delay: 0.4s;">
-                <span class="text-background font-bold text-3xl">S</span>
+                  <div class="flex items-center gap-0.5">
+                        <span class="text-primary font-bold text-4xl">2</span>
+                        <span class="text-background font-bold text-4xl">S</span>
+                  </div>
+            <div class="h-8 w-px bg-gray-400"></div>
               <div>
                 <p class="text-gray-900 text-sm ">Service</p>
                 <p class="text-gray-900 text-sm">Simplifié</p>
@@ -60,7 +68,11 @@
 
             <!-- Carte 3 : Intégrité Innovatrice -->
             <div class="bg-white rounded-lg shadow-md px-4 py-3 flex items-center gap-3 hover:shadow-lg transition-all duration-300 animate-fade-in-card" style="animation-delay: 0.6s;">
-                <span class="text-background font-bold text-3xl">I</span>
+                <div class="flex items-center gap-0.5">
+                        <span class="text-primary font-bold text-4xl">2</span>
+                        <span class="text-background font-bold text-4xl">I</span>
+                </div>
+            <div class="h-8 w-px bg-gray-400"></div>
               <div>
                 <p class="text-gray-900 text-sm ">Intégrité</p>
                 <p class="text-gray-900 text-sm">Innovation</p>

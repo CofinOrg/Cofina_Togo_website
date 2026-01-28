@@ -150,44 +150,6 @@ onUnmounted(() => {
         </div>
       </div>
 
-      <!-- Flèches de navigation -->
-      <button
-        class="absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-20 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white p-3 lg:p-4 rounded-full transition-all duration-300 hover:scale-110"
-        @click="prevSlide"
-      >
-        <svg
-          class="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2.5"
-            d="M15 19l-7-7 7-7"
-          />
-        </svg>
-      </button>
-
-      <button
-        class="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-20 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white p-3 lg:p-4 rounded-full transition-all duration-300 hover:scale-110"
-        @click="nextSlide"
-      >
-        <svg
-          class="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2.5"
-            d="M9 5l7 7-7 7"
-          />
-        </svg>
-      </button>
 
       <!-- Indicateurs rectangulaires -->
       <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3">

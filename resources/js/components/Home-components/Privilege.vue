@@ -150,7 +150,7 @@ defineProps({
         <!-- Bouton gauche -->
         <a
           href="/cofiprivilege/rendez-vous"
-          class="inline-flex items-center justify-center bg-gradient-to-r from-gold to-yellow-600 text-black px-6 py-2.5 rounded-lg text-sm font-bold hover:from-yellow-600 hover:to-gold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 w-auto"
+          class="inline-flex items-center justify-center bg-yellow-600 text-black px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-yellow-600 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 w-auto"
         >
           Prenez rendez-vous avec Nadine
         </a>
@@ -158,9 +158,9 @@ defineProps({
         <!-- Bouton droite -->
         <a
           href="/cofiprivilege/en-savoir-plus"
-          class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-gold to-yellow-600 text-black px-6 py-2.5 rounded-lg text-sm font-bold hover:from-yellow-600 hover:to-gold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 w-auto"
+          class="inline-flex items-center justify-center gap-2 bg-yellow-600 text-black px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-yellow-600 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 w-auto"
         >
-          En savoir plus
+          Rejoindre le cercle de Cofina Business Touch
           <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
             <path d="M9 5l7 7-7 7" />
           </svg>

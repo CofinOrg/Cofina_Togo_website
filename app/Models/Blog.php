@@ -45,6 +45,8 @@ class Blog extends AuthenticatableBase
         'summary',
         'is_published',
         'published_at',
+        'coverImage',
+        'status'
         // Ajoutez vos colonnes supplémentaires ici
     ];
 
