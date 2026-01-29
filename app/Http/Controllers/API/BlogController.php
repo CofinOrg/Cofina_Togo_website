@@ -32,6 +32,7 @@ class BlogController extends APIController
      */
     public function index(Request $request)
     {
+        $this->indexAbilityName = null;
         $this->indexSearchFieldList = [
         ];
         $this->indexManualFilter = function ($list, $connectedUser, $requestData) {
@@ -50,6 +51,7 @@ class BlogController extends APIController
      */
     public function show(Request $request, $id)
     {
+        $this->showAbilityName = null;
         return parent::show($request, $id);
     }
 
@@ -69,18 +71,40 @@ class BlogController extends APIController
     {
         $connectedUser = $request->user();
         $this->storeValidationArray = [
-            'user_id' => 'required|integer|exists:users,id',
             'title' => 'required|string',
-            'content' => 'required|string|max:5000',
+            'content' => 'required|string',
             'summary' => 'required|string|max:500',
-            'coverImage' => 'required|string|max:500',
+            'coverImage' => 'required|string',
             'status' => 'required|string'
-
         ];
         $this->storeManualValidationsFunction = function ($requestData) use ($connectedUser) {
             return null;
         };
         $this->storeBeforeCreateFunction = function ($requestData) use ($connectedUser) {
+            $requestData['user_id'] = $connectedUser->id;
+
+            if (!empty($requestData['coverImage']) && str_starts_with($requestData['coverImage'], 'data:')) {
+                $path = $this->saveBase64File($requestData['coverImage'], 'blogs');
+                if ($path) {
+                    $requestData['coverImage'] = $path;
+                }
+            }
+
+            // Convertir les images base64 du contenu HTML en fichiers stockés
+            if (!empty($requestData['content'])) {
+                $requestData['content'] = preg_replace_callback(
+                    '/src="(data:image\/[^;]+;base64,[^"]+)"/',
+                    function ($matches) {
+                        $path = $this->saveBase64File($matches[1], 'blogs/content');
+                        if ($path) {
+                            return 'src="/storage/' . $path . '"';
+                        }
+                        return $matches[0];
+                    },
+                    $requestData['content']
+                );
+            }
+
             return $requestData;
         };
         $this->storeAfterCreateFunction = function ($model, $requestData, $data) use ($connectedUser) {
@@ -93,7 +117,6 @@ class BlogController extends APIController
             return $model;
         };
         $this->storeRelationArray = [
-            'user_id' => $connectedUser->id,
         ];
         return parent::store($request);
     }
@@ -121,6 +144,27 @@ class BlogController extends APIController
             return null;
         };
         $this->updateBeforeUpdateFunction = function ($model, $requestData, $data) use ($connectedUser) {
+            if (!empty($requestData['coverImage']) && str_starts_with($requestData['coverImage'], 'data:')) {
+                $path = $this->saveBase64File($requestData['coverImage'], 'blogs');
+                if ($path) {
+                    $requestData['coverImage'] = $path;
+                }
+            }
+
+            if (!empty($requestData['content'])) {
+                $requestData['content'] = preg_replace_callback(
+                    '/src="(data:image\/[^;]+;base64,[^"]+)"/',
+                    function ($matches) {
+                        $path = $this->saveBase64File($matches[1], 'blogs/content');
+                        if ($path) {
+                            return 'src="/storage/' . $path . '"';
+                        }
+                        return $matches[0];
+                    },
+                    $requestData['content']
+                );
+            }
+
             return $requestData;
         };
         $this->updateAfterUpdateFunction = function ($model, $requestData, $data) use ($connectedUser) {

@@ -2,13 +2,157 @@
   <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4">
     <div class="max-w-5xl mx-auto">
       <!-- En-tête -->
-      <div class="mb-8">
-        <h1 class="text-4xl font-bold text-gray-900 mb-2">Créer un article</h1>
-        <p class="text-gray-600">Rédigez et publiez votre contenu</p>
+      <div class="mb-8 flex items-center justify-between">
+        <div>
+          <h1 class="text-4xl font-bold text-gray-900 mb-2">Gestion des articles</h1>
+          <p class="text-gray-600">Gérez, créez et modifiez vos articles de blog</p>
+        </div>
+        <button
+          @click="scrollToForm"
+          class="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all font-semibold shadow-lg hover:shadow-xl flex items-center gap-2"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+          </svg>
+          Créer un article
+        </button>
       </div>
 
-      <!-- Formulaire -->
-      <div class="bg-white rounded-2xl shadow-xl p-8 space-y-8">
+      <!-- Section Tableau des articles -->
+      <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+        <h2 class="text-xl font-bold text-gray-900 mb-6">Liste des articles</h2>
+
+        <!-- Barre de recherche et filtres -->
+        <div class="flex flex-col sm:flex-row gap-4 mb-6">
+          <div class="flex-1">
+            <input
+              v-model="searchQuery"
+              type="text"
+              placeholder="Rechercher par titre..."
+              class="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
+            />
+          </div>
+          <select
+            v-model="filterStatus"
+            class="px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
+          >
+            <option value="all">Tous les statuts</option>
+            <option value="published">Publié</option>
+            <option value="draft">Brouillon</option>
+          </select>
+        </div>
+
+        <!-- Tableau -->
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Titre</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Résumé</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <!-- État vide -->
+              <tr v-if="filteredBlogs.length === 0">
+                <td colspan="6" class="px-6 py-12 text-center text-gray-500">
+                  <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                  </svg>
+                  <p class="text-lg font-medium">Aucun article trouvé</p>
+                  <p class="text-sm">Commencez par créer votre premier article</p>
+                </td>
+              </tr>
+              <!-- Lignes du tableau -->
+              <tr v-for="blog in filteredBlogs" :key="blog.id" class="hover:bg-gray-50 transition-colors">
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <img
+                    v-if="blog.coverImage"
+                    :src="blog.coverImage.startsWith('http') || blog.coverImage.startsWith('data:') ? blog.coverImage : '/storage/' + blog.coverImage"
+                    alt="Couverture"
+                    class="h-12 w-16 object-cover rounded-lg"
+                  />
+                  <div v-else class="h-12 w-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                    <svg class="h-6 w-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                </td>
+                <td class="px-6 py-4">
+                  <div class="text-sm font-medium text-gray-900">{{ blog.title }}</div>
+                </td>
+                <td class="px-6 py-4">
+                  <div class="text-sm text-gray-500 max-w-xs truncate">{{ blog.summary }}</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span
+                    :class="blog.status === 'published'
+                      ? 'bg-green-100 text-green-800'
+                      : 'bg-yellow-100 text-yellow-800'"
+                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
+                  >
+                    {{ blog.status === 'published' ? 'Publié' : 'Brouillon' }}
+                  </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {{ new Date(blog.created_at).toLocaleDateString('fr-FR') }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                  <div class="flex items-center gap-2">
+                    <!-- Modifier -->
+                    <button
+                      @click="editBlog(blog)"
+                      class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                      title="Modifier"
+                    >
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                      </svg>
+                    </button>
+                    <!-- Supprimer -->
+                    <button
+                      @click="deleteBlog(blog.id)"
+                      class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                      title="Supprimer"
+                    >
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Section Formulaire -->
+      <div ref="formSection" class="bg-white rounded-2xl shadow-xl p-8 space-y-8">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-xl font-bold text-gray-900">
+              {{ isEditing ? 'Modifier l\'article' : 'Créer un article' }}
+            </h2>
+            <p class="text-gray-600 mt-1">
+              {{ isEditing ? 'Modifiez les informations de l\'article' : 'Rédigez et publiez votre contenu' }}
+            </p>
+          </div>
+          <button
+            v-if="isEditing"
+            @click="cancelEdit"
+            class="px-4 py-2 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-all font-semibold flex items-center gap-2"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            Annuler la modification
+          </button>
+        </div>
+
         <!-- Titre -->
         <div>
           <label class="block text-sm font-semibold text-gray-700 mb-3">
@@ -77,7 +221,7 @@
           <!-- Prévisualisation -->
           <div v-else class="relative rounded-xl overflow-hidden group">
             <img
-              :src="article.coverImage"
+              :src="coverImagePreview"
               alt="Aperçu"
               class="w-full h-64 object-cover"
             />
@@ -108,7 +252,7 @@
           <label class="block text-sm font-semibold text-gray-700 mb-3">
             Contenu de l'article
           </label>
-          <QuillEditor v-model="article.content" />
+          <QuillEditor :key="editorKey" v-model="article.content" />
         </div>
 
         <!-- Actions -->
@@ -120,7 +264,7 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
             </svg>
-            Enregistrer brouillon
+            {{ isEditing ? 'Enregistrer comme brouillon' : 'Enregistrer brouillon' }}
           </button>
           <button
             @click="publish"
@@ -129,7 +273,7 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
             </svg>
-            Publier l'article
+            {{ isEditing ? 'Sauvegarder et publier' : 'Publier l\'article' }}
           </button>
         </div>
       </div>
@@ -138,11 +282,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import QuillEditor from '../../components/Quilleditor.vue'
 import api from '../../utils/api'
 
-// Définir l'objet article comme ref
+const editorKey = ref(0)
+
+// État de la liste
+const blogs = ref<any[]>([])
+const searchQuery = ref('')
+const filterStatus = ref('all')
+
+// État du formulaire
+const isEditing = ref(false)
+const editingId = ref<number | null>(null)
+
 const article = ref({
   title: '',
   summary: '',
@@ -152,7 +306,86 @@ const article = ref({
 
 const coverImageInput = ref<HTMLInputElement | null>(null)
 const isDragging = ref(false)
+const formSection = ref<HTMLElement | null>(null)
 
+// Computed pour le preview de l'image (gère base64 et chemins serveur)
+const coverImagePreview = computed(() => {
+  const img = article.value.coverImage
+  if (!img) return ''
+  if (img.startsWith('data:') || img.startsWith('http')) return img
+  return '/storage/' + img
+})
+
+// Computed pour filtrer les blogs
+const filteredBlogs = computed(() => {
+  return blogs.value.filter(blog => {
+    const matchesSearch = blog.title.toLowerCase().includes(searchQuery.value.toLowerCase())
+    const matchesStatus = filterStatus.value === 'all' || blog.status === filterStatus.value
+    return matchesSearch && matchesStatus
+  })
+})
+
+// Charger la liste des blogs
+const fetchBlogs = async () => {
+  try {
+    const response = await api.get('/blogs')
+    blogs.value = response.data.data || response.data
+  } catch (error) {
+    console.error('Erreur lors du chargement des articles', error)
+  }
+}
+
+// Scroller vers le formulaire
+const scrollToForm = () => {
+  formSection.value?.scrollIntoView({ behavior: 'smooth' })
+}
+
+// Passer en mode édition
+const editBlog = (blog: any) => {
+  isEditing.value = true
+  editingId.value = blog.id
+  article.value = {
+    title: blog.title || '',
+    summary: blog.summary || '',
+    coverImage: blog.coverImage || '',
+    content: blog.content || ''
+  }
+  editorKey.value++
+  scrollToForm()
+}
+
+// Annuler l'édition
+const cancelEdit = () => {
+  isEditing.value = false
+  editingId.value = null
+  article.value = {
+    title: '',
+    summary: '',
+    coverImage: '',
+    content: ''
+  }
+  editorKey.value++
+}
+
+// Supprimer un blog
+const deleteBlog = async (id: number) => {
+  if (!confirm('Êtes-vous sûr de vouloir supprimer cet article ?')) return
+
+  try {
+    await api.delete(`/blogs/${id}`)
+    await fetchBlogs()
+    // Si on était en train d'éditer cet article, annuler l'édition
+    if (editingId.value === id) {
+      cancelEdit()
+    }
+    alert('Article supprimé avec succès')
+  } catch (error) {
+    console.error('Erreur lors de la suppression', error)
+    alert('Erreur lors de la suppression')
+  }
+}
+
+// Upload et gestion d'image
 const handleCoverImageUpload = async (event: Event) => {
   const input = event.target as HTMLInputElement
   const file = input.files?.[0]
@@ -209,41 +442,43 @@ const removeCoverImage = () => {
   }
 }
 
-const saveDraft = async () => {
+// Sauvegarder (créer ou mettre à jour)
+const saveArticle = async (status: string) => {
+  const payload = {
+    ...article.value,
+    status
+  }
+
   try {
-    const result = await api.post('/blogs', {
-      ...article.value,
-      status: 'draft'
-    })
-    alert('Brouillon sauvegardé ✓')
+    if (isEditing.value && editingId.value) {
+      await api.put(`/blogs/${editingId.value}`, payload)
+      alert(status === 'published' ? 'Article mis à jour et publié !' : 'Brouillon mis à jour !')
+    } else {
+      await api.post('/blogs', payload)
+      alert(status === 'published' ? 'Article publié avec succès !' : 'Brouillon sauvegardé !')
+    }
+
+    // Réinitialiser le formulaire
+    cancelEdit()
+    await fetchBlogs()
   } catch (error) {
     console.error("Erreur lors de l'appel de l'API", error)
     alert('Erreur lors de la sauvegarde')
   }
 }
 
-const publish = async () => {
+const saveDraft = () => saveArticle('draft')
+
+const publish = () => {
   if (!article.value.title || !article.value.content) {
     alert('Veuillez remplir au minimum le titre et le contenu')
     return
   }
-
-  try {
-    const result = await api.post('/blogs', {
-      ...article.value,
-      status: 'published'
-    })
-    alert('Article publié avec succès !')
-    // Réinitialiser le formulaire après publication
-    article.value = {
-      title: '',
-      summary: '',
-      coverImage: '',
-      content: ''
-    }
-  } catch (error) {
-    console.error("Erreur lors de l'appel de l'API", error)
-    alert('Erreur lors de la publication')
-  }
+  saveArticle('published')
 }
+
+// Charger les blogs au montage
+onMounted(() => {
+  fetchBlogs()
+})
 </script>
