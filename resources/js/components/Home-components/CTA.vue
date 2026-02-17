@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // Props pour personnalisation
 
-import mobilePersonDefault from '../../assets/images/accueil/beau-jeune-homme-africain-tenant-telephone-mobile-gesticulant-se-tenant-debout-contre-mur-gris-removebg-preview.png'
+import mobilePersonDefault from '../../assets/images/accueil/Adobe Express - file-final.png'
 defineProps({
   mobilePersonImage: {
     type: String,
@@ -39,7 +39,7 @@ defineProps({
             <div class="flex flex-col sm:flex-row gap-3 mb-0">
               <!-- Bouton Google Play -->
               <a
-                href="https://play.google.com"
+                href="https://play.google.com/store/search?q=cofina+mobile+plus&c=apps"
                 target="_blank"
                 class="inline-flex items-center gap-2 bg-black text-white px-5 py-2.5 rounded-lg hover:bg-gray-900 transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg text-sm"
               >
@@ -54,7 +54,7 @@ defineProps({
 
               <!-- Bouton App Store -->
               <a
-                href="https://apps.apple.com"
+                href="https://apps.apple.com/us/app/cofina-mobile/id6444138467"
                 target="_blank"
                 class="inline-flex items-center gap-2 bg-black text-white px-5 py-2.5 rounded-lg hover:bg-gray-900 transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg text-sm"
               >
@@ -70,11 +70,11 @@ defineProps({
           </div>
 
           <!-- Colonne droite : Image de la personne - Taille réduite -->
-          <div class="mb-17 hidden lg:flex justify-end items-end animate-slide-in-right">
+          <div class="mb-17 hidden lg:flex justify-end items-end animate-slide-in-right min-w-0 overflow-hidden">
             <img
               :src="mobilePersonImage"
               alt="Cofina Mobile"
-              class="h-[280px] xl:h-[320px] w-auto object-contain"
+              class="h-[480px] xl:h-[320px] max-w-full w-auto object-contain"
             >
           </div>
         </div>
@@ -103,7 +103,7 @@ defineProps({
           <div class="flex flex-col gap-4">
             <!-- Bouton Simulateur de DAT -->
             <a
-              href="/simulateurs/dat"
+              href="/simulateurs-dat"
               class="inline-flex items-center justify-center text-gray-900 bg-white border-2 border-gray-900 px-8 py-3 rounded-full text-sm font-bold hover:bg-gray-900 hover:text-white transition-all duration-300 shadow-md hover:shadow-lg"
             >
               Tester notre simulateur de DAT
@@ -111,7 +111,7 @@ defineProps({
 
             <!-- Bouton Simulateur de prêt -->
             <a
-              href="/simulateurs/credit"
+              href="/simulateurs"
               class="inline-flex items-center justify-center text-gray-900 bg-white border-2 border-gray-900 px-8 py-3 rounded-full text-sm font-bold hover:bg-gray-900 hover:text-white transition-all duration-300 shadow-md hover:shadow-lg"
             >
               Tester notre simulateur de prêt

@@ -1,70 +1,40 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-vue-next'
 import blogImageDefault from '@/assets/images/accueil/findone1.jpg'
-import blogImage2Default from '@/assets/images/accueil/findone (2).jpg'
 
-// Props pour personnalisation
-const props = defineProps({
-  newsArticles: {
-    type: Array,
-    default: () => [
-      {
-        id: 1,
-        image: blogImageDefault,
-        category: 'Success Story',
-        categoryColor: 'text-primary',
-        title: 'Comment Madame Kofi a développé son commerce de pagne',
-        description: 'Grâce au crédit PME COFINA, l\'activité de Mme Kofi a triché et a ouvert une nouvelle boutique.',
-        linkText: 'Lire la suite →'
-      },
-      {
-        id: 2,
-        image: blogImage2Default,
-        category: 'Evénement',
-        categoryColor: 'text-accent',
-        title: 'COFINA Togo aux côtés des entrepreneurs',
-        description: 'Retour sur notre dernière action terrain pour sensibiliser à Tsévié',
-        linkText: 'Lire la suite →'
-      },
-      {
-        id: 3,
-        image: blogImageDefault,
-        category: 'Success Story',
-        categoryColor: 'text-primary',
-        title: 'L\'histoire de Jean et son projet agricole',
-        description: 'Découvrez comment Jean a transformé son exploitation grâce à notre accompagnement.',
-        linkText: 'Lire la suite →'
-      },
-      {
-        id: 4,
-        image: blogImageDefault,
-        category: 'Success Story',
-        categoryColor: 'text-primary',
-        title: 'L\'histoire de Jean et son projet agricole',
-        description: 'Découvrez comment Jean a transformé son exploitation grâce à notre accompagnement.',
-        linkText: 'Lire la suite →'
-      },
-      {
-        id: 5,
-        image: blogImageDefault,
-        category: 'Success Story',
-        categoryColor: 'text-primary',
-        title: 'L\'histoire de Jean et son projet agricole',
-        description: 'Découvrez comment Jean a transformé son exploitation grâce à notre accompagnement.',
-        linkText: 'Lire la suite →'
-      },
-      {
-        id: 6,
-        image: blogImage2Default,
-        category: 'Success Story',
-        categoryColor: 'text-primary',
-        title: 'L\'histoire de Jean et son projet agricole',
-        description: 'Découvrez comment Jean a transformé son exploitation grâce à notre accompagnement.',
-        linkText: 'Lire la suite →'
-      }
-    ]
+import api from '../../utils/api'
+
+const blogs = ref([])
+
+const getBlogs = async () => {
+  try {
+    const res = await api.get('/blogs')
+    blogs.value = res.data.data ?? res.data
+  } catch (error) {
+    console.error('Erreur lors du chargement des blogs', error)
   }
+}
+
+const getCoverUrl = (coverImage) => {
+  if (!coverImage) return blogImageDefault
+  if (coverImage.startsWith('http')) return coverImage
+  return `/storage/${coverImage}`
+}
+
+const articles = computed(() => {
+  if (blogs.value.length === 0) return []
+  return blogs.value.map(blog => ({
+    id: blog.id,
+    image: getCoverUrl(blog.coverImage),
+    title: blog.title,
+    description: blog.summary,
+    linkText: 'Lire la suite →'
+  }))
+})
+
+onMounted(() => {
+  getBlogs()
 })
 
 // État du carousel
@@ -86,7 +56,7 @@ const scrollToIndex = (index) => {
 }
 
 const nextSlide = () => {
-  const maxIndex = props.newsArticles.length - 1
+  const maxIndex = articles.value.length - 1
   if (currentIndex.value < maxIndex) {
     scrollToIndex(currentIndex.value + 1)
   }
@@ -100,7 +70,7 @@ const prevSlide = () => {
 </script>
 
 <template>
-  <section class="py-16 md:py-20 bg-gray-50">
+  <section class="py-16 md:py-20 bg-gray-50 overflow-x-hidden">
     <div class="max-w-[1400px] mx-auto px-4 lg:px-8">
       <!-- Titre de la section -->
       <div class="text-center mb-12">
@@ -130,8 +100,8 @@ const prevSlide = () => {
           style="scrollbar-width: none; -ms-overflow-style: none;"
         >
           <div
-            v-for="(article, index) in newsArticles"
-            :key="index"
+            v-for="(article, index) in articles"
+            :key="article.id"
             class="flex-shrink-0 w-[280px] md:w-[320px] bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group hover:-translate-y-1 snap-start"
           >
             <!-- Image - Taille réduite -->
@@ -145,15 +115,6 @@ const prevSlide = () => {
 
             <!-- Contenu - Compact -->
             <div class="p-5">
-              <!-- Catégorie -->
-              <div class="mb-2">
-                <span
-                  :class="[article.categoryColor, 'text-[10px] font-bold uppercase tracking-wide']"
-                >
-                  {{ article.category }}
-                </span>
-              </div>
-
               <!-- Titre - Plus petit -->
               <h3 class="text-gray-900 text-base font-bold mb-2 leading-tight line-clamp-2">
                 {{ article.title }}
@@ -178,10 +139,10 @@ const prevSlide = () => {
         <!-- Bouton suivant -->
         <button
           @click="nextSlide"
-          :disabled="currentIndex >= props.newsArticles.length - 1"
+          :disabled="currentIndex >= articles.length - 1"
           :class="[
             'absolute -right-4 lg:-right-12 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300',
-            currentIndex >= props.newsArticles.length - 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-primary hover:text-white hover:scale-110'
+            currentIndex >= articles.length - 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-primary hover:text-white hover:scale-110'
           ]"
         >
           <ChevronRight :size="24" />
@@ -190,7 +151,7 @@ const prevSlide = () => {
         <!-- Indicateurs -->
         <div class="flex justify-center gap-2 mt-6">
           <button
-            v-for="(article, index) in props.newsArticles"
+            v-for="(article, index) in articles"
             :key="index"
             @click="scrollToIndex(index)"
             :class="[

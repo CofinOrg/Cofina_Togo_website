@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use ArrayAccess;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Maravel\Models\AuthenticatableBase;
+use function PHPUnit\Framework\returnArgument;
 
 class User extends AuthenticatableBase
 {
@@ -42,7 +44,7 @@ class User extends AuthenticatableBase
      * @var array
      */
     public $appends = [
-
+        'ability_rules',
     ];
 
 
@@ -64,6 +66,176 @@ class User extends AuthenticatableBase
         return $this->hasMany(Blog::class, 'user_id');
     }
 
+    public function announcement()
+    {
+        return $this->hasMany(Announcement::class);
+    }
+
+    public function slider()
+    {
+        return $this->hasMany(Slider::class);
+    }
+
+    public function Service()
+    {
+        return $this->hasMany(Service::class);
+    }
+
+    public function notification()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
+    public function Agence()
+    {
+        return $this->hasMany(Agence::class);
+    }
+
+
+    public function getAbilityRulesAttribute(): array
+    {
+        return match ($this->profile) {
+            'admin' => [['subject' => ['all'], 'action' => ['manage']]],
+            'rh' => [
+                [
+                    'subject' => ['spontaneousapplication', 'joboffer'],
+                    'action' => [
+                        'menu',
+                        'read',
+                        'delete'
+                    ]
+                ],
+
+
+                [
+                    'subject' => ['notification'],
+                    'action' => [
+                        'menu',
+                        'read',
+                        'delete'
+                    ]
+                ],
+
+
+            ],
+
+            'marketing' => [
+                [
+                    'subject' => ['agence'],
+                    'action' => [
+                        'menu',
+                        'read',
+                        'delete'
+                    ]
+                ],
+                [
+                    'subject' => ['service'],
+                    'action' => [
+                        'menu',
+                        'read',
+                        'delete'
+                    ]
+                ],
+                [
+                    'subject' => ['serviceproduct'],
+                    'action' => [
+                        'menu',
+                        'read',
+                        'delete'
+                    ]
+                ],
+                [
+                    'subject' => ['slider'],
+                    'action' => [
+                        'menu',
+                        'read',
+                        'delete'
+                    ]
+                ],
+                [
+                    'subject' => ['blog'],
+                    'action' => [
+                        'menu',
+                        'read',
+                        'delete'
+                    ]
+                ],
+                [
+                    'subject' => ['announcement'],
+                    'action' => [
+                        'menu',
+                        'read',
+                        'delete'
+                    ]
+                ],
+
+                [
+                    'subject' => ['notification'],
+                    'action' => [
+                        'menu',
+                        'read',
+                        'delete'
+                    ]
+                ],
+
+                [
+                    'subject' => ['preregistration'],
+                    'action' => [
+                        'menu',
+                        'read',
+                        'delete'
+                    ]
+                ],
+                [
+                    'subject' => ['customermessage'],
+                    'action' => [
+                        'menu',
+                        'read',
+                        'delete'
+                    ]
+                ],
+                [
+                    'subject' => ['businessclubmember'],
+                    'action' => [
+                        'menu',
+                        'read',
+                        'delete'
+                    ]
+                ],
+            ],
+
+            'cc' => [
+                [
+                    'subject' => ['preregistration'],
+                    'action' => [
+                        'menu',
+                        'read',
+                        'delete'
+                    ]
+                ],
+                [
+                    'subject' => ['customermessage'],
+                    'action' => [
+                        'menu',
+                        'read',
+                        'delete'
+                    ]
+                ],
+                [
+                    'subject' => ['notification'],
+                    'action' => [
+                        'menu',
+                        'read',
+                        'delete'
+                    ]
+                ],
+
+            ],
+
+            default => []
+        };
+    }
+
     /**
      * Casts d'énumération pour le profil
      *
@@ -74,27 +246,11 @@ class User extends AuthenticatableBase
             'colum_name' => 'profile',
             'additional_column_name' => "profile_fr",
             'choices' => [
-                'admin' => "Adminitrateur",
-                'other' => "Métier",
+                'admin' => "Administrateur",
+                'rh' => "Ressource Humaine",
+                'marketing' => "Marketing",
+                'cc' => "Chargé de Clientèle",
             ]
-        ],
-        [
-            'colum_name' => 'profile',
-            'additional_column_name' => "ability_rules",
-            'choices' => [
-                'admin' => [
-                    [
-                        'subject' => ['all'],
-                        'action' => ['manage'],
-                    ],
-                ],
-                'other' => [
-                    [
-                        'subject' => ['user'],
-                        'action' => ['read'],
-                    ],
-                ],
-            ],
         ],
         [
             'colum_name' => 'activated',

@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'google_analytics' => [
+        'property_id' => env('ANALYTICS_PROPERTY_ID'),
+        'credentials_path' => env('ANALYTICS_CREDENTIALS_PATH', 'storage/app/google/service-account.json'),
+    ],
+
 ];

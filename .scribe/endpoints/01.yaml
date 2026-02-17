@@ -1,22 +1,22 @@
-name: Utilisateurs
+name: JobOffer
 description: |-
 
-  EndPoints pour gérer les utilisateurs
+  EndPoints pour gérer les JobOffer
 endpoints:
   -
     custom: []
     httpMethods:
-      - PUT
-    uri: api/users/update-password
+      - GET
+    uri: api/job_offers
     metadata:
       custom: []
-      groupName: Utilisateurs
+      groupName: JobOffer
       groupDescription: |-
 
-        EndPoints pour gérer les utilisateurs
+        EndPoints pour gérer les JobOffer
       subgroup: ''
       subgroupDescription: ''
-      title: "Mettre à jour le mot de passe de l'utilisateur connecté"
+      title: 'Affiche les JobOffer'
       description: ''
       authenticated: false
       deprecated: false
@@ -25,46 +25,45 @@ endpoints:
       Accept: application/json
     urlParameters: []
     cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      current_password:
+    queryParameters:
+      attribute:
         custom: []
-        name: current_password
-        description: 'Le mot de passe actuel.'
-        required: true
-        example: oldpassword
+        name: attribute
+        description: "Description de l'attribut."
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      with_relation:
+        custom: []
+        name: with_relation
+        description: 'Afficher la relation.'
+        required: false
+        example: 'false'
         type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         deprecated: false
-      new_password:
+      paginate:
         custom: []
-        name: new_password
-        description: 'Le nouveau mot de passe.'
-        required: true
-        example: newpassword
+        name: paginate
+        description: 'Utiliser la pagination.'
+        required: false
+        example: 'false'
         type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         deprecated: false
-      new_password_confirmation:
-        custom: []
-        name: new_password_confirmation
-        description: 'La confirmation du nouveau mot de passe.'
-        required: true
-        example: newpassword
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-    cleanBodyParameters:
-      current_password: oldpassword
-      new_password: newpassword
-      new_password_confirmation: newpassword
+    cleanQueryParameters:
+      with_relation: 'false'
+      paginate: 'false'
+    bodyParameters: []
+    cleanBodyParameters: []
     fileParameters: []
     responses:
       -
@@ -81,89 +80,89 @@ endpoints:
   -
     custom: []
     httpMethods:
-      - GET
-    uri: api/users
+      - PUT
+    uri: 'api/job_offers/{id}'
     metadata:
       custom: []
-      groupName: Utilisateurs
+      groupName: JobOffer
       groupDescription: |-
 
-        EndPoints pour gérer les utilisateurs
+        EndPoints pour gérer les JobOffer
       subgroup: ''
       subgroupDescription: ''
-      title: 'Liste les uilisateurs'
+      title: 'Met à jour un JobOffer'
       description: ''
       authenticated: false
       deprecated: false
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters:
-      name:
+    urlParameters:
+      id:
         custom: []
-        name: name
-        description: "Le nom de l'utilisateur."
-        required: true
-        example: architecto
-        type: string
+        name: id
+        description: 'Le JobOffer.'
+        required: false
+        example: 1
+        type: integer
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         deprecated: false
-      email:
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
         custom: []
-        name: email
-        description: "L'email de l'utilisateur."
-        required: true
-        example: gbailey@example.net
+        name: title
+        description: "L'attribut."
+        required: false
+        example: value
         type: string
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         deprecated: false
-      password:
+      content:
         custom: []
-        name: password
-        description: "Le mot de passe de l'utilisateur."
-        required: true
-        example: '|]|{+-'
+        name: content
+        description: "L'attribut."
+        required: false
+        example: value
         type: string
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         deprecated: false
-      profile:
+      summary:
         custom: []
-        name: profile
-        description: "Le profile de l'utilisateur."
-        required: true
-        example: architecto
+        name: summary
+        description: "L'attribut."
+        required: false
+        example: value
         type: string
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         deprecated: false
-      activated:
+      deadline:
         custom: []
-        name: activated
-        description: "L'activation de l'utilisateur."
-        required: true
-        example: null
+        name: deadline
+        description: "L'attribut."
+        required: false
+        example: value
         type: string
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         deprecated: false
-    cleanQueryParameters:
-      name: architecto
-      email: gbailey@example.net
-      password: '|]|{+-'
-      profile: architecto
-      activated: null
-    bodyParameters: []
-    cleanBodyParameters: []
+    cleanBodyParameters:
+      title: value
+      content: value
+      summary: value
+      deadline: value
     fileParameters: []
     responses:
       -
@@ -181,16 +180,16 @@ endpoints:
     custom: []
     httpMethods:
       - POST
-    uri: api/users
+    uri: api/job_offers
     metadata:
       custom: []
-      groupName: Utilisateurs
+      groupName: JobOffer
       groupDescription: |-
 
-        EndPoints pour gérer les utilisateurs
+        EndPoints pour gérer les JobOffer
       subgroup: ''
       subgroupDescription: ''
-      title: 'Ajouter un uilisateur'
+      title: 'Créer un nouveau JobOffer'
       description: ''
       authenticated: false
       deprecated: false
@@ -202,229 +201,67 @@ endpoints:
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      name:
+      user_id:
         custom: []
-        name: name
-        description: "Le nom de l'utilisateur."
-        required: true
-        example: architecto
-        type: string
+        name: user_id
+        description: "L'attribut"
+        required: false
+        example: 1
+        type: integer
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         deprecated: false
-      email:
+      title:
         custom: []
-        name: email
-        description: "L'email de l'utilisateur."
-        required: true
-        example: gbailey@example.net
+        name: title
+        description: "L'attribut."
+        required: false
+        example: "Chargé D'affaire"
         type: string
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         deprecated: false
-      password:
+      content:
         custom: []
-        name: password
-        description: "Le mot de passe de l'utilisateur."
-        required: true
-        example: '|]|{+-'
+        name: content
+        description: "L'attribut."
+        required: false
+        example: 'Cofina recrute.....'
         type: string
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         deprecated: false
-      profile:
+      summary:
         custom: []
-        name: profile
-        description: "Le profile de l'utilisateur."
-        required: true
-        example: architecto
+        name: summary
+        description: "L'attribut."
+        required: false
+        example: 'En résumé....'
         type: string
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         deprecated: false
-      activated:
+      deadline:
         custom: []
-        name: activated
-        description: "L'activation de l'utilisateur."
-        required: true
-        example: null
+        name: deadline
+        description: "L'attribut."
+        required: false
+        example: '2026-10-10'
         type: string
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      name: architecto
-      email: gbailey@example.net
-      password: '|]|{+-'
-      profile: architecto
-      activated: null
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 200
-        content: '{}'
-        headers: []
-        description: ''
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - GET
-    uri: 'api/users/{id}'
-    metadata:
-      custom: []
-      groupName: Utilisateurs
-      groupDescription: |-
-
-        EndPoints pour gérer les utilisateurs
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Affiche un uilisateur'
-      description: ''
-      authenticated: false
-      deprecated: false
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        custom: []
-        name: id
-        description: "L'id de l'utilisateur."
-        required: true
-        example: null
-        type: integer
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-    cleanUrlParameters:
-      id: null
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 200
-        content: '{}'
-        headers: []
-        description: ''
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - PUT
-    uri: 'api/users/{id}'
-    metadata:
-      custom: []
-      groupName: Utilisateurs
-      groupDescription: |-
-
-        EndPoints pour gérer les utilisateurs
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Mettre à jour un utilisateur'
-      description: ''
-      authenticated: false
-      deprecated: false
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        custom: []
-        name: id
-        description: "L'id de l'utilisateur."
-        required: true
-        example: null
-        type: integer
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-    cleanUrlParameters:
-      id: null
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      name:
-        custom: []
-        name: name
-        description: "Le nom de l'utilisateur."
-        required: true
-        example: architecto
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      email:
-        custom: []
-        name: email
-        description: "L'email de l'utilisateur."
-        required: true
-        example: gbailey@example.net
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      password:
-        custom: []
-        name: password
-        description: "Le mot de passe de l'utilisateur."
-        required: true
-        example: '|]|{+-'
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      profile:
-        custom: []
-        name: profile
-        description: "Le profile de l'utilisateur."
-        required: true
-        example: architecto
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      activated:
-        custom: []
-        name: activated
-        description: "L'activation de l'utilisateur."
-        required: true
-        example: null
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-    cleanBodyParameters:
-      name: architecto
-      email: gbailey@example.net
-      password: '|]|{+-'
-      profile: architecto
-      activated: null
+      user_id: 1
+      title: "Chargé D'affaire"
+      content: 'Cofina recrute.....'
+      summary: 'En résumé....'
+      deadline: '2026-10-10'
     fileParameters: []
     responses:
       -
@@ -442,16 +279,16 @@ endpoints:
     custom: []
     httpMethods:
       - DELETE
-    uri: 'api/users/{id}'
+    uri: 'api/job_offers/{id}'
     metadata:
       custom: []
-      groupName: Utilisateurs
+      groupName: JobOffer
       groupDescription: |-
 
-        EndPoints pour gérer les utilisateurs
+        EndPoints pour gérer les JobOffer
       subgroup: ''
       subgroupDescription: ''
-      title: "Surppimer l'utilisateur"
+      title: 'Supprime un JobOffer'
       description: ''
       authenticated: false
       deprecated: false
@@ -462,16 +299,16 @@ endpoints:
       id:
         custom: []
         name: id
-        description: "L'id de l'utilisateur."
-        required: true
-        example: null
+        description: 'Le JobOffer.'
+        required: false
+        example: 1
         type: integer
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: null
+      id: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []

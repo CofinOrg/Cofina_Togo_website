@@ -153,9 +153,11 @@
 import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import api from '../../utils/api'
+import { useAuthStore } from '../../stores/auth'
 
 const router = useRouter()
 const route = useRoute()
+const authStore = useAuthStore()
 
 // État du formulaire
 const form = ref({
@@ -184,16 +186,11 @@ const handleLogin = async () => {
     if (response.data.status === 200) {
         const { userToken, user } = response.data.data
 
-        if (form.value.rememberMe) {
-            localStorage.setItem('userToken', userToken)
-            localStorage.setItem('user', JSON.stringify(user))
-      } else {
-        sessionStorage.setItem('userToken', userToken)
-        sessionStorage.setItem('user', JSON.stringify(user))
-      }
+        // Stocker via le store Pinia (gère localStorage/sessionStorage)
+        authStore.setAuth(user, userToken, form.value.rememberMe)
 
       // Rediriger vers la page demandée ou le dashboard par défaut
-      const redirectPath = route.query.redirect as string || '/admin/home'
+      const redirectPath = route.query.redirect as string || '/Cofinoistg@admin/home'
       router.push(redirectPath)
       return
     }

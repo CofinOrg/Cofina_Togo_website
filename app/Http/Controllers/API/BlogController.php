@@ -37,6 +37,7 @@ class BlogController extends APIController
         ];
         $this->indexManualFilter = function ($list, $connectedUser, $requestData) {
             return $list;
+
         };
         return parent::index($request);
     }
@@ -62,7 +63,7 @@ class BlogController extends APIController
      * @bodyParam        title       							string				    Example: Mon premier blog
      * @bodyParam      content       							string					Example: Contenu de mon premier blog
      * @bodyParam       summary       							string					Example: Résumé de mon premier blog
-     * @bodyParam        is_published       					boolean					Example: 1
+     * @bodyParam        is_phublised       					boolean					Example: 1
      * @bodyParam        published_at       					string				    Example: 2026-01-20 12:00:00
      *
      * @response 200

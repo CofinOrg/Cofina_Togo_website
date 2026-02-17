@@ -27,7 +27,12 @@
       <div class="flex flex-col lg:flex-row items-center gap-12">
 
         <div class="lg:w-1/2 flex justify-center">
-          <img src="../../assets/images/simulateurs/calculatrice_piece.png" alt="Simulation DAT" class="max-w-md w-full h-auto" />
+          <img
+            src="../../assets/images/simulateurs/Design_sans_titre_2_-removebg-preview.png"
+            alt="Simulation DAT"
+            class="max-w-2xl w-full h-auto"
+            />
+
         </div>
 
         <div class="lg:w-1/2 bg-[#F2F2F2] p-8 md:p-12 rounded-3xl shadow-sm">
@@ -56,6 +61,11 @@
                     class="w-full p-3 bg-white border-none rounded-lg outline-none text-right font-bold focus:ring-2 focus:ring-[#D10000]"
                   />
                 </div>
+              </div>
+
+                <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Taux annuel (%)</label>
+                <input v-model="taux" type="number" step="0.01" class="w-full p-3 bg-white border rounded-lg outline-none" />
               </div>
             </div>
 

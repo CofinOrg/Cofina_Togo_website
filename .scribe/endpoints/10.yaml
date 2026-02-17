@@ -1,0 +1,273 @@
+name: CustomerMessage
+description: |-
+
+  EndPoints pour gérer les CustomerMessage
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/customer_messages
+    metadata:
+      custom: []
+      groupName: CustomerMessage
+      groupDescription: |-
+
+        EndPoints pour gérer les CustomerMessage
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Affiche les CustomerMessage'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters:
+      customer_name:
+        custom: []
+        name: customer_name
+        description: "Description de l'attribut."
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      customer_email:
+        custom: []
+        name: customer_email
+        description: "Description de l'attribut."
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      customer_contact:
+        custom: []
+        name: customer_contact
+        description: "Description de l'attribut."
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      message_object:
+        custom: []
+        name: message_object
+        description: "Description de l'attribut."
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      message:
+        custom: []
+        name: message
+        description: "Description de l'attribut."
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      with_relation:
+        custom: []
+        name: with_relation
+        description: 'Afficher la relation.'
+        required: false
+        example: 'false'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      paginate:
+        custom: []
+        name: paginate
+        description: 'Utiliser la pagination.'
+        required: false
+        example: 'false'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanQueryParameters:
+      with_relation: 'false'
+      paginate: 'false'
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/customer_messages
+    metadata:
+      custom: []
+      groupName: CustomerMessage
+      groupDescription: |-
+
+        EndPoints pour gérer les CustomerMessage
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Créer un nouveau CustomerMessage'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      customer_name:
+        custom: []
+        name: customer_name
+        description: "L'attribut."
+        required: false
+        example: value
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      customer_email:
+        custom: []
+        name: customer_email
+        description: "L'attribut."
+        required: false
+        example: value
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      customer_contact:
+        custom: []
+        name: customer_contact
+        description: "L'attribut."
+        required: false
+        example: value
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      message_object:
+        custom: []
+        name: message_object
+        description: "L'attribut."
+        required: false
+        example: value
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      customer_name: value
+      customer_email: value
+      customer_contact: value
+      message_object: value
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/customer_messages/{id}'
+    metadata:
+      custom: []
+      groupName: CustomerMessage
+      groupDescription: |-
+
+        EndPoints pour gérer les CustomerMessage
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Affiche un CustomerMessage'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'Le CustomerMessage.'
+        required: false
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters:
+      with_relation:
+        custom: []
+        name: with_relation
+        description: 'Afficher la relation.'
+        required: false
+        example: 'false'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanQueryParameters:
+      with_relation: 'false'
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null

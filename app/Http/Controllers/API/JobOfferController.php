@@ -28,10 +28,18 @@ class JobOfferController extends APIController
      */
     public function index(Request $request)
     {
+        $this->indexAbilityName = null;
+
+
+        // Clôturer automatiquement les offres expirées
+        JobOffer::where('status', 'active')
+            ->where('deadline', '<', now()->toDateString())
+            ->update(['status' => 'blocked']);
+
         $this->indexSearchFieldList = [
         ];
         $this->indexManualFilter = function ($list, $connectedUser, $requestData) {
-            return $list;
+            return $list->orderBy('created_at', 'desc');
         };
         return parent::index($request);
     }
@@ -47,6 +55,8 @@ class JobOfferController extends APIController
      */
     public function show(Request $request, $id)
     {
+        $this->showAbilityName = null;
+
         return parent::show($request, $id);
     }
 
@@ -65,16 +75,23 @@ class JobOfferController extends APIController
     {
         $connectedUser = $request->user();
         $this->storeValidationArray = [
-            'user_id' => 'required|integer|exists:users,id',
             'title' => 'required|string',
             'content' => 'required|string|max:5000',
             'summary' => 'required|string|max:500',
+            'for' => 'required|string|max:500',
+            'form_link' => 'required|url',
             'deadline' => 'required|date',
+            'type' => 'required|in:stage,cdd,cdi',
+            'status' => 'required|in:active,blocked',
+
         ];
         $this->storeManualValidationsFunction = function ($requestData) use ($connectedUser) {
             return null;
         };
         $this->storeBeforeCreateFunction = function ($requestData) use ($connectedUser) {
+
+            $requestData['user_id'] = $connectedUser->id;
+
             return $requestData;
         };
         $this->storeAfterCreateFunction = function ($model, $requestData, $data) use ($connectedUser) {

@@ -1,7 +1,9 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { Phone, Mail, MapPin, Send, Search } from 'lucide-vue-next'
-import cofina_logo from '../../assets/cofina_petit_logo.png';
+import cofina_logo from '../../assets/images/accueil/cofina-signe.png';
+import api from '../../utils/api'
+
 
 // ... (tout le code du script reste identique jusqu'au template)
 
@@ -15,58 +17,57 @@ const formData = ref({
   message: ''
 })
 
+// État du formulaire
+const isSubmitting = ref(false)
+const submitSuccess = ref(false)
+const submitError = ref('')
+
 // Soumission du formulaire
-const submitForm = () => {
-  console.log('Form submitted:', formData.value)
-  alert('Votre message a été envoyé avec succès !')
+const submitForm = async () => {
+  isSubmitting.value = true
+  submitSuccess.value = false
+  submitError.value = ''
+
+  try {
+    const payload = {
+      customer_name: `${formData.value.nom} ${formData.value.prenom}`.trim(),
+      customer_email: formData.value.email,
+      customer_contact: formData.value.telephone || 'Non renseigné',
+      message_object: formData.value.objet,
+      message: formData.value.message
+    }
+
+    await api.post('/customer_messages', payload)
+
+    submitSuccess.value = true
+    // Réinitialiser le formulaire
+    formData.value = {
+      nom: '',
+      prenom: '',
+      email: '',
+      telephone: '',
+      objet: '',
+      message: ''
+    }
+  } catch (error) {
+    console.error('Erreur lors de l\'envoi:', error)
+    if (error.response?.data?.errors) {
+      const errors = error.response.data.errors
+      submitError.value = Object.values(errors).flat().join(', ')
+    } else {
+      submitError.value = 'Une erreur est survenue. Veuillez réessayer.'
+    }
+  } finally {
+    isSubmitting.value = false
+  }
 }
 
-// Liste des agences Cofina avec coordonnées GPS
-const agences = ref([
-  {
-    id: 1,
-    nom: 'Siège Cofina Togo',
-    adresse: 'Boulevard du 13 Janvier, Kodjoviakopé',
-    telephone: '+228 22 61 00 00',
-    lat: 6.121955,
-    lng: 1.2101903,
-    type: 'Siège'
-  },
-  {
-    id: 2,
-    nom: 'Cofina Agoè',
-    subtitle: 'Agoè Assiyéyé',
-    adresse: 'Quartier Assiyéyé, Lomé',
-    telephone: '+228 22 61 00 01',
-    lat: 6.22965498612813,
-    lng: 1.1948068547215267,
-    type: 'Agence'
-  },
-  {
-    id: 3,
-    nom: 'Cofina Akodessiwa',
-    subtitle: 'Akodessiwa',
-    adresse: 'Quartier Akodessiwa, Lomé',
-    telephone: '+228 22 61 00 02',
-    lat: 6.153133503644887,
-    lng: 1.2650723101431889,
-    type: 'Agence'
-  },
-  {
-    id: 4,
-    nom: 'Cofina Adidogomé',
-    subtitle: 'Adidogomé',
-    adresse: 'Quartier Adidogomé, Lomé',
-    telephone: '+228 22 61 00 03',
-    lat: 6.202817772755404,
-    lng: 1.145995794798708,
-    type: 'Agence'
-  },
-])
+// Liste des agences Cofina (chargée depuis l'API)
+const agences = ref([])
 
 // État de la recherche et de la sélection
 const searchQuery = ref('')
-const selectedAgence = ref(agences.value[0])
+const selectedAgence = ref(null)
 
 // Filtrer les agences selon la recherche
 const filteredAgences = computed(() => {
@@ -76,16 +77,16 @@ const filteredAgences = computed(() => {
 
   const query = searchQuery.value.toLowerCase()
   return agences.value.filter(agence =>
-    agence.nom.toLowerCase().includes(query) ||
-    agence.adresse.toLowerCase().includes(query) ||
-    (agence.subtitle && agence.subtitle.toLowerCase().includes(query))
+    agence.name.toLowerCase().includes(query) ||
+    agence.adress.toLowerCase().includes(query)
   )
 })
 
 // URL de la carte Google Maps basée sur l'agence sélectionnée
 const mapUrl = computed(() => {
-  const { lat, lng, nom } = selectedAgence.value
-  return `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3967.0!2d${lng}!3d${lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z${encodeURIComponent(nom)}!5e0!3m2!1sfr!2stg!4v1234567890!5m2!1sfr!2stg`
+  if (!selectedAgence.value) return ''
+  const { latitude, longitude, name } = selectedAgence.value
+  return `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3967.0!2d${longitude}!3d${latitude}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z${encodeURIComponent(name)}!5e0!3m2!1sfr!2stg!4v1234567890!5m2!1sfr!2stg`
 })
 
 // Sélectionner une agence
@@ -93,21 +94,38 @@ const selectAgence = (agence) => {
   selectedAgence.value = agence
 }
 
+// Charger les agences depuis l'API
+const fetchAgences = async () => {
+  try {
+    const response = await api.get('/agences')
+    agences.value = response.data.data || response.data
+    if (agences.value.length > 0) {
+      selectedAgence.value = agences.value[0]
+    }
+  } catch (error) {
+    console.error('Erreur lors du chargement des agences', error)
+  }
+}
+
+onMounted(() => {
+  fetchAgences()
+})
+
 // Informations de contact
 const contactInfo = [
   {
     icon: Phone,
     title: 'Appelez-nous',
-    value: '+228 22 61 00 00',
+    value: '+228 92 68 60 60 - +228 22 23 68 68',
     bgColor: 'bg-primary',
-    link: 'tel:+22822610000'
+    link: 'tel:+22892686060'
   },
   {
     icon: Mail,
     title: 'Écrivez-nous',
-    value: 'contact@cofina.tg',
+    value: 'service-client.tg@cofinacorp.com',
     bgColor: 'bg-primary',
-    link: 'mailto:contact@cofina.tg'
+    link: 'mailto:service-client.tg@cofinacorp.com'
   },
   {
     icon: MapPin,
@@ -122,28 +140,28 @@ const contactInfo = [
 const socialLinks = [
   {
     name: 'Facebook',
-    url: 'https://facebook.com/cofina',
+    url: 'https://www.facebook.com/share/1A8AURXRrs/?mibextid=wwXIfr',
     bgColor: 'bg-blue-600 hover:bg-blue-700',
     icon: 'M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z'
   },
-  {
+/*   {
     name: 'Twitter',
     url: 'https://twitter.com/cofina',
     bgColor: 'bg-sky-500 hover:bg-sky-600',
     icon: 'M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z'
-  },
+  }, */
   {
     name: 'LinkedIn',
-    url: 'https://linkedin.com/company/cofina',
+    url: 'https://www.linkedin.com/company/101791086/admin/dashboard/',
     bgColor: 'bg-blue-700 hover:bg-blue-800',
     icon: 'M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'
   },
-  {
+/*   {
     name: 'YouTube',
     url: 'https://youtube.com/cofina',
     bgColor: 'bg-red-600 hover:bg-red-700',
     icon: 'M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z'
-  }
+  } */
 ]
 </script>
 
@@ -240,7 +258,7 @@ const socialLinks = [
           </div>
 
           <!-- Colonne droite : Formulaire de contact -->
-          <div class="bg-white rounded-2xl shadow-2xl p-6 md:p-8 animate-slide-in-right lg:sticky lg:top-8">
+          <div id="contact-form" class="bg-white rounded-2xl shadow-2xl p-6 md:p-8 animate-slide-in-right lg:sticky lg:top-8">
             <div class="text-center mb-6">
               <h2 class="text-gray-900 text-2xl font-bold mb-2">
                 Envoyez-nous un message
@@ -339,12 +357,26 @@ const socialLinks = [
                 ></textarea>
               </div>
 
+              <!-- Message de succès -->
+              <div v-if="submitSuccess" class="p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+                <p class="font-semibold">Votre message a été envoyé avec succès !</p>
+                <p class="text-sm mt-1">Notre équipe vous contactera dans les plus brefs délais.</p>
+              </div>
+
+              <!-- Message d'erreur -->
+              <div v-if="submitError" class="p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                <p class="font-semibold">Une erreur est survenue</p>
+                <p class="text-sm mt-1">{{ submitError }}</p>
+              </div>
+
               <!-- Bouton d'envoi -->
               <button
                 type="submit"
-                class="w-full bg-primary text-white py-3.5 rounded-lg text-base font-bold hover:bg-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
+                :disabled="isSubmitting"
+                class="w-full bg-primary text-white py-3.5 rounded-lg text-base font-bold hover:bg-secondary transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:transform-none"
               >
-                Envoyer le message
+                <span v-if="isSubmitting">Envoi en cours...</span>
+                <span v-else>Envoyer le message</span>
               </button>
             </form>
           </div>
@@ -355,7 +387,6 @@ const socialLinks = [
     <!-- Section : Carte Google Maps avec agences -->
     <section id="map" class="py-12 md:py-16 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-24">
-        <!-- En-tête avec titre et barre de recherche -->
         <div class="mb-8">
           <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
             <div>
@@ -374,7 +405,7 @@ const socialLinks = [
                 v-model="searchQuery"
                 type="text"
                 placeholder="Trouver une agence..."
-                class="w-full pl-12 pr-4 py-3 rounded-lg border-2 border-gray-200 focus:border-red-500 focus:ring-2 focus:ring-red-100 text-gray-900 placeholder-gray-500 transition-all"
+                class="w-full pl-12 pr-4 py-3 rounded-lg border-2 border-gray-200 text-gray-900 placeholder-gray-500 transition-all"
               >
             </div>
           </div>
@@ -388,7 +419,7 @@ const socialLinks = [
                 @click="selectAgence(agence)"
                 :class="[
                   'flex-shrink-0 flex items-center gap-3 px-4 py-3 cursor-pointer transition-all duration-300 border-r-2',
-                  selectedAgence.id === agence.id
+                  selectedAgence?.id === agence.id
                     ? 'bg-red-50 border-red-500'
                     : 'bg-white border-gray-200 hover:border-red-200 hover:bg-gray-50'
                 ]"
@@ -399,13 +430,10 @@ const socialLinks = [
                   </div>
                   <div>
                     <div class="text-gray-900 font-bold text-sm whitespace-nowrap">
-                      {{ agence.nom }}
+                      {{ agence.name }}
                     </div>
-                    <div v-if="agence.subtitle" class="text-gray-600 text-xs whitespace-nowrap">
-                      {{ agence.subtitle }}
-                    </div>
-                    <div v-else class="text-gray-600 text-xs whitespace-nowrap">
-                      {{ agence.adresse }}
+                    <div class="text-gray-600 text-xs whitespace-nowrap">
+                      {{ agence.adress }}
                     </div>
                   </div>
                 </div>
@@ -420,13 +448,10 @@ const socialLinks = [
         </div>
 
         <!-- NOUVEAU: Carte et Informations côte à côte -->
-        <div class="grid lg:grid-cols-2 gap-6">
-          <!-- Colonne gauche : Carte Google Maps -->
+        <div v-if="selectedAgence" class="grid lg:grid-cols-2 gap-6">
 
 
-          <!-- Colonne droite : Informations de l'agence sélectionnée -->
           <div class="space-y-6">
-            <!-- Carte principale de l'agence -->
             <div class="bg-gradient-to-br from-red-50 to-pink-50 border-2 border-red-100 rounded-2xl p-6 shadow-lg">
               <div class="flex items-start gap-4 mb-6">
                 <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0">
@@ -434,24 +459,24 @@ const socialLinks = [
                 </div>
                 <div class="flex-1">
                   <div class="inline-block px-3 py-1 bg-red-600 text-white text-xs font-bold rounded-full mb-2">
-                    {{ selectedAgence.type }}
+                    {{ selectedAgence.type_fr || selectedAgence.type }}
                   </div>
-                  <h3 class="text-gray-900 font-bold text-xl mb-2">{{ selectedAgence.nom }}</h3>
+                  <h3 class="text-gray-900 font-bold text-xl mb-2">{{ selectedAgence.name }}</h3>
                   <p class="text-gray-600 text-sm mb-3 flex items-start gap-2">
                     <MapPin class="text-red-600 flex-shrink-0 mt-0.5" :size="16" />
-                    {{ selectedAgence.adresse }}
+                    {{ selectedAgence.adress }}
                   </p>
                   <div class="flex items-center gap-2 mb-4">
                     <Phone class="text-red-600" :size=16 />
-                    <a :href="`tel:${selectedAgence.telephone}`" class="text-red-600 hover:text-red-700 font-semibold text-sm">
-                      {{ selectedAgence.telephone }}
+                    <a :href="`tel:${selectedAgence.contact}`" class="text-red-600 hover:text-red-700 font-semibold text-sm">
+                      {{ selectedAgence.contact }}
                     </a>
                   </div>
                 </div>
               </div>
 
 
-              <a  :href="`https://www.google.com/maps/dir/?api=1&destination=${selectedAgence.lat},${selectedAgence.lng}`"
+              <a  :href="`https://www.google.com/maps/dir/?api=1&destination=${selectedAgence.latitude},${selectedAgence.longitude}`"
                 target="_blank"
                 class="w-full inline-flex items-center justify-center gap-2 bg-red-600 text-white px-6 py-4 rounded-xl font-bold hover:bg-red-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
@@ -471,11 +496,11 @@ const socialLinks = [
               <div class="space-y-3">
                 <div class="flex justify-between items-center py-2 border-b border-gray-100">
                   <span class="text-gray-700 font-medium">Lundi - Vendredi</span>
-                  <span class="text-gray-900 font-semibold">8h00 - 17h00</span>
+                  <span class="text-gray-900 font-semibold">8h00 - 16h00</span>
                 </div>
                 <div class="flex justify-between items-center py-2 border-b border-gray-100">
                   <span class="text-gray-700 font-medium">Samedi</span>
-                  <span class="text-gray-900 font-semibold">8h00 - 13h00</span>
+                  <span class="text-gray-900 font-semibold">9h00 - 12h00</span>
                 </div>
                 <div class="flex justify-between items-center py-2">
                   <span class="text-gray-700 font-medium">Dimanche</span>
@@ -492,14 +517,14 @@ const socialLinks = [
               </p>
               <div class="flex gap-3">
 
-               <a   :href="`tel:${selectedAgence.telephone}`"
+               <a   :href="`tel:${selectedAgence.contact}`"
                   class="flex-1 flex items-center justify-center gap-2 bg-primary text-white px-4 py-3 rounded-lg font-semibold hover:bg-secondary transition-all"
                 >
                   <Phone :size="18" />
                   Appeler
                 </a>
 
-                 <a href="mailto:contact@cofina.tg"
+                 <a href="mailto:service-client.tg@cofinacorp.com"
                   class="flex-1 flex items-center justify-center gap-2 bg-white text-primary border-2 border-primary px-4 py-3 rounded-lg font-semibold hover:bg-primary hover:text-white transition-all"
                 >
                   <Mail :size="18" />

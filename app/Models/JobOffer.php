@@ -36,7 +36,10 @@ class JobOffer extends ModelBase
         'title',
         'content',
         'summary',
+        'form_link',
         'deadline',
+        'type',
+        'status',
     ];
 
     /**

@@ -1,22 +1,22 @@
-name: JobOffer
+name: BlogImg
 description: |-
 
-  EndPoints pour gérer les JobOffer
+  EndPoints pour gérer les BlogImg
 endpoints:
   -
     custom: []
     httpMethods:
       - GET
-    uri: api/job_offers
+    uri: api/blog_imgs
     metadata:
       custom: []
-      groupName: JobOffer
+      groupName: BlogImg
       groupDescription: |-
 
-        EndPoints pour gérer les JobOffer
+        EndPoints pour gérer les BlogImg
       subgroup: ''
       subgroupDescription: ''
-      title: 'Affiche les JobOffer'
+      title: 'Affiche les BlogImg'
       description: ''
       authenticated: false
       deprecated: false
@@ -26,10 +26,21 @@ endpoints:
     urlParameters: []
     cleanUrlParameters: []
     queryParameters:
-      attribute:
+      name:
         custom: []
-        name: attribute
+        name: name
         description: "Description de l'attribut."
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      path:
+        custom: []
+        name: path
+        description: ''
         required: false
         example: null
         type: string
@@ -81,16 +92,16 @@ endpoints:
     custom: []
     httpMethods:
       - POST
-    uri: api/job_offers
+    uri: api/blog_imgs
     metadata:
       custom: []
-      groupName: JobOffer
+      groupName: BlogImg
       groupDescription: |-
 
-        EndPoints pour gérer les JobOffer
+        EndPoints pour gérer les BlogImg
       subgroup: ''
       subgroupDescription: ''
-      title: 'Créer un nouveau JobOffer'
+      title: 'Créer un nouveau BlogImg'
       description: ''
       authenticated: false
       deprecated: false
@@ -102,55 +113,94 @@ endpoints:
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      title:
+      name:
         custom: []
-        name: title
-        description: "L'attribut."
+        name: name
+        description: ''
         required: false
-        example: "Chargé D'affaire"
+        example: image
         type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         deprecated: false
-      content:
+      path:
         custom: []
-        name: content
-        description: "L'attribut."
+        name: path
+        description: 'Exemple: /storage/public/image/picture.png     *'
         required: false
-        example: 'Cofina recrute.....'
+        example: architecto
         type: string
         enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      summary:
-        custom: []
-        name: summary
-        description: "L'attribut."
-        required: false
-        example: 'En résumé....'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      deadline:
-        custom: []
-        name: deadline
-        description: "L'attribut."
-        required: false
-        example: '2026-10-10'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
+        exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      title: "Chargé D'affaire"
-      content: 'Cofina recrute.....'
-      summary: 'En résumé....'
-      deadline: '2026-10-10'
+      name: image
+      path: architecto
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/blog_imgs/{id}'
+    metadata:
+      custom: []
+      groupName: BlogImg
+      groupDescription: |-
+
+        EndPoints pour gérer les BlogImg
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Affiche un BlogImg'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'Le BlogImg.'
+        required: false
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters:
+      with_relation:
+        custom: []
+        name: with_relation
+        description: 'Afficher la relation.'
+        required: false
+        example: 'false'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanQueryParameters:
+      with_relation: 'false'
+    bodyParameters: []
+    cleanBodyParameters: []
     fileParameters: []
     responses:
       -
@@ -168,16 +218,16 @@ endpoints:
     custom: []
     httpMethods:
       - PUT
-    uri: 'api/job_offers/{id}'
+    uri: 'api/blog_imgs/{id}'
     metadata:
       custom: []
-      groupName: JobOffer
+      groupName: BlogImg
       groupDescription: |-
 
-        EndPoints pour gérer les JobOffer
+        EndPoints pour gérer les BlogImg
       subgroup: ''
       subgroupDescription: ''
-      title: 'Met à jour un JobOffer'
+      title: 'Met à jour un BlogImg'
       description: ''
       authenticated: false
       deprecated: false
@@ -188,7 +238,7 @@ endpoints:
       id:
         custom: []
         name: id
-        description: 'Le JobOffer.'
+        description: 'Le BlogImg.'
         required: false
         example: 1
         type: integer
@@ -201,9 +251,9 @@ endpoints:
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      title:
+      name:
         custom: []
-        name: title
+        name: name
         description: "L'attribut."
         required: false
         example: value
@@ -212,32 +262,10 @@ endpoints:
         exampleWasSpecified: true
         nullable: false
         deprecated: false
-      content:
+      path:
         custom: []
-        name: content
-        description: "L'attribut."
-        required: false
-        example: value
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      summary:
-        custom: []
-        name: summary
-        description: "L'attribut."
-        required: false
-        example: value
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      deadline:
-        custom: []
-        name: deadline
-        description: "L'attribut."
+        name: path
+        description: ''
         required: false
         example: value
         type: string
@@ -246,10 +274,8 @@ endpoints:
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      title: value
-      content: value
-      summary: value
-      deadline: value
+      name: value
+      path: value
     fileParameters: []
     responses:
       -
@@ -267,16 +293,16 @@ endpoints:
     custom: []
     httpMethods:
       - DELETE
-    uri: 'api/job_offers/{id}'
+    uri: 'api/blog_imgs/{id}'
     metadata:
       custom: []
-      groupName: JobOffer
+      groupName: BlogImg
       groupDescription: |-
 
-        EndPoints pour gérer les JobOffer
+        EndPoints pour gérer les BlogImg
       subgroup: ''
       subgroupDescription: ''
-      title: 'Supprime un JobOffer'
+      title: 'Supprime un BlogImg'
       description: ''
       authenticated: false
       deprecated: false
@@ -287,7 +313,7 @@ endpoints:
       id:
         custom: []
         name: id
-        description: 'Le JobOffer.'
+        description: 'Le BlogImg.'
         required: false
         example: 1
         type: integer

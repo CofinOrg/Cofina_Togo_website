@@ -1,33 +1,24 @@
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue'
-import image1 from '../../assets/images/accueil/findone.jpg'
-import image2 from '../../assets/images/accueil/front-view-stacked-coins-with-dirt-plant.jpg'
-import image3 from '../../assets/images/accueil/shallow-focus-woman-with-facemask-holding-pos-machine-market.jpg'
-import image4 from '../../assets/images/accueil/businessman-working-laptop.jpg'
+import api from '../../utils/api'
 
 // Images du slider
-const slides = ref([
-  {
-    id: 1,
-    image: image1,
-    alt: 'Cofina Togo - Slide 1',
-  },
-  {
-    id: 2,
-    image: image2,
-    alt: 'Cofina Togo - Slide 2',
-  },
-  {
-    id: 3,
-    image: image3,
-    alt: 'Cofina Togo - Slide 3',
-  },
-  {
-    id: 4,
-    image: image4,
-    alt: 'Cofina Togo - Slide 4',
-  },
-])
+const slides = ref([])
+
+// Charger les slides depuis l'API
+const fetchSlides = async () => {
+  try {
+    const response = await api.get('/sliders?is_published=1')
+    const data = response.data.data || response.data
+    slides.value = data.map(item => ({
+      id: item.id,
+      image: item.slide_path,
+      alt: `Cofina Togo - Slide ${item.id}`,
+    }))
+  } catch (error) {
+    console.error('Erreur lors du chargement des slides', error)
+  }
+}
 
 const currentSlide = ref(0)
 const isTransitioning = ref(false)
@@ -79,8 +70,11 @@ const stopAutoplay = () => {
 }
 
 // Lifecycle hooks
-onMounted(() => {
-  startAutoplay()
+onMounted(async () => {
+  await fetchSlides()
+  if (slides.value.length > 0) {
+    startAutoplay()
+  }
 })
 
 onUnmounted(() => {
@@ -92,7 +86,7 @@ onUnmounted(() => {
   <section class="relative bg-gray-50">
     <!-- Hero Slider Section -->
     <div
-      class="relative h-[800px] md:h-[800px] lg:h-[650px] overflow-hidden"
+      class="relative h-[400px] sm:h-[500px] md:h-[550px] lg:h-[650px] overflow-hidden"
       @mouseenter="stopAutoplay"
       @mouseleave="startAutoplay"
     >
@@ -108,10 +102,11 @@ onUnmounted(() => {
             <img
               :src="slide.image"
               :alt="slide.alt"
+              loading="eager"
               class="w-full h-full object-cover object-center"
             >
             <!-- Overlay gradient -->
-            <div class="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/30" />
+            <div class="absolute inset-0 bg-gradient-to-r from-black/10 via-black/15 to-black/10" />
           </div>
         </TransitionGroup>
       </div>
@@ -121,27 +116,27 @@ onUnmounted(() => {
         <div class="max-w-[1400px] mx-auto px-2 lg:px-8 w-full">
           <div class="max-w-4xl">
             <!-- Titre principal -->
-            <h1 class="text-white font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-6xl leading-[1.1] tracking-tight mb-6 animate-fade-in">
+            <h1 class="text-white font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-6xl leading-[1.1] tracking-tight mb-2 animate-fade-in">
               L'institution de mésofinance au service de votre avenir.
             </h1>
 
             <!-- Sous-titre -->
-            <p class="text-white/90 text-lg sm:text-xl md:text-2xl max-w-3xl leading-relaxed mb-10 animate-fade-in-delay">
+            <p class="text-white/90 text-lg sm:text-xl md:text-2xl max-w-3xl leading-relaxed mb-2 animate-fade-in-delay">
               Particuliers, Entrepreneurs et Institutions : découvrez une navigation fluide et des offres anticipées à vos ambitions
             </p>
 
             <!-- Boutons CTA -->
-            <div class="flex flex-col sm:flex-row gap-4 animate-fade-in-delay-2">
+            <div class="flex flex-col sm:flex-row gap-4 pt-2 sm:pt-10 md:pt-16 lg:pt-28 animate-fade-in-delay-2">
               <a
-                href="/contact-gestionnaire"
-                class="inline-flex items-center justify-center bg-primary text-white px-8 py-4 rounded-lg text-base md:text-lg font-bold hover:bg-primary-dark shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
+                href="/contact#contact-form"
+                class="inline-flex items-center justify-center bg-primary text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-sm sm:text-base md:text-lg font-bold hover:bg-primary-dark shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
               >
                 Parler à un gestionnaire
               </a>
 
               <a
-                href="/trouver-agence"
-                class="inline-flex items-center justify-center bg-transparent text-white px-8 py-4 rounded-lg text-base md:text-lg font-bold border-2 border-white hover:bg-white hover:text-primary shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
+                href="/contact#map"
+                class="inline-flex items-center justify-center bg-transparent text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-sm sm:text-base md:text-lg font-bold border-2 border-white hover:bg-white hover:text-primary shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
               >
                 Trouver une agence
               </a>
@@ -168,7 +163,7 @@ onUnmounted(() => {
     </div>
 
     <!-- Section des 3 cartes qui chevauchent le slider (50% sur slider, 50% sur page) -->
-    <div class="relative z-30 -mt-32 md:-mt-36 lg:-mt-15 pb-4 md:pb-4 lg:pb-16">
+    <div class="relative z-30 -mt-24 sm:-mt-28 md:-mt-32 lg:-mt-16 pb-4 md:pb-4 lg:pb-16">
       <div class="max-w-[1000px] mx-auto px-4 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <!-- Carte 1: Nos packs -->
@@ -179,8 +174,8 @@ onUnmounted(() => {
             <p class="text-gray-600 text-xs sm:text-sm md:text-xs mb-auto leading-relaxed">
               Des solutions tout-en-un pour simplifier votre quotidien financier
             </p>
-            <a
-              href="/services"
+            <router-link
+              :to="{ name: 'services', query: { type: 'packs' } }"
               class="inline-flex items-center text-primary text-sm sm:text-base font-bold group-hover:gap-3 gap-2 transition-all duration-300 mt-3 md:mt-4"
             >
               Découvrez nos packs
@@ -197,7 +192,7 @@ onUnmounted(() => {
                   d="M9 5l7 7-7 7"
                 />
               </svg>
-            </a>
+            </router-link>
         </div>
 
 
@@ -209,12 +204,12 @@ onUnmounted(() => {
           <p class="text-gray-600 text-xs sm:text-sm md:text-xs mb-auto leading-relaxed">
             Accompagnement financier pour vos projets personnels et professionnels
           </p>
-          <a href="/services" class="inline-flex items-center text-background text-sm sm:text-base font-bold group-hover:gap-3 gap-2 transition-all duration-300 mt-3 md:mt-4">
+          <router-link :to="{ name: 'services', query: { type: 'credits' } }" class="inline-flex items-center text-background text-sm sm:text-base font-bold group-hover:gap-3 gap-2 transition-all duration-300 mt-3 md:mt-4">
             Voir nos offres
             <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
-          </a>
+          </router-link>
         </div>
 
         <!-- Carte 3: CofiPrivilège -->
@@ -225,12 +220,12 @@ onUnmounted(() => {
           <p class="text-gray-300 text-xs sm:text-sm md:text-xs mb-auto leading-relaxed">
             Un espace privilégié dédié pour un accompagnement sur mesure
           </p>
-          <a href="/services" class="inline-flex items-center text-yellow-500 text-sm sm:text-base font-bold group-hover:gap-3 gap-2 transition-all duration-300 mt-3 md:mt-4">
+          <router-link :to="{ name: 'services', query: { type: 'epargne' } }" class="inline-flex items-center text-yellow-500 text-sm sm:text-base font-bold group-hover:gap-3 gap-2 transition-all duration-300 mt-3 md:mt-4">
             Accéder au club
             <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
-          </a>
+          </router-link>
         </div>
 
         </div>
