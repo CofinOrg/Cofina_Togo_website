@@ -4,6 +4,8 @@ import { ref, nextTick } from 'vue'
 const chatOpen = ref(false)
 const chatMessage = ref('')
 const messagesContainer = ref<HTMLElement | null>(null)
+const isTyping = ref(false)
+
 
 interface ChatMessage {
   id: number
@@ -46,14 +48,18 @@ const sendMessage = async () => {
     time: new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
   })
 
-  chatMessage.value = ''
+    chatMessage.value = ''
+  isTyping.value = true
+
   scrollToBottom()
 
   try {
     const response = await fetch(`/api/chat?question=${encodeURIComponent(text)}`, {
       headers: { 'Accept': 'application/json' },
     })
-    const data = await response.json()
+      const data = await response.json()
+      isTyping.value = false
+
 
     chatMessages.value.push({
       id: messageIdCounter++,
@@ -62,6 +68,8 @@ const sendMessage = async () => {
       time: new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
     })
   } catch {
+    isTyping.value = false
+
     chatMessages.value.push({
       id: messageIdCounter++,
       text: 'Désolé, une erreur est survenue. Veuillez réessayer.',
@@ -69,6 +77,7 @@ const sendMessage = async () => {
       time: new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
     })
   }
+
 
   scrollToBottom()
 }
@@ -127,6 +136,7 @@ const sendMessage = async () => {
                 : 'bg-primary text-white rounded-br-sm ml-auto'
             ]"
           >
+
             <p>{{ msg.text }}</p>
             <p
               :class="[
@@ -138,6 +148,14 @@ const sendMessage = async () => {
             </p>
           </div>
         </div>
+
+            <!-- Typing indicator -->
+        <div v-if="isTyping" class="flex items-center gap-1 ml-2 py-5">
+        <span class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce"></span>
+        <span class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+        <span class="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+        </div>
+
 
         <!-- Input -->
         <div class="px-3 py-2.5 border-t border-gray-200 bg-white shrink-0">

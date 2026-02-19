@@ -9,6 +9,23 @@
       </div>
     </section>
 
+
+    <section class="py-10 bg-white">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <p class="text-gray-700 leading-relaxed mb-4">
+            Le Crédit est une solution de financement flexible qui vous permet de concrétiser vos projets personnels ou professionnels en toute sérénité.
+            </p>
+            <p class="text-gray-700 leading-relaxed mb-4">
+            Bénéficiez d’un accompagnement personnalisé, de conditions avantageuses et de taux compétitifs adaptés à votre capacité de remboursement, avec des modalités claires et transparentes.
+            </p>
+            <p class="text-gray-700 leading-relaxed font-medium">
+            La garantie d’un financement rapide, sécurisé et conçu pour soutenir efficacement vos ambitions.
+            </p>
+        </div>
+    </section>
+
+
+
     <section class="py-20 container mx-auto px-6">
       <div class="flex flex-col lg:flex-row items-center gap-12">
 

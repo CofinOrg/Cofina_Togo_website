@@ -71,7 +71,7 @@ const cofinaConfig = {
   'BF': { name: 'Burkina Faso', x: 275, y: 335 },
   'CI': { name: 'Côte d\'Ivoire', x: 230, y: 435 }, // La nuance rouge clair s'applique via CSS ID #CI
   'TG': { name: 'Togo', x: 308, y: 410 },
-  'BJ': { name: 'Bénin', x: 335, y: 405 },
+  /* 'BJ': { name: 'Bénin', x: 335, y: 405 }, */
   'GA': { name: 'Gabon', x: 440, y: 520 },
   'CG': { name: 'Congo', x: 495, y: 555 }
 };

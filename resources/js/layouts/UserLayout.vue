@@ -305,7 +305,7 @@ onMounted(() => {
         <!-- Bordure bleue supérieure -->
         <div class="absolute top-0 left-0 right-0 h-1 bg-accent"></div>
 
-        <div class="max-w-[1400px] mx-auto px-4 lg:px-8 py-12 lg:py-16">
+        <div class="max-w-[1400px] mx-auto px-4 lg:px-8 py-12 lg:py-10">
             <!-- Contenu principal du footer -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
                 <!-- Colonne 1: Cofina TOGO -->
@@ -424,7 +424,7 @@ onMounted(() => {
             </div>
 
             <!-- Ligne de séparation et copyright -->
-            <div class="border-t border-gray-800 mt-10 pt-6">
+            <div class="border-t border-gray-800 mt-4 pt-6">
                 <p class="text-gray-500 text-sm text-center">
                     © 2025 Cofina Togo. Tous droits réservés.
                 </p>

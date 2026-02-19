@@ -185,7 +185,7 @@ onMounted(async () => {
               :to="{ name: 'pack-form', params: { productId: product.id } }"
               class="inline-flex items-center text-primary text-sm font-semibold hover:gap-2 gap-1 transition-all duration-300"
             >
-              En savoir plus &rarr;
+              Souscrire &rarr;
             </router-link>
           </div>
         </div>
@@ -202,7 +202,7 @@ onMounted(async () => {
       <div v-if="isCredit" class="mt-12 mb-16 animate-fade-in">
 
         <!-- Tableau des frais -->
-        <div class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden mb-10">
+   <!--      <div class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden mb-10">
           <div class="bg-primary px-6 py-4">
             <h3 class="text-white text-lg md:text-xl font-bold text-center">
               {{ creditTitle }}
@@ -228,7 +228,7 @@ onMounted(async () => {
               </tbody>
             </table>
           </div>
-        </div>
+        </div> -->
 
         <!-- 4 badges infos clés -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">

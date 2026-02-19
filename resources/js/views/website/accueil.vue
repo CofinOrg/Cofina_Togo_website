@@ -13,7 +13,7 @@ import ScrollReveal from '@/components/ScrollReveal.vue';
   <div class="overflow-x-hidden">
     <Herosectionenhanced />
 
-    <Rsisection />
+    <!-- <Rsisection /> -->
 
     <ScrollReveal animation="fade-up" :duration="800">
       <Solutions />

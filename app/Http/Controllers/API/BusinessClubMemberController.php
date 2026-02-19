@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Mail\CbtPreRegistrationConfirmation;
+use App\Models\Notification;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Maravel\Http\Controllers\APIController;
 
@@ -77,6 +81,31 @@ class BusinessClubMemberController extends APIController
             return $model;
         };
         $this->storeBeforeCommitFunction = function ($model, $requestData, $data) use ($connectedUser) {
+            /*  $model->load('product'); */
+
+            // Envoyer l'email de confirmation au client
+            try {
+                Mail::to($model->email)->send(new CbtPreRegistrationConfirmation($model));
+                \Log::info('Email de confirmation envoyé avec succès pour le BusinessClubMember ID: ' . $model->id);
+
+            } catch (\Exception $e) {
+                \Log::error('Erreur envoi email pré-inscription: ' . $e->getMessage());
+            }
+
+            // Créer une notification pour les admins et chargés de clientèle
+            $usersToNotify = User::whereIn('profile', ['admin', 'cc', 'marketing'])->get();
+
+
+            foreach ($usersToNotify as $user) {
+                Notification::create([
+                    'user_id' => $user->id,
+                    'title' => 'Nouvelle pré-inscription',
+                    'message' => "Nouvelle pré-inscription de {$model->customer_name} pour le cercle Cofina Business Touch",
+                    'type' => 'info',
+                    'is_read' => false,
+                ]);
+            }
+
             return $model;
         };
         $this->storeAfterCommitFunction = function ($model, $requestData, $data) use ($connectedUser) {

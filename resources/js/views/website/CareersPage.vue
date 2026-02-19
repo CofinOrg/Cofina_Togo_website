@@ -112,13 +112,13 @@ onMounted(() => {
           <span class="font-bold text-lg uppercase">Candidature spontanée</span>
         </button>
 
-        <button
+    <!--     <button
           @click="isModalOpen = true"
           class="w-64 py-8 rounded-2xl bg-white text-gray-500 shadow-2xl hover:bg-gray-50 transition-all flex flex-col items-center gap-2"
         >
           <span class="text-xl text-primary"><SendHorizonalIcon/> </span>
           <span class="font-bold text-lg uppercase">Campagne de recrutement</span>
-        </button>
+        </button> -->
       </div>
     </section>
 
