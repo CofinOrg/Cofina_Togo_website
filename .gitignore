@@ -24,7 +24,7 @@ Homestead.yaml
 Thumbs.db
 /storage/app/google/
 
-#python/.venv/
+python/.venv/
 .venv/
 
 __pycache__/
