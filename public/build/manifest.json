@@ -1,0 +1,150 @@
+{
+  "public/images/Ellipse-removebg-preview.png": {
+    "file": "assets/Ellipse-removebg-preview-B4QPRXX0.png",
+    "src": "public/images/Ellipse-removebg-preview.png"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-DyQ_9ap6.css",
+    "src": "resources/css/app.css",
+    "isEntry": true,
+    "name": "app",
+    "names": [
+      "app.css"
+    ]
+  },
+  "resources/js/assets/cofina_petit_logo.png": {
+    "file": "assets/cofina_petit_logo-CH00ieIz.png",
+    "src": "resources/js/assets/cofina_petit_logo.png"
+  },
+  "resources/js/assets/images/about_images/Gemini_Generated_Image_21h5qu21h5qu21h5.png": {
+    "file": "assets/Gemini_Generated_Image_21h5qu21h5qu21h5-BYmwXrm_.png",
+    "src": "resources/js/assets/images/about_images/Gemini_Generated_Image_21h5qu21h5qu21h5.png"
+  },
+  "resources/js/assets/images/about_images/african-american-business-woman-holding-laptop-standing-by-window.jpg": {
+    "file": "assets/african-american-business-woman-holding-laptop-standing-by-window-DTL5-svw.jpg",
+    "src": "resources/js/assets/images/about_images/african-american-business-woman-holding-laptop-standing-by-window.jpg"
+  },
+  "resources/js/assets/images/about_images/black-manager-reviews-company-strategy-with-her-team-members.jpg": {
+    "file": "assets/black-manager-reviews-company-strategy-with-her-team-members-SvtvRWch.jpg",
+    "src": "resources/js/assets/images/about_images/black-manager-reviews-company-strategy-with-her-team-members.jpg"
+  },
+  "resources/js/assets/images/about_images/business-hands-joined-together-teamwork.jpg": {
+    "file": "assets/business-hands-joined-together-teamwork-DzdCm59R.jpg",
+    "src": "resources/js/assets/images/about_images/business-hands-joined-together-teamwork.jpg"
+  },
+  "resources/js/assets/images/about_images/interviewer-holding-meeting-with-job-candidate-doing-greeting-handshake-closeup.jpg": {
+    "file": "assets/interviewer-holding-meeting-with-job-candidate-doing-greeting-handshake-closeup-Dco2TSsE.jpg",
+    "src": "resources/js/assets/images/about_images/interviewer-holding-meeting-with-job-candidate-doing-greeting-handshake-closeup.jpg"
+  },
+  "resources/js/assets/images/about_images/people-office-work-day.jpg": {
+    "file": "assets/people-office-work-day-Br27zp46.jpg",
+    "src": "resources/js/assets/images/about_images/people-office-work-day.jpg"
+  },
+  "resources/js/assets/images/about_images/successful-happy-business-team.jpg": {
+    "file": "assets/successful-happy-business-team-Cla90lEu.jpg",
+    "src": "resources/js/assets/images/about_images/successful-happy-business-team.jpg"
+  },
+  "resources/js/assets/images/accueil/Adobe Express - file-final.png": {
+    "file": "assets/Adobe Express - file-final-pAgwoief.png",
+    "src": "resources/js/assets/images/accueil/Adobe Express - file-final.png"
+  },
+  "resources/js/assets/images/accueil/COFINA Logo.png": {
+    "file": "assets/COFINA Logo-x3gFxCW0.png",
+    "src": "resources/js/assets/images/accueil/COFINA Logo.png"
+  },
+  "resources/js/assets/images/accueil/Gemini_Generated_Image_3m62ek3m62ek3m62-removebg-preview.png": {
+    "file": "assets/Gemini_Generated_Image_3m62ek3m62ek3m62-removebg-preview-DJw14CBV.png",
+    "src": "resources/js/assets/images/accueil/Gemini_Generated_Image_3m62ek3m62ek3m62-removebg-preview.png"
+  },
+  "resources/js/assets/images/accueil/LogoCBTTshirtGri-removebg-preview.png": {
+    "file": "assets/LogoCBTTshirtGri-removebg-preview-Q4mjxi6J.png",
+    "src": "resources/js/assets/images/accueil/LogoCBTTshirtGri-removebg-preview.png"
+  },
+  "resources/js/assets/images/accueil/Logos-10-ans-Groupe-Cofina.png": {
+    "file": "assets/Logos-10-ans-Groupe-Cofina-907IJ5wO.png",
+    "src": "resources/js/assets/images/accueil/Logos-10-ans-Groupe-Cofina.png"
+  },
+  "resources/js/assets/images/accueil/Vector 1.png": {
+    "file": "assets/Vector 1-BuuLtXwS.png",
+    "src": "resources/js/assets/images/accueil/Vector 1.png"
+  },
+  "resources/js/assets/images/accueil/Vector 2.png": {
+    "file": "assets/Vector 2-DBNefVqF.png",
+    "src": "resources/js/assets/images/accueil/Vector 2.png"
+  },
+  "resources/js/assets/images/accueil/cofina-signe.png": {
+    "file": "assets/cofina-signe-nmJjxg7Z.png",
+    "src": "resources/js/assets/images/accueil/cofina-signe.png"
+  },
+  "resources/js/assets/images/accueil/customer-thanking-consultant-help(1).jpg": {
+    "file": "assets/customer-thanking-consultant-help(1)-Bg7_OoY3.jpg",
+    "src": "resources/js/assets/images/accueil/customer-thanking-consultant-help(1).jpg"
+  },
+  "resources/js/assets/images/accueil/findone (4).jpg": {
+    "file": "assets/findone (4)-DVLs-tHZ.jpg",
+    "src": "resources/js/assets/images/accueil/findone (4).jpg"
+  },
+  "resources/js/assets/images/accueil/findone1.jpg": {
+    "file": "assets/findone1-B5Q8RYgh.jpg",
+    "src": "resources/js/assets/images/accueil/findone1.jpg"
+  },
+  "resources/js/assets/images/blog/close-up-colleagues-shaking-hands(1).jpg": {
+    "file": "assets/close-up-colleagues-shaking-hands(1)-CO6vgIeB.jpg",
+    "src": "resources/js/assets/images/blog/close-up-colleagues-shaking-hands(1).jpg"
+  },
+  "resources/js/assets/images/career/PROUDLY COFINOIS.png": {
+    "file": "assets/PROUDLY COFINOIS-nHatcX4w.png",
+    "src": "resources/js/assets/images/career/PROUDLY COFINOIS.png"
+  },
+  "resources/js/assets/images/credit/confident-black-lady-sitting-holding-wad-cash-isolated-background(1).jpg": {
+    "file": "assets/confident-black-lady-sitting-holding-wad-cash-isolated-background(1)-ziRkHTJn.jpg",
+    "src": "resources/js/assets/images/credit/confident-black-lady-sitting-holding-wad-cash-isolated-background(1).jpg"
+  },
+  "resources/js/assets/images/epargne/close-up-money-put-aside-savings.jpg": {
+    "file": "assets/close-up-money-put-aside-savings-BTZt3T_D.jpg",
+    "src": "resources/js/assets/images/epargne/close-up-money-put-aside-savings.jpg"
+  },
+  "resources/js/assets/images/hero_produits.png": {
+    "file": "assets/hero_produits-CqVpKuaV.png",
+    "src": "resources/js/assets/images/hero_produits.png"
+  },
+  "resources/js/assets/images/simulateurs/Design_sans_titre_2_-removebg-preview.png": {
+    "file": "assets/Design_sans_titre_2_-removebg-preview-rCn3Avzf.png",
+    "src": "resources/js/assets/images/simulateurs/Design_sans_titre_2_-removebg-preview.png"
+  },
+  "resources/js/main.js": {
+    "file": "assets/main-B7rkGB0t.js",
+    "name": "main",
+    "src": "resources/js/main.js",
+    "isEntry": true,
+    "css": [
+      "assets/main-CEf4izDp.css"
+    ],
+    "assets": [
+      "assets/COFINA Logo-x3gFxCW0.png",
+      "assets/Logos-10-ans-Groupe-Cofina-907IJ5wO.png",
+      "assets/cofina-signe-nmJjxg7Z.png",
+      "assets/findone (4)-DVLs-tHZ.jpg",
+      "assets/customer-thanking-consultant-help(1)-Bg7_OoY3.jpg",
+      "assets/Ellipse-removebg-preview-B4QPRXX0.png",
+      "assets/LogoCBTTshirtGri-removebg-preview-Q4mjxi6J.png",
+      "assets/Vector 2-DBNefVqF.png",
+      "assets/Adobe Express - file-final-pAgwoief.png",
+      "assets/findone1-B5Q8RYgh.jpg",
+      "assets/Gemini_Generated_Image_21h5qu21h5qu21h5-BYmwXrm_.png",
+      "assets/african-american-business-woman-holding-laptop-standing-by-window-DTL5-svw.jpg",
+      "assets/business-hands-joined-together-teamwork-DzdCm59R.jpg",
+      "assets/successful-happy-business-team-Cla90lEu.jpg",
+      "assets/interviewer-holding-meeting-with-job-candidate-doing-greeting-handshake-closeup-Dco2TSsE.jpg",
+      "assets/black-manager-reviews-company-strategy-with-her-team-members-SvtvRWch.jpg",
+      "assets/people-office-work-day-Br27zp46.jpg",
+      "assets/cofina_petit_logo-CH00ieIz.png",
+      "assets/hero_produits-CqVpKuaV.png",
+      "assets/confident-black-lady-sitting-holding-wad-cash-isolated-background(1)-ziRkHTJn.jpg",
+      "assets/close-up-money-put-aside-savings-BTZt3T_D.jpg",
+      "assets/PROUDLY COFINOIS-nHatcX4w.png",
+      "assets/Design_sans_titre_2_-removebg-preview-rCn3Avzf.png",
+      "assets/close-up-colleagues-shaking-hands(1)-CO6vgIeB.jpg"
+    ]
+  }
+}
