@@ -38,7 +38,7 @@ import BusinessClubMembers from '../views/admin/BusinessClubMembers.vue'
 
 const router = createRouter({
 
-    history: createWebHistory(import.meta.env.BASE_URL),
+    history: createWebHistory("/"),
 
     scrollBehavior(to, from, savedPosition) {
         // 🔁 Bouton "retour" du navigateur
