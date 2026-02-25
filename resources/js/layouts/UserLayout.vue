@@ -9,6 +9,7 @@ import ChatBot from '../components/ChatBot.vue'
 
 const mobileMenuOpen = ref(false)
 const simulateursDropdownOpen = ref(false)
+const mobileSimulateursOpen = ref(false)
 const route = useRoute()
 
 const filiales = [
@@ -260,14 +261,42 @@ onMounted(() => {
           Nos Produits & Services
         </RouterLink>
 
-        <RouterLink
-          to="/simulateurs"
-          class="block text-white text-sm font-medium py-2 px-4 rounded hover:bg-white hover:text-primary transition-all"
-          active-class="bg-white !text-primary"
-          @click="mobileMenuOpen = false"
-        >
-          Simulateurs
-        </RouterLink>
+        <div>
+          <button
+            class="w-full flex items-center justify-between text-white text-sm font-medium py-2 px-4 rounded hover:bg-white hover:text-primary transition-all"
+            :class="{'bg-white !text-primary': mobileSimulateursOpen}"
+            @click="mobileSimulateursOpen = !mobileSimulateursOpen"
+          >
+            Simulateurs et convertisseur
+            <ChevronDown :size="16" :class="{'rotate-180': mobileSimulateursOpen}" class="transition-transform duration-300" />
+          </button>
+          <div v-if="mobileSimulateursOpen" class="ml-4 mt-1 space-y-1">
+            <RouterLink
+              to="/simulateurs-dat"
+              class="block text-white text-sm py-2 px-4 rounded hover:bg-white hover:text-primary transition-all"
+              active-class="bg-white !text-primary"
+              @click="mobileMenuOpen = false; mobileSimulateursOpen = false"
+            >
+              Simulateur de DAT
+            </RouterLink>
+            <RouterLink
+              to="/simulateurs"
+              class="block text-white text-sm py-2 px-4 rounded hover:bg-white hover:text-primary transition-all"
+              active-class="bg-white !text-primary"
+              @click="mobileMenuOpen = false; mobileSimulateursOpen = false"
+            >
+              Simulateur de crédit
+            </RouterLink>
+            <RouterLink
+              to="/simulateurs-convertisseur-devise"
+              class="block text-white text-sm py-2 px-4 rounded hover:bg-white hover:text-primary transition-all"
+              active-class="bg-white !text-primary"
+              @click="mobileMenuOpen = false; mobileSimulateursOpen = false"
+            >
+              Convertisseur de devise
+            </RouterLink>
+          </div>
+        </div>
 
         <RouterLink
           to="/carrieres"

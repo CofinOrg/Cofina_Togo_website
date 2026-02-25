@@ -4,7 +4,7 @@
     "src": "public/images/Ellipse-removebg-preview.png"
   },
   "resources/css/app.css": {
-    "file": "assets/app-DyQ_9ap6.css",
+    "file": "assets/app-Ba-4xqvz.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
@@ -108,17 +108,13 @@
     "file": "assets/hero_produits-CqVpKuaV.png",
     "src": "resources/js/assets/images/hero_produits.png"
   },
-  "resources/js/assets/images/simulateurs/Design_sans_titre_2_-removebg-preview.png": {
-    "file": "assets/Design_sans_titre_2_-removebg-preview-rCn3Avzf.png",
-    "src": "resources/js/assets/images/simulateurs/Design_sans_titre_2_-removebg-preview.png"
-  },
   "resources/js/main.js": {
-    "file": "assets/main-4tbGo3Pn.js",
+    "file": "assets/main-BZ0bAFLC.js",
     "name": "main",
     "src": "resources/js/main.js",
     "isEntry": true,
     "css": [
-      "assets/main-CEf4izDp.css"
+      "assets/main-DG1GAgjH.css"
     ],
     "assets": [
       "assets/COFINA Logo-x3gFxCW0.png",
@@ -143,7 +139,6 @@
       "assets/confident-black-lady-sitting-holding-wad-cash-isolated-background(1)-ziRkHTJn.jpg",
       "assets/close-up-money-put-aside-savings-BTZt3T_D.jpg",
       "assets/PROUDLY COFINOIS-nHatcX4w.png",
-      "assets/Design_sans_titre_2_-removebg-preview-rCn3Avzf.png",
       "assets/close-up-colleagues-shaking-hands(1)-CO6vgIeB.jpg"
     ]
   }

@@ -31,6 +31,8 @@ import ServiceAndProduct from '../views/admin/ServiceAndProduct.vue'
 import PreRegistrations from '../views/admin/PreRegistrations.vue'
 import CustomerMessages from '../views/admin/CustomerMessages.vue'
 import SpontaneousApplications from '../views/admin/SpontaneousApplications.vue'
+import OfferApplications from '../views/admin/OfferApplications.vue'
+import ScoringStats from '../views/admin/ScoringStats.vue'
 import Notifications from '../views/admin/Notifications.vue'
 import InsightPage from '../views/admin/InsightPage.vue'
 import BusinessClubMembers from '../views/admin/BusinessClubMembers.vue'
@@ -206,6 +208,20 @@ const router = createRouter({
                     path: "spontaneous-applications",
                     name: "spontaneous-applications",
                     component: SpontaneousApplications,
+                    meta: { subject: 'joboffer', action: 'menu' }
+                },
+
+                {
+                    path: "offer-applications",
+                    name: "offer-applications",
+                    component: OfferApplications,
+                    meta: { subject: 'joboffer', action: 'menu' }
+                },
+
+                {
+                    path: "scoring-stats",
+                    name: "scoring-stats",
+                    component: ScoringStats,
                     meta: { subject: 'joboffer', action: 'menu' }
                 },
 

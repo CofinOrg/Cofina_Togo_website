@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Maravel\Models\ModelBase;
 
 /**
- * Modèle JobOffer
+ * Modèle Applicant
  *
  * @property int $id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
-class JobOffer extends ModelBase
+class Application extends ModelBase
 {
     use HasFactory;
     // use SoftDeletes; // Décommenter si vous souhaitez utiliser le soft delete
@@ -23,7 +23,7 @@ class JobOffer extends ModelBase
      *
      * @var string
      */
-    protected $table = 'job_offers';
+    protected $table = 'applications';
 
     /**
      * Les attributs assignables en masse
@@ -31,15 +31,13 @@ class JobOffer extends ModelBase
      * @var array<int, string>
      */
     protected $fillable = [
-        'user_id',
-        'title',
-        'spe_particular',
-        'content',
-        'summary',
-        'form_link',
-        'deadline',
-        'type',
-        'status',
+        // Ajoutez vos colonnes ici
+        "cv_id",
+        "job_offer_id",
+        "score",
+        "status",
+        "details",
+        "raison",
     ];
 
     /**
@@ -57,7 +55,7 @@ class JobOffer extends ModelBase
      * @var array<string, string>
      */
     protected $casts = [
-        // Exemple: 'email_verified_at' => 'datetime'
+        'details' => 'array',
     ];
 
     /**
@@ -113,14 +111,14 @@ class JobOffer extends ModelBase
     |
     */
 
-    public function applicant()
+    public function cv()
     {
-        return $this->hasMany(Application::class);
+        return $this->belongsTo(Cv::class);
     }
 
-    public function user()
+    public function jobOffer()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(JobOffer::class);
     }
 
     // Exemple de relation BelongsTo:

@@ -2,6 +2,7 @@
 import { ref, onMounted, computed } from 'vue';
 import { PcCaseIcon, SendHorizonalIcon, CalendarIcon, BriefcaseIcon, XIcon } from 'lucide-vue-next';
 import CandidatureModal from '../../components/career/CandidatureModal.vue';
+import JobApplicationModal from '../../components/career/JobApplicationModal.vue';
 import api from '../../utils/api';
 
 interface JobOffer {
@@ -18,6 +19,7 @@ interface JobOffer {
 
 const activeTab = ref('offers');
 const isModalOpen = ref(false);
+const isJobApplicationModalOpen = ref(false);
 const isLoading = ref(true);
 const jobs = ref<JobOffer[]>([]);
 const selectedJob = ref<JobOffer | null>(null);
@@ -76,6 +78,11 @@ const closeJobDetails = () => {
   selectedJob.value = null;
 };
 
+const openJobApplication = (job: JobOffer) => {
+  selectedJob.value = job;
+  isJobApplicationModalOpen.value = true;
+};
+
 onMounted(() => {
   fetchJobOffers();
 });
@@ -84,7 +91,7 @@ onMounted(() => {
 
 <template>
   <main class="min-h-screen bg-white">
-     <section class="relative h-[500px] bg-[#333] flex items-center">
+     <section class="relative h-125 bg-[#333] flex items-center">
       <div class="absolute inset-0">
         <img src="../../assets/images/career/PROUDLY COFINOIS.png" alt="Produits COFINA" class="w-full h-full object-cover" />
       </div>
@@ -170,6 +177,10 @@ onMounted(() => {
       <CandidatureModal :is-open="isModalOpen" @close="isModalOpen = false" />
     </Teleport>
 
+    <Teleport to="body">
+      <JobApplicationModal :is-open="isJobApplicationModalOpen" :job="selectedJob" @close="isJobApplicationModalOpen = false" />
+    </Teleport>
+
     <!-- Job Details Modal -->
     <Teleport to="body">
       <Transition name="modal">
@@ -208,16 +219,13 @@ onMounted(() => {
 
                 <!-- Apply Button -->
                 <div class="mt-8 pt-6 border-t border-gray-200">
-                    <a
-                        :href="selectedJob.form_link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        @click="closeJobDetails"
+                    <button
+                        @click="openJobApplication(selectedJob!); setTimeout(() => closeJobDetails(), 100)"
                         class="w-full bg-primary hover:bg-secondary text-white font-bold py-4 px-6 rounded-xl transition-colors flex items-center justify-center gap-2"
                         >
                         <SendHorizonalIcon class="w-5 h-5" />
                         Postuler à cette offre
-                    </a>
+                    </button>
 
                 </div>
               </div>

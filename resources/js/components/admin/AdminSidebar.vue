@@ -153,6 +153,28 @@
           <span v-if="isExpanded" class="font-medium">Offres d'emploi</span>
         </router-link>
 
+        <!-- Candidatures par offre -->
+        <router-link
+          v-if="can('menu', 'joboffer')"
+          to="/Cofinoistg@admin/offer-applications"
+          class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors group"
+          active-class="bg-primary/10 text-gray-400"
+        >
+          <FileText class="w-5 h-5 flex-shrink-0" />
+          <span v-if="isExpanded" class="font-medium">Candidatures par offre</span>
+        </router-link>
+
+        <!-- Statistiques scoring -->
+        <router-link
+          v-if="can('menu', 'joboffer')"
+          to="/Cofinoistg@admin/scoring-stats"
+          class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors group"
+          active-class="bg-primary/10 text-gray-400"
+        >
+          <BarChart3 class="w-5 h-5 flex-shrink-0" />
+          <span v-if="isExpanded" class="font-medium">Statistiques scoring</span>
+        </router-link>
+
         <!-- Candidatures spontanées -->
         <router-link
           v-if="can('menu', 'spontaneousapplication')"
@@ -190,7 +212,7 @@
 </template>
 
 <script setup lang="ts">
-import { Home, PenSquare, BarChart3, MapPin, Briefcase, Users, UserCog, Megaphone, FileSlidersIcon, ClipboardList, MessageSquare, Bell, Crown } from 'lucide-vue-next'
+import { Home, PenSquare, BarChart3, MapPin, Briefcase, Users, UserCog, Megaphone, FileSlidersIcon, ClipboardList, MessageSquare, Bell, Crown, FileText } from 'lucide-vue-next'
 import { useSidebar } from '../../composables/useSidebar'
 import { useAuthStore } from '../../stores/auth'
 import { FileSliders } from 'lucide-vue-next'

@@ -5,7 +5,10 @@
     <div class="relative bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
       <div class="p-8 md:p-12">
         <div class="flex justify-between items-center mb-8">
-          <h2 class="text-3xl font-black text-gray-800 uppercase tracking-tight">Candidature <span class="text-primary">Spontanée</span></h2>
+          <div>
+            <p class="text-sm text-gray-500 mb-2">Postulez à cette offre</p>
+            <h2 class="text-3xl font-black text-gray-800 uppercase tracking-tight">{{ job?.title || 'Candidature' }}</h2>
+          </div>
           <button @click="$emit('close')" class="text-gray-400 hover:text-black text-2xl">&times;</button>
         </div>
 
@@ -25,15 +28,14 @@
               class="w-full border-b-2 border-gray-200 py-3 focus:border-primary outline-none transition-colors"
               required
             >
+            <input
+              v-model="formData.phone"
+              type="tel"
+              placeholder="Téléphone *"
+              class="w-full border-b-2 border-gray-200 py-3 focus:border-primary outline-none transition-colors"
+              required
+            >
           </div>
-
-          <input
-            v-model="formData.desired_position"
-            type="text"
-            placeholder="Poste souhaité *"
-            class="w-full border-b-2 border-gray-200 py-3 focus:border-primary outline-none transition-colors"
-            required
-          >
 
           <textarea
             v-model="formData.motivation_message"
@@ -59,12 +61,12 @@
             <input
               type="file"
               class="hidden"
-              id="cv-upload"
+              :id="`cv-upload-job-${job?.id}`"
               accept=".pdf"
               @change="onFileChange"
               required
             >
-            <label for="cv-upload" class="bg-gray-100 px-4 py-2 rounded font-bold text-xs cursor-pointer hover:bg-gray-200 transition-colors">
+            <label :for="`cv-upload-job-${job?.id}`" class="bg-gray-100 px-4 py-2 rounded font-bold text-xs cursor-pointer hover:bg-gray-200 transition-colors">
               {{ cvFile ? 'Changer' : 'Choisir' }}
             </label>
           </div>
@@ -72,7 +74,7 @@
           <!-- Message de succès -->
           <div v-if="submitSuccess" class="p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
             <p class="font-semibold">Votre candidature a été envoyée avec succès !</p>
-            <p class="text-sm mt-1">Nous vous contacterons dans les plus brefs délais.</p>
+            <p class="text-sm mt-1">Nous examinons votre candidature et vous recontacterons bientôt.</p>
           </div>
 
           <!-- Message d'erreur -->
@@ -99,16 +101,23 @@
 import { ref, watch } from 'vue';
 import api from '../../utils/api';
 
-const props = defineProps<{ isOpen: boolean }>();
+interface JobOffer {
+  id: number;
+  title: string;
+}
+
+const props = defineProps<{
+  isOpen: boolean;
+  job: JobOffer | null;
+}>();
 const emit = defineEmits(['close']);
 
 // Données du formulaire
 const formData = ref({
   name: '',
   email: '',
-  desired_position: '',
+  phone: '',
   motivation_message: '',
-  source: 'spontaneous'
 });
 
 const cvFile = ref<File | null>(null);
@@ -129,23 +138,35 @@ const resetForm = () => {
   formData.value = {
     name: '',
     email: '',
-    desired_position: '',
+    phone: '',
     motivation_message: '',
-    source: 'spontaneous'
   };
   cvFile.value = null;
   submitSuccess.value = false;
   submitError.value = '';
 
   // Réinitialiser l'input file
-  const fileInput = document.getElementById('cv-upload') as HTMLInputElement;
-  if (fileInput) fileInput.value = '';
+  if (props.job) {
+    const fileInput = document.getElementById(`cv-upload-job-${props.job.id}`) as HTMLInputElement;
+    if (fileInput) fileInput.value = '';
+  }
 };
 
 // Soumission du formulaire
 const submitForm = async () => {
+  console.log('submitForm appelée');
+  console.log('cvFile:', cvFile.value);
+  console.log('job:', props.job);
+
   if (!cvFile.value) {
     submitError.value = 'Veuillez importer votre CV';
+    console.log('Erreur: CV non sélectionné');
+    return;
+  }
+
+  if (!props.job) {
+    submitError.value = 'Une erreur est survenue. Veuillez réessayer.';
+    console.log('Erreur: Job non défini');
     return;
   }
 
@@ -157,15 +178,18 @@ const submitForm = async () => {
     const payload = new FormData();
     payload.append('name', formData.value.name);
     payload.append('email', formData.value.email);
-    payload.append('desired_position', formData.value.desired_position);
+    payload.append('phone', formData.value.phone);
     payload.append('motivation_message', formData.value.motivation_message);
-    payload.append('source', formData.value.source);
+    payload.append('source', 'offer');
+    payload.append('job_offer_id', props.job.id.toString());
     payload.append('cv_path', cvFile.value);
 
-    await api.post('/cvs', payload, {
+    console.log('Envoi du formulaire vers /cvs');
+    const response = await api.post('/cvs', payload, {
       headers: { 'Content-Type': 'multipart/form-data' }
     });
 
+    console.log('Réponse reçue:', response);
     submitSuccess.value = true;
 
     // Fermer le modal après 2 secondes
@@ -180,7 +204,7 @@ const submitForm = async () => {
       const errors = error.response.data.errors;
       submitError.value = Object.values(errors).flat().join(', ');
     } else {
-      submitError.value = 'Une erreur est survenue. Veuillez réessayer.';
+      submitError.value = error.response?.data?.message || 'Une erreur est survenue. Veuillez réessayer.';
     }
   } finally {
     isSubmitting.value = false;

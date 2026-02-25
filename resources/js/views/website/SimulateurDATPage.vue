@@ -1,135 +1,220 @@
 <template>
-  <main class="min-h-screen bg-white">
-    <section class="relative h-[300px] flex items-center bg-[#333] overflow-hidden">
-      <div class="absolute inset-0 opacity-40">
-        <img src="@/assets/images/hero_produits.png" class="w-full h-full object-cover" alt="Hero Simulateur" />
+  <main class="min-h-screen bg-gray-50">
+
+    <!-- Hero -->
+    <section class="relative h-[280px] flex items-center overflow-hidden">
+      <div class="absolute inset-0">
+        <img src="@/assets/images/hero_produits.png" class="w-full h-full object-cover" alt="Hero DAT" />
+        <div class="absolute inset-0"></div>
       </div>
       <div class="container mx-auto px-6 relative z-10">
-        <h1 class="text-4xl font-bold text-white tracking-tight">Simulateurs de DAT</h1>
-      </div>
-    </section>
-
-    <section class="py-12 bg-white">
-      <div class="container mx-auto px-6 max-w-5xl">
-        <p class="text-gray-700 leading-relaxed mb-4">
-          Le Dépôt à Terme est une épargne bloquée sur un compte en contrepartie du versement d’intérêts.
-        </p>
-        <p class="text-gray-700 leading-relaxed mb-4">
-          Pour une durée minimale de 6 mois, profitez du DAT (Dépôt à terme) avec un taux de rémunération allant jusqu’à 7,5% pour une prise de risque complètement nulle et 0 frais de tenue de compte.
-        </p>
-        <p class="text-gray-700 leading-relaxed font-medium">
-          La garantie d’un investissement sûr et rentable avec les meilleurs taux du marché.
+        <p class="text-white/60 text-xs font-semibold uppercase tracking-widest mb-2">Épargne</p>
+        <h1 class="text-4xl lg:text-5xl font-black text-white">Simulateur de DAT</h1>
+        <p class="text-white/70 mt-2 text-base max-w-xl">
+          Dépôt à terme jusqu'à <span class="text-white font-bold">7,5%</span> de rendement annuel — zéro risque, zéro frais.
         </p>
       </div>
     </section>
 
-    <section class="pb-20 container mx-auto px-6">
-      <div class="flex flex-col lg:flex-row items-center gap-12">
+    <!-- Calculator -->
+    <section class="py-16">
+      <div class="container mx-auto px-4 lg:px-6 max-w-5xl">
 
-        <div class="lg:w-1/2 flex justify-center">
-          <img
-            src="../../assets/images/simulateurs/Design_sans_titre_2_-removebg-preview.png"
-            alt="Simulation DAT"
-            class="max-w-2xl w-full h-auto"
-            />
+        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+          <div class="grid grid-cols-1 lg:grid-cols-5">
 
-        </div>
-
-        <div class="lg:w-1/2 bg-[#F2F2F2] p-8 md:p-12 rounded-3xl shadow-sm">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-
-            <div class="space-y-8">
+            <!-- Sliders -->
+            <div class="lg:col-span-3 p-8 lg:p-12 space-y-10">
               <div>
-                <label class="block text-sm font-bold text-gray-800 mb-3">Montant du dépôt</label>
-                <div class="relative">
-                  <input
-                    v-model.number="montant"
-                    type="number"
-                    placeholder="0"
-                    class="w-full p-3 bg-white border-none rounded-lg outline-none text-right font-bold focus:ring-2 focus:ring-[#D10000]"
-                  />
+                <h2 class="text-2xl font-black text-gray-900">Paramétrez votre dépôt</h2>
+                <p class="text-gray-400 text-sm mt-1">Bougez les curseurs pour simuler en temps réel</p>
+              </div>
+
+              <!-- Montant -->
+              <div class="space-y-3">
+                <div class="flex justify-between items-end">
+                  <label class="text-xs font-bold text-gray-400 uppercase tracking-widest">Montant du dépôt</label>
+                  <div class="text-right">
+                    <span class="text-3xl font-black text-gray-900">{{ formatCompact(montant) }}</span>
+                    <span class="text-gray-400 text-sm ml-1">FCFA</span>
+                  </div>
+                </div>
+                <input
+                  type="range" v-model.number="montant"
+                  :min="100000" :max="50000000" :step="100000"
+                  :style="sliderStyle(montant, 100000, 50000000)"
+                  class="slider w-full"
+                />
+                <div class="flex justify-between text-xs text-gray-300 font-medium">
+                  <span>100 K</span><span>50 M</span>
                 </div>
               </div>
 
-              <div>
-                <label class="block text-sm font-bold text-gray-800 mb-3">Durée du dépôt (en mois)</label>
-                <div class="relative">
-                  <input
-                    v-model.number="dureeMois"
-                    type="number"
-                    placeholder="0"
-                    class="w-full p-3 bg-white border-none rounded-lg outline-none text-right font-bold focus:ring-2 focus:ring-[#D10000]"
-                  />
+              <!-- Durée -->
+              <div class="space-y-3">
+                <div class="flex justify-between items-end">
+                  <label class="text-xs font-bold text-gray-400 uppercase tracking-widest">Durée du dépôt</label>
+                  <div class="text-right">
+                    <span class="text-3xl font-black text-gray-900">{{ dureeMois }}</span>
+                    <span class="text-gray-400 text-sm ml-1">mois</span>
+                  </div>
+                </div>
+                <input
+                  type="range" v-model.number="dureeMois"
+                  :min="6" :max="60" :step="1"
+                  :style="sliderStyle(dureeMois, 6, 60)"
+                  class="slider w-full"
+                />
+                <div class="flex justify-between text-xs text-gray-300 font-medium">
+                  <span>6 mois</span><span>60 mois</span>
                 </div>
               </div>
 
-                <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Taux annuel (%)</label>
-                <input v-model="taux" type="number" step="0.01" class="w-full p-3 bg-white border rounded-lg outline-none" />
+              <!-- Taux -->
+              <div class="space-y-3">
+                <div class="flex justify-between items-end">
+                  <label class="text-xs font-bold text-gray-400 uppercase tracking-widest">Taux annuel</label>
+                  <div class="text-right">
+                    <span class="text-3xl font-black text-primary">{{ taux }}%</span>
+                  </div>
+                </div>
+                <input
+                  type="range" v-model.number="taux"
+                  :min="1" :max="7.5" :step="0.5"
+                  :style="sliderStyle(taux, 1, 7.5)"
+                  class="slider w-full"
+                />
+                <div class="flex justify-between text-xs text-gray-300 font-medium">
+                  <span>1%</span><span>7,5%</span>
+                </div>
               </div>
             </div>
 
-            <div class="space-y-4">
-              <h3 class="text-lg font-black text-gray-900 mb-6">Résultat de la simulation</h3>
+            <!-- Results -->
+            <div class="lg:col-span-2 bg-primary p-8 lg:p-12 flex flex-col justify-between">
+              <div>
+                <p class="text-white/50 text-xs font-bold uppercase tracking-widest mb-8">Résultats</p>
 
-              <div class="flex justify-between items-center border-b border-gray-300 pb-2">
-                <span class="text-sm text-gray-700">Montant total</span>
-                <span class="font-bold text-gray-900">{{ formatPrice(montant) }} FCFA</span>
+                <div class="space-y-6">
+                  <div>
+                    <p class="text-white/50 text-xs uppercase tracking-wide mb-1">Montant déposé</p>
+                    <p class="text-white text-xl font-black">{{ formatPrice(montant) }} <span class="text-white/50 text-sm font-normal">FCFA</span></p>
+                  </div>
+
+                  <div class="border-t border-white/15 pt-6">
+                    <p class="text-white/50 text-xs uppercase tracking-wide mb-1">Intérêts générés</p>
+                    <p class="text-white text-xl font-black">
+                      <span class="text-green-300">+</span> {{ formatPrice(calculs.interet) }}
+                      <span class="text-white/50 text-sm font-normal">FCFA</span>
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Total -->
+                <div class="mt-8 bg-white/10 backdrop-blur rounded-2xl p-6">
+                  <p class="text-white/50 text-xs uppercase tracking-widest mb-3">Vous percevrez</p>
+                  <p class="text-4xl font-black text-white leading-none">{{ formatPrice(calculs.total) }}</p>
+                  <p class="text-white/50 text-sm mt-1">FCFA après {{ dureeMois }} mois</p>
+
+                  <!-- Mini progress bar -->
+                  <div class="mt-5">
+                    <div class="flex justify-between text-white/40 text-xs mb-1">
+                      <span>Capital</span><span>Intérêts</span>
+                    </div>
+                    <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                      <div
+                        class="h-full bg-white/80 rounded-full transition-all duration-500"
+                        :style="`width: ${calculs.total ? Math.round((montant / calculs.total) * 100) : 100}%`"
+                      ></div>
+                    </div>
+                    <div class="flex justify-between text-white/40 text-xs mt-1">
+                      <span>{{ calculs.total ? Math.round((montant / calculs.total) * 100) : 100 }}%</span>
+                      <span>{{ calculs.total ? Math.round((calculs.interet / calculs.total) * 100) : 0 }}%</span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <div class="flex justify-between items-center border-b border-gray-300 pb-2">
-                <span class="text-sm text-gray-700">Taux</span>
-                <span class="font-bold text-gray-900">{{ taux }} %</span>
-              </div>
-
-              <div class="flex justify-between items-center border-b border-gray-300 pb-2">
-                <span class="text-sm text-gray-700">Intérêt</span>
-                <span class="font-bold text-gray-900">{{ formatPrice(calculs.interet) }} FCFA</span>
-              </div>
-
-              <div class="flex justify-between items-center pt-2">
-                <span class="font-black text-gray-900 uppercase">Total</span>
-                <span class="font-black text-gray-900">{{ formatPrice(calculs.total) }} FCFA</span>
-              </div>
+              <p class="text-white text-[10px] mt-8 leading-relaxed">
+                Simulation indicative, hors assurance. Rapprochez-vous de votre agence pour plus d'informations.
+              </p>
             </div>
+
           </div>
-
-          <p class="text-[11px] text-gray-500 mt-10 leading-snug italic">
-            NB: Cette simulation est à titre indicatif et ne tient pas compte de l’assurance. Pour plus d’informations nous vous invitons à vous rapprocher de votre gestionnaire en agence.
-          </p>
         </div>
 
       </div>
     </section>
+
   </main>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 
-// Données réactives
-const montant = ref<number>(0);
-const dureeMois = ref<number>(0);
-const taux = ref<number>(4); // Taux par défaut à 4% selon la maquette
+const montant = ref<number>(5000000);
+const dureeMois = ref<number>(12);
+const taux = ref<number>(4);
 
-// Logique de calcul du DAT
 const calculs = computed(() => {
-  if (!montant.value || !dureeMois.value) {
-    return { interet: 0, total: 0 };
-  }
-
-  // Formule d'intérêt simple : Montant * Taux * (Temps en mois / 12)
+  if (!montant.value || !dureeMois.value) return { interet: 0, total: 0 };
   const interetGenere = montant.value * (taux.value / 100) * (dureeMois.value / 12);
-  const montantFinal = montant.value + interetGenere;
-
   return {
     interet: Math.round(interetGenere),
-    total: Math.round(montantFinal)
+    total: Math.round(montant.value + interetGenere),
   };
 });
 
-// Utilitaire de formatage
-const formatPrice = (value: number) => {
-  return new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 2 }).format(value);
+const sliderStyle = (value: number, min: number, max: number) => {
+  const pct = ((value - min) / (max - min)) * 100;
+  return `background: linear-gradient(to right, #D10000 ${pct}%, #e5e7eb ${pct}%)`;
+};
+
+const formatPrice = (value: number) => new Intl.NumberFormat('fr-FR').format(value);
+
+const formatCompact = (value: number) => {
+  if (value >= 1000000) return (value / 1000000).toLocaleString('fr-FR', { maximumFractionDigits: 1 }) + ' M';
+  if (value >= 1000) return (value / 1000).toLocaleString('fr-FR', { maximumFractionDigits: 0 }) + ' K';
+  return value.toLocaleString('fr-FR');
 };
 </script>
+
+<style scoped>
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 9999px;
+  outline: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #D10000;
+  cursor: pointer;
+  border: 3px solid white;
+  box-shadow: 0 2px 10px rgba(209, 0, 0, 0.45);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 16px rgba(209, 0, 0, 0.55);
+}
+
+.slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #D10000;
+  cursor: pointer;
+  border: 3px solid white;
+  box-shadow: 0 2px 10px rgba(209, 0, 0, 0.45);
+}
+</style>

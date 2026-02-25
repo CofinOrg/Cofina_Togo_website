@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4">
+  <div class="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 py-12 px-4">
     <div class="max-w-7xl mx-auto">
       <!-- En-tête -->
       <div class="mb-8">
@@ -12,7 +12,7 @@
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
           <h2 class="text-xl font-bold text-gray-900">Liste des candidatures</h2>
           <div class="text-sm text-gray-500">
-            {{ applications.length }} candidature(s) au total
+            {{ cvs.length }} candidature(s) au total
           </div>
         </div>
 
@@ -42,7 +42,7 @@
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
               <!-- État vide -->
-              <tr v-if="filteredApplications.length === 0">
+              <tr v-if="filteredCvs.length === 0">
                 <td colspan="5" class="px-6 py-12 text-center text-gray-500">
                   <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -52,23 +52,24 @@
                 </td>
               </tr>
               <!-- Lignes du tableau -->
-              <tr v-for="application in filteredApplications" :key="application.id" class="hover:bg-gray-50 transition-colors">
+              <tr v-for="cv in filteredCvs" :key="cv.id" class="hover:bg-gray-50 transition-colors">
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-sm font-medium text-gray-900">{{ application.name }}</div>
-                  <div class="text-xs text-gray-500">{{ application.email }}</div>
+                  <div class="text-sm font-medium text-gray-900">{{ cv.name }}</div>
+                  <div class="text-xs text-gray-500">{{ cv.email }}</div>
+                  <div v-if="cv.phone" class="text-xs text-gray-400">{{ cv.phone }}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <span class="px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
-                    {{ application.desired_position }}
+                    {{ cv.desired_position || '-' }}
                   </span>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-sm text-gray-500">{{ formatDate(application.created_at) }}</div>
+                  <div class="text-sm text-gray-500">{{ formatDate(cv.created_at) }}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <a
-                    v-if="application.cv_path"
-                    :href="getFileUrl(application.cv_path)"
+                    v-if="cv.cv_path"
+                    :href="getFileUrl(cv.cv_path)"
                     target="_blank"
                     download
                     class="inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800 hover:bg-green-200 transition-colors"
@@ -84,9 +85,9 @@
                   <div class="flex items-center gap-2">
                     <!-- Voir détails -->
                     <button
-                      @click="openDetails(application)"
+                      @click="openDetails(cv)"
                       class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                      title="Voir les détails"
+                      title="Voir les détails et les scores"
                     >
                       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -95,7 +96,7 @@
                     </button>
                     <!-- Répondre par email -->
                     <a
-                      :href="`mailto:${application.email}?subject=Re: Candidature pour ${application.desired_position}`"
+                      :href="`mailto:${cv.email}?subject=Re: Candidature spontanée`"
                       class="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
                       title="Répondre par email"
                     >
@@ -105,7 +106,7 @@
                     </a>
                     <!-- Supprimer -->
                     <button
-                      @click="deleteApplication(application.id)"
+                      @click="deleteCv(cv.id)"
                       class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                       title="Supprimer"
                     >
@@ -122,8 +123,8 @@
       </div>
 
       <!-- Modal Détails -->
-      <div v-if="selectedApplication" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+      <div v-if="selectedCv" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
           <!-- Header Modal -->
           <div class="sticky top-0 bg-white border-b px-6 py-4 flex items-center justify-between rounded-t-2xl">
             <h3 class="text-xl font-bold text-gray-900">Détails de la candidature</h3>
@@ -145,17 +146,21 @@
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <p class="text-xs text-gray-500">Nom complet</p>
-                  <p class="text-sm font-medium text-gray-900">{{ selectedApplication.name }}</p>
+                  <p class="text-sm font-medium text-gray-900">{{ selectedCv.name }}</p>
                 </div>
                 <div>
                   <p class="text-xs text-gray-500">Email</p>
-                  <a :href="`mailto:${selectedApplication.email}`" class="text-sm font-medium text-primary hover:underline">
-                    {{ selectedApplication.email }}
+                  <a :href="`mailto:${selectedCv.email}`" class="text-sm font-medium text-primary hover:underline">
+                    {{ selectedCv.email }}
                   </a>
+                </div>
+                <div v-if="selectedCv.phone">
+                  <p class="text-xs text-gray-500">Téléphone</p>
+                  <p class="text-sm font-medium text-gray-900">{{ selectedCv.phone }}</p>
                 </div>
                 <div>
                   <p class="text-xs text-gray-500">Date de candidature</p>
-                  <p class="text-sm font-medium text-gray-900">{{ formatDate(selectedApplication.created_at) }}</p>
+                  <p class="text-sm font-medium text-gray-900">{{ formatDate(selectedCv.created_at) }}</p>
                 </div>
               </div>
             </div>
@@ -163,20 +168,20 @@
             <!-- Poste souhaité -->
             <div class="bg-blue-50 rounded-xl p-4">
               <h4 class="text-sm font-bold text-gray-500 uppercase tracking-wider mb-2">Poste souhaité</h4>
-              <p class="text-gray-900 font-medium text-lg">{{ selectedApplication.desired_position }}</p>
+              <p class="text-gray-900 font-medium text-lg">{{ selectedCv.desired_position || '-' }}</p>
             </div>
 
             <!-- Message de motivation -->
-            <div class="bg-white border-2 border-gray-100 rounded-xl p-4">
+            <div v-if="selectedCv.motivation_message" class="bg-white border-2 border-gray-100 rounded-xl p-4">
               <h4 class="text-sm font-bold text-gray-500 uppercase tracking-wider mb-3">Message de motivation</h4>
-              <p class="text-gray-700 whitespace-pre-wrap leading-relaxed">{{ selectedApplication.motivation_message }}</p>
+              <p class="text-gray-700 whitespace-pre-wrap leading-relaxed">{{ selectedCv.motivation_message }}</p>
             </div>
 
             <!-- CV -->
-            <div v-if="selectedApplication.cv_path" class="bg-green-50 rounded-xl p-4">
+            <div v-if="selectedCv.cv_path" class="bg-green-50 rounded-xl p-4">
               <h4 class="text-sm font-bold text-gray-500 uppercase tracking-wider mb-3">Curriculum Vitae</h4>
               <a
-                :href="getFileUrl(selectedApplication.cv_path)"
+                :href="getFileUrl(selectedCv.cv_path)"
                 target="_blank"
                 download
                 class="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-semibold"
@@ -186,6 +191,66 @@
                 </svg>
                 Télécharger le CV
               </a>
+            </div>
+
+            <!-- Scores par offre -->
+            <div class="bg-white border-2 border-gray-100 rounded-xl p-4">
+              <h4 class="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4">Scores de correspondance par offre</h4>
+
+              <!-- Chargement -->
+              <div v-if="loadingApplications" class="flex items-center justify-center py-8 text-gray-400">
+                <svg class="animate-spin w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                </svg>
+                Calcul en cours...
+              </div>
+
+              <!-- Aucun score -->
+              <div v-else-if="selectedApplications.length === 0" class="text-center py-6 text-gray-400">
+                <p class="text-sm">Aucun score disponible pour le moment</p>
+              </div>
+
+              <!-- Tableau des scores -->
+              <div v-else class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200 text-sm">
+                  <thead>
+                    <tr class="text-left text-xs font-medium text-gray-500 uppercase">
+                      <th class="pb-3 pr-4">Offre</th>
+                      <th class="pb-3 pr-4">Score</th>
+                      <th class="pb-3 pr-4">Statut</th>
+                      <th class="pb-3">Commentaire</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-100">
+                    <tr v-for="app in selectedApplications" :key="app.id" class="py-2">
+                      <td class="py-3 pr-4 font-medium text-gray-900">
+                        {{ app.job_offer?.title || `Offre #${app.job_offer_id}` }}
+                      </td>
+                      <td class="py-3 pr-4">
+                        <div class="flex items-center gap-2">
+                          <div class="w-24 bg-gray-200 rounded-full h-2">
+                            <div
+                              class="h-2 rounded-full"
+                              :class="getScoreColor(app.score)"
+                              :style="`width: ${app.score}%`"
+                            ></div>
+                          </div>
+                          <span class="font-bold" :class="getScoreTextColor(app.score)">{{ app.score }}%</span>
+                        </div>
+                      </td>
+                      <td class="py-3 pr-4">
+                        <span :class="getStatusClass(app.status)" class="px-2 py-1 rounded-full text-xs font-semibold">
+                          {{ getStatusLabel(app.status) }}
+                        </span>
+                      </td>
+                      <td class="py-3 text-gray-500 text-xs max-w-xs truncate" :title="app.raison">
+                        {{ app.raison || '-' }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
 
@@ -198,7 +263,7 @@
               Fermer
             </button>
             <a
-              :href="`mailto:${selectedApplication.email}?subject=Re: Candidature pour ${selectedApplication.desired_position}`"
+              :href="`mailto:${selectedCv.email}?subject=Re: Candidature spontanée`"
               class="px-6 py-2 bg-primary text-white rounded-xl hover:bg-secondary transition-colors font-semibold flex items-center gap-2"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -217,78 +282,99 @@
 import { ref, computed, onMounted } from 'vue'
 import api from '../../utils/api'
 
-// État de la liste
-const applications = ref<any[]>([])
+const cvs = ref<any[]>([])
 const searchQuery = ref('')
-const selectedApplication = ref<any>(null)
+const selectedCv = ref<any>(null)
+const selectedApplications = ref<any[]>([])
+const loadingApplications = ref(false)
 
-// Computed pour filtrer les candidatures
-const filteredApplications = computed(() => {
-  return applications.value.filter(a => {
-    const query = searchQuery.value.toLowerCase()
-    return (
-      a.name?.toLowerCase().includes(query) ||
-      a.email?.toLowerCase().includes(query) ||
-      a.desired_position?.toLowerCase().includes(query)
-    )
-  })
+const filteredCvs = computed(() => {
+  const query = searchQuery.value.toLowerCase()
+  return cvs.value.filter(cv =>
+    cv.name?.toLowerCase().includes(query) ||
+    cv.email?.toLowerCase().includes(query) ||
+    cv.desired_position?.toLowerCase().includes(query)
+  )
 })
 
-// Charger la liste des candidatures
-const fetchApplications = async () => {
+const fetchCvs = async () => {
   try {
-    const response = await api.get('/spontaneous_applications')
-    applications.value = response.data.data || response.data
+    const response = await api.get('/cvs?source=spontaneous&paginate=false')
+    cvs.value = response.data.data || response.data
   } catch (error) {
     console.error('Erreur lors du chargement des candidatures', error)
   }
 }
 
-// Formater la date
-const formatDate = (dateString: string) => {
-  if (!dateString) return '-'
-  const date = new Date(dateString)
-  return date.toLocaleDateString('fr-FR', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  })
-}
-
-// Générer l'URL du fichier
-const getFileUrl = (path: string) => {
-  if (!path) return ''
-  return `/storage/${path}`
-}
-
-// Ouvrir le modal de détails
-const openDetails = (application: any) => {
-  selectedApplication.value = application
-}
-
-// Fermer le modal
-const closeDetails = () => {
-  selectedApplication.value = null
-}
-
-// Supprimer une candidature
-const deleteApplication = async (id: number) => {
-  if (!confirm('Êtes-vous sûr de vouloir supprimer cette candidature ?')) return
-
+const openDetails = async (cv: any) => {
+  selectedCv.value = cv
+  selectedApplications.value = []
+  loadingApplications.value = true
   try {
-    await api.delete(`/spontaneous_applications/${id}`)
-    await fetchApplications()
-    alert('Candidature supprimée avec succès')
+    const response = await api.get(`/applications?cv_id=${cv.id}&paginate=false`)
+    selectedApplications.value = response.data.data || response.data
+  } catch (error) {
+    console.error('Erreur lors du chargement des scores', error)
+  } finally {
+    loadingApplications.value = false
+  }
+}
+
+const closeDetails = () => {
+  selectedCv.value = null
+  selectedApplications.value = []
+}
+
+const deleteCv = async (id: number) => {
+  if (!confirm('Êtes-vous sûr de vouloir supprimer cette candidature ?')) return
+  try {
+    await api.delete(`/cvs/${id}`)
+    await fetchCvs()
   } catch (error) {
     console.error('Erreur lors de la suppression', error)
     alert('Erreur lors de la suppression')
   }
 }
 
-// Charger les données au montage
-onMounted(() => {
-  fetchApplications()
-})
+const formatDate = (dateString: string) => {
+  if (!dateString) return '-'
+  return new Date(dateString).toLocaleDateString('fr-FR', {
+    day: '2-digit', month: '2-digit', year: 'numeric',
+    hour: '2-digit', minute: '2-digit'
+  })
+}
+
+const getFileUrl = (path: string) => `/storage/${path}`
+
+const getScoreColor = (score: number) => {
+  if (score >= 70) return 'bg-green-500'
+  if (score >= 40) return 'bg-yellow-500'
+  return 'bg-red-400'
+}
+
+const getScoreTextColor = (score: number) => {
+  if (score >= 70) return 'text-green-700'
+  if (score >= 40) return 'text-yellow-700'
+  return 'text-red-600'
+}
+
+const getStatusClass = (status: string) => {
+  const classes: Record<string, string> = {
+    pending: 'bg-gray-100 text-gray-700',
+    accepted: 'bg-green-100 text-green-800',
+    rejected: 'bg-red-100 text-red-700',
+  }
+  return classes[status] || 'bg-gray-100 text-gray-700'
+}
+
+const getStatusLabel = (status: string) => {
+  const labels: Record<string, string> = {
+    pending: 'En attente',
+    accepted: 'Retenu',
+    rejected: 'Refusé',
+  }
+  return labels[status] || status
+}
+
+onMounted(() => fetchCvs())
 </script>

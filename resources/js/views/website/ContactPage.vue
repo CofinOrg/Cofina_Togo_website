@@ -271,7 +271,7 @@ const socialLinks = [
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label for="nom" class="block text-gray-700 text-sm font-semibold mb-2">
-                    Nom <span class="text-red-500">*</span>
+                    Nom <span class="text-primary">*</span>
                   </label>
                   <input
                     id="nom"
@@ -285,7 +285,7 @@ const socialLinks = [
 
                 <div>
                   <label for="prenom" class="block text-gray-700 text-sm font-semibold mb-2">
-                    Prénom <span class="text-red-500">*</span>
+                    Prénom <span class="text-primary">*</span>
                   </label>
                   <input
                     id="prenom"
@@ -301,7 +301,7 @@ const socialLinks = [
               <!-- Email -->
               <div>
                 <label for="email" class="block text-gray-700 text-sm font-semibold mb-2">
-                  Email <span class="text-red-500">*</span>
+                  Email <span class="text-primary">*</span>
                 </label>
                 <input
                   id="email"
@@ -330,7 +330,7 @@ const socialLinks = [
               <!-- Objet -->
               <div>
                 <label for="objet" class="block text-gray-700 text-sm font-semibold mb-2">
-                  Objet <span class="text-red-500">*</span>
+                  Objet <span class="text-primary">*</span>
                 </label>
                 <input
                   id="objet"
@@ -345,7 +345,7 @@ const socialLinks = [
               <!-- Message -->
               <div>
                 <label for="message" class="block text-gray-700 text-sm font-semibold mb-2">
-                  Message <span class="text-red-500">*</span>
+                  Message <span class="text-primary">*</span>
                 </label>
                 <textarea
                   id="message"
@@ -420,7 +420,7 @@ const socialLinks = [
                 :class="[
                   'flex-shrink-0 flex items-center gap-3 px-4 py-3 cursor-pointer transition-all duration-300 border-r-2',
                   selectedAgence?.id === agence.id
-                    ? 'bg-red-50 border-red-500'
+                    ? 'bg-red-50 border-primary'
                     : 'bg-white border-gray-200 hover:border-red-200 hover:bg-gray-50'
                 ]"
               >
@@ -454,21 +454,21 @@ const socialLinks = [
           <div class="space-y-6">
             <div class="bg-gradient-to-br from-red-50 to-pink-50 border-2 border-red-100 rounded-2xl p-6 shadow-lg">
               <div class="flex items-start gap-4 mb-6">
-                <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0">
+                <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
                   <MapPin class="text-white" :size="28" />
                 </div>
                 <div class="flex-1">
-                  <div class="inline-block px-3 py-1 bg-red-600 text-white text-xs font-bold rounded-full mb-2">
+                  <div class="inline-block px-3 py-1 bg-primary text-white text-xs font-bold rounded-full mb-2">
                     {{ selectedAgence.type_fr || selectedAgence.type }}
                   </div>
                   <h3 class="text-gray-900 font-bold text-xl mb-2">{{ selectedAgence.name }}</h3>
                   <p class="text-gray-600 text-sm mb-3 flex items-start gap-2">
-                    <MapPin class="text-red-600 flex-shrink-0 mt-0.5" :size="16" />
+                    <MapPin class="text-primary flex-shrink-0 mt-0.5" :size="16" />
                     {{ selectedAgence.adress }}
                   </p>
                   <div class="flex items-center gap-2 mb-4">
-                    <Phone class="text-red-600" :size=16 />
-                    <a :href="`tel:${selectedAgence.contact}`" class="text-red-600 hover:text-red-700 font-semibold text-sm">
+                    <Phone class="text-primary" :size=16 />
+                    <a :href="`tel:${selectedAgence.contact}`" class="text-primary hover:text-red-700 font-semibold text-sm">
                       {{ selectedAgence.contact }}
                     </a>
                   </div>
@@ -478,7 +478,7 @@ const socialLinks = [
 
               <a  :href="`https://www.google.com/maps/dir/?api=1&destination=${selectedAgence.latitude},${selectedAgence.longitude}`"
                 target="_blank"
-                class="w-full inline-flex items-center justify-center gap-2 bg-red-600 text-white px-6 py-4 rounded-xl font-bold hover:bg-red-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                class="w-full inline-flex items-center justify-center gap-2 bg-primary text-white px-6 py-4 rounded-xl font-bold hover:bg-red-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
                 <MapPin :size="20" />
                 Obtenir l'itinéraire

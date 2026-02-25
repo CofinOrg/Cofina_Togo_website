@@ -252,6 +252,20 @@
                   />
                 </div>
 
+                <!-- Spécifications particulières -->
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Spécifications particulières
+                    <span class="text-gray-400 font-normal">(optionnel — utilisé pour affiner le scoring des CVs)</span>
+                  </label>
+                  <textarea
+                    v-model="form.spe_particular"
+                    rows="3"
+                    placeholder="Ex: Profil bilingue anglais, expérience en microfinance min. 3 ans, maîtrise de SAP..."
+                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
+                  ></textarea>
+                </div>
+
                 <!-- Type et Date limite -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
@@ -426,6 +440,11 @@
                 <p class="text-gray-700">{{ viewingJob.summary }}</p>
               </div>
 
+              <div v-if="viewingJob.spe_particular">
+                <p class="text-sm text-gray-500 mb-1">Spécifications particulières</p>
+                <p class="text-gray-700 whitespace-pre-wrap">{{ viewingJob.spe_particular }}</p>
+              </div>
+
               <div>
                 <p class="text-sm text-gray-500 mb-1">Description complète</p>
                 <p class="text-gray-700 whitespace-pre-wrap">{{ viewingJob.content }}</p>
@@ -449,6 +468,7 @@ import api from '../../utils/api'
 interface JobOffer {
   id: number
   title: string
+  spe_particular?: string
   content: string
   summary: string
   form_link: string
@@ -477,6 +497,7 @@ const jobOffers = ref<JobOffer[]>([])
 // Form data
 const form = ref({
   title: '',
+  spe_particular: '',
   content: '',
   summary: '',
   form_link: '',
@@ -525,6 +546,7 @@ const fetchJobOffers = async () => {
 const resetForm = () => {
   form.value = {
     title: '',
+    spe_particular: '',
     content: '',
     summary: '',
     form_link: '',
@@ -556,6 +578,7 @@ const saveJob = async () => {
   try {
     const payload = {
       title: form.value.title,
+      spe_particular: form.value.spe_particular || null,
       content: form.value.content,
       summary: form.value.summary,
       form_link: form.value.form_link,
@@ -594,6 +617,7 @@ const editJob = (job: JobOffer) => {
   editingId.value = job.id
   form.value = {
     title: job.title,
+    spe_particular: job.spe_particular || '',
     content: job.content,
     summary: job.summary,
     form_link: job.form_link,

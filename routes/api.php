@@ -5,7 +5,6 @@ use App\Http\Controllers\API\CustomerMessageController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\BlogController;
 use App\Http\Controllers\API\JobOfferController;
-use App\Http\Controllers\API\BlogImgController;
 use App\Http\Controllers\API\AgenceController;
 use App\Http\Controllers\API\AnalyticsController;
 use App\Http\Controllers\API\AnnouncementController;
@@ -17,6 +16,9 @@ use App\Http\Controllers\API\PreRegistrationController;
 use App\Http\Controllers\API\BusinessClubMemberController;
 use App\Http\Controllers\API\NotificationController;
 use App\Http\Controllers\API\ChatController;
+use App\Http\Controllers\API\CvExtractorController;
+use App\Http\Controllers\API\ApplicationController;
+use App\Http\Controllers\API\CvController;
 use Illuminate\Support\Facades\Route;
 
 // Routes publiques (pas d'authentification requise)
@@ -24,6 +26,9 @@ Route::prefix('blogs')->name('blog.')->controller(BlogController::class)->group(
     Route::get('/', 'index')->name('index');
     Route::get('/{id}', 'show')->name('show');
 });
+
+
+
 
 Route::get('agences', [AgenceController::class, 'index'])->name('agence.public.index');
 
@@ -70,7 +75,12 @@ Route::prefix('business_club_members')->name('business_club_member.')->controlle
         Route::post('/', 'store')->name('store');
     });
 
-Route::get('/chat', [ChatController::class, 'ask'])->name('chat');
+Route::post('/chat', [ChatController::class, 'ask'])->name('chat');
+
+Route::prefix('cvs')->name('cv.')->controller(CvController::class)->group(function () {
+    Route::post('/', 'store')->name('store');
+});
+
 
 
 Route::controller(AuthController::class)->group(function () {
@@ -185,6 +195,12 @@ Route::controller(AuthController::class)->group(function () {
 
         Route::get('analytics/overview', [AnalyticsController::class, 'overview'])->name('analytics.overview');
 
+        Route::prefix('cv_extractors')->name('cv_extractor.')->controller(CvExtractorController::class)->group(function () {
+            Route::get('/', action: 'extract')->name('extract');
+            Route::get('/{cvId}', action: 'extractById')->name('extract-by-id');
+            Route::post('/upload', action: 'extractFromUpload')->name('extract-upload');
+        });
+
         Route::prefix('notifications')->name('notification.')->controller(NotificationController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/unread-count', 'unreadCount')->name('unread-count');
@@ -193,6 +209,22 @@ Route::controller(AuthController::class)->group(function () {
             Route::get('/{id}', 'show')->name('show');
             Route::delete('/{id}', 'destroy')->name('destroy');
         });
+
+        Route::prefix('cvs')->name('cv.')->controller(CvController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/{id}', 'show')->name('show');
+            Route::put('/{id}', 'update')->name('update');
+            Route::delete('/{id}', 'destroy')->name('destroy');
+        });
+
+        Route::prefix('applications')->name('application.')->controller(ApplicationController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+            Route::get('/{id}', 'show')->name('show');
+            Route::put('/{id}', 'update')->name('update');
+            Route::delete('/{id}', 'destroy')->name('destroy');
+        });
+
 
 
     });

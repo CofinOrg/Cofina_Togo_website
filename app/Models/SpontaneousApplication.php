@@ -110,6 +110,11 @@ class SpontaneousApplication extends ModelBase
     |
     */
 
+    public function cv()
+    {
+        return $this->hasOne(Cv::class);
+    }
+
     // Exemple de relation BelongsTo:
     // public function user(): BelongsTo
     // {

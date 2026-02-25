@@ -5,6 +5,9 @@ namespace App\Http\Controllers\API;
 use App\Models\JobOffer;
 use Illuminate\Http\Request;
 use Maravel\Http\Controllers\APIController;
+use App\Services\ScoringService;
+use App\Models\Cv;
+use App\Models\Application;
 
 /**
  * @group JobOffer
@@ -14,6 +17,7 @@ use Maravel\Http\Controllers\APIController;
 class JobOfferController extends APIController
 {
     protected string $modelClass = "\App\Models\JobOffer";
+    protected ScoringService $scoringService;
 
     /**
      * Affiche les JobOffer
@@ -76,14 +80,14 @@ class JobOfferController extends APIController
         $connectedUser = $request->user();
         $this->storeValidationArray = [
             'title' => 'required|string',
+            'spe_particular' => 'nullable|string',
             'content' => 'required|string|max:5000',
             'summary' => 'required|string|max:500',
-            'for' => 'required|string|max:500',
+            'for' => 'nullable|string|max:500',
             'form_link' => 'required|url',
             'deadline' => 'required|date',
             'type' => 'required|in:stage,cdd,cdi',
             'status' => 'required|in:active,blocked',
-
         ];
         $this->storeManualValidationsFunction = function ($requestData) use ($connectedUser) {
             return null;
@@ -101,6 +105,8 @@ class JobOfferController extends APIController
             return $model;
         };
         $this->storeAfterCommitFunction = function ($model, $requestData, $data) use ($connectedUser) {
+            // Cas 3: Calculer le score pour toutes les candidatures spontanées
+            $this->handleNewOfferScoring($model);
             return $model;
         };
         $this->storeRelationArray = [
@@ -166,5 +172,48 @@ class JobOfferController extends APIController
         $this->updateRelationArray = [
         ];
         return parent::destroy($request, $id);
+    }
+
+    /**
+     * Cas 3: Gérer le scoring pour une nouvelle offre d'emploi
+     * Calculer les scores pour toutes les candidatures spontanées
+     */
+    private function handleNewOfferScoring($jobOffer): void
+    {
+        try {
+            // Récupérer tous les CVs avec source="spontaneous"
+            $spontaneousCVs = Cv::where('source', 'spontaneous')->get();
+
+            if ($spontaneousCVs->isEmpty()) {
+                \Log::info("Aucune candidature spontanée disponible");
+                return;
+            }
+
+            $this->scoringService = app(ScoringService::class);
+
+            foreach ($spontaneousCVs as $cv) {
+                $scoreResult = $this->scoringService->scoreCV($cv, $jobOffer);
+
+                if ($scoreResult) {
+                    // Vérifier que l'application n'existe pas déjà
+                    $existingApplication = Application::where('cv_id', $cv->id)
+                        ->where('job_offer_id', $jobOffer->id)
+                        ->first();
+
+                    if (!$existingApplication) {
+                        Application::create([
+                            'cv_id' => $cv->id,
+                            'job_offer_id' => $jobOffer->id,
+                            'score' => (int) ($scoreResult['score'] ?? 0),
+                            'details' => $scoreResult['details'] ?? null,
+                            'raison' => $scoreResult['raison'] ?? null,
+                            'status' => 'pending'
+                        ]);
+                    }
+                }
+            }
+        } catch (\Exception $e) {
+            \Log::error("Erreur newOfferScoring: {$e->getMessage()}");
+        }
     }
 }

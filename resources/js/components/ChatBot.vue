@@ -54,11 +54,20 @@ const sendMessage = async () => {
   scrollToBottom()
 
   try {
-    const response = await fetch(`/api/chat?question=${encodeURIComponent(text)}`, {
-      headers: { 'Accept': 'application/json' },
+    const chatHistory = chatMessages.value
+      .slice(0, -1)
+      .map(msg => [msg.sender === 'user' ? 'human' : 'ai', msg.text])
+
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ question: text, chat_history: chatHistory }),
     })
-      const data = await response.json()
-      isTyping.value = false
+    const data = await response.json()
+    isTyping.value = false
 
 
     chatMessages.value.push({
