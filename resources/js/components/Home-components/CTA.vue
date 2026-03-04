@@ -1,7 +1,7 @@
 <script setup lang="ts">
-// Props pour personnalisation
+import mobilePersonDefault from  '../../assets/images/accueil/Adobe-Express-file-final.png';
+import ScrollReveal from '../ScrollReveal.vue'
 
-import mobilePersonDefault from '../../assets/images/accueil/Adobe Express - file-final.png'
 defineProps({
   mobilePersonImage: {
     type: String,
@@ -23,10 +23,11 @@ defineProps({
         >
       </div>
 
-      <div class="relative z-10 max-w-[1400px] mx-auto px-4 lg:px-8">
+      <div class="relative z-10 max-w-350 mx-auto px-4 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           <!-- Colonne gauche : Texte et boutons -->
-          <div class="animate-slide-in-left">
+          <ScrollReveal animation="fade-left" :duration="800">
+          <div>
             <h2 class="text-white text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
               Découvrez COFINA mobile +
             </h2>
@@ -68,28 +69,28 @@ defineProps({
               </a>
             </div>
           </div>
+          </ScrollReveal>
 
           <!-- Colonne droite : Image de la personne - Taille réduite -->
-          <div class="mb-17 hidden lg:flex justify-end items-end animate-slide-in-right min-w-0 overflow-hidden">
+          <ScrollReveal animation="fade-right" :duration="900" :delay="150">
+          <div class="mb-16 hidden lg:flex justify-end items-end min-w-0 overflow-hidden">
             <img
               :src="mobilePersonImage"
               alt="Cofina Mobile"
-              class="h-[480px] xl:h-[320px] max-w-full w-auto object-contain"
+              class="h-120 xl:h-80 max-w-full w-auto object-contain"
             >
           </div>
+          </ScrollReveal>
         </div>
       </div>
     </div>
 
     <!-- Section grise : Image de fond avec texte et boutons -->
-    <div class="relative py-12 md:py-6">
-      <!-- Image de fond de la bande grise -->
+  <!--   <div class="relative py-12 md:py-6">
 
 
-      <!-- Contenu par-dessus l'image -->
       <div class="relative z-10 max-w-[1000px] mx-auto px-4 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <!-- Colonne gauche : Texte -->
           <div>
             <h2 class="text-gray-900 text-3xl md:text-4xl font-bold mb-4">
               Un projet en tête ?
@@ -99,9 +100,7 @@ defineProps({
             </p>
           </div>
 
-          <!-- Colonne droite : Boutons -->
           <div class="flex flex-col gap-4">
-            <!-- Bouton Simulateur de DAT -->
             <a
               href="/simulateurs-dat"
               class="inline-flex items-center justify-center text-gray-900 bg-white border-2 border-gray-900 px-8 py-3 rounded-full text-sm font-bold hover:bg-gray-900 hover:text-white transition-all duration-300 shadow-md hover:shadow-lg"
@@ -109,7 +108,6 @@ defineProps({
               Tester notre simulateur de DAT
             </a>
 
-            <!-- Bouton Simulateur de prêt -->
             <a
               href="/simulateurs"
               class="inline-flex items-center justify-center text-gray-900 bg-white border-2 border-gray-900 px-8 py-3 rounded-full text-sm font-bold hover:bg-gray-900 hover:text-white transition-all duration-300 shadow-md hover:shadow-lg"
@@ -119,40 +117,7 @@ defineProps({
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </section>
 </template>
 
-<style scoped>
-/* Animation d'entrée depuis la gauche */
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.animate-slide-in-left {
-  animation: slideInLeft 0.8s ease-out;
-}
-
-/* Animation d'entrée depuis la droite */
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.animate-slide-in-right {
-  animation: slideInRight 0.8s ease-out;
-}
-</style>

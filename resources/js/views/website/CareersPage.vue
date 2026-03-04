@@ -78,6 +78,11 @@ const closeJobDetails = () => {
   selectedJob.value = null;
 };
 
+const applyToJob = (job: JobOffer) => {
+  openJobApplication(job);
+  setTimeout(() => closeJobDetails(), 100);
+};
+
 const openJobApplication = (job: JobOffer) => {
   selectedJob.value = job;
   isJobApplicationModalOpen.value = true;
@@ -220,7 +225,7 @@ onMounted(() => {
                 <!-- Apply Button -->
                 <div class="mt-8 pt-6 border-t border-gray-200">
                     <button
-                        @click="openJobApplication(selectedJob!); setTimeout(() => closeJobDetails(), 100)"
+                        @click="applyToJob(selectedJob!)"
                         class="w-full bg-primary hover:bg-secondary text-white font-bold py-4 px-6 rounded-xl transition-colors flex items-center justify-center gap-2"
                         >
                         <SendHorizonalIcon class="w-5 h-5" />
@@ -250,7 +255,7 @@ onMounted(() => {
 
 .line-clamp-3 {
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

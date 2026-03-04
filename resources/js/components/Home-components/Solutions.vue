@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import api from '@/utils/api'
+import ScrollReveal from '@/components/ScrollReveal.vue'
 
 // Toutes les services chargées depuis l'API
 const services = ref([])
@@ -50,7 +51,7 @@ const activePackId = ref(null)
 
 const activePackProducts = computed(() => {
   const service = packServices.value.find(s => s.id === activePackId.value)
-  return (service?.service_product || []).filter(p => p.section !== 'premium')
+  return (service?.service_product || [])
 })
 
 const changePackTab = (id) => {
@@ -117,7 +118,7 @@ onMounted(async () => {
 
 <template>
   <section class="py-16 md:py-20 bg-gray-50">
-    <div class="max-w-[1400px] mx-auto px-4 lg:px-14">
+    <div class="max-w-350 mx-auto px-4 lg:px-14">
 
       <!-- ===================== SOLUTIONS FINANCIÈRES ===================== -->
       <div class="text-center mb-8 md:mb-10">
@@ -145,8 +146,13 @@ onMounted(async () => {
       </div>
 
       <!-- Contenu de l'onglet financier actif -->
-      <div v-if="activeFinancialProducts.length > 0" class="animate-fade-in">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 lg:gap-8 mb-16">
+      <ScrollReveal
+        v-if="activeFinancialProducts.length > 0"
+        :key="activeFinancialId"
+        :stagger="true"
+        :stagger-delay="80"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-16"
+      >
           <div
             v-for="product in activeFinancialProducts"
             :key="product.id"
@@ -188,8 +194,7 @@ onMounted(async () => {
               Souscrire &rarr;
             </router-link>
           </div>
-        </div>
-      </div>
+      </ScrollReveal>
 
       <!-- État vide solutions -->
       <div v-else-if="financialServices.length > 0" class="text-center py-12 mb-16">
@@ -327,8 +332,13 @@ onMounted(async () => {
         </div>
 
         <!-- Cartes des produits du pack actif -->
-        <div v-if="activePackProducts.length > 0" class="animate-fade-in">
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 lg:gap-6">
+        <ScrollReveal
+          v-if="activePackProducts.length > 0"
+          :key="activePackId"
+          :stagger="true"
+          :stagger-delay="80"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6"
+        >
             <div
               v-for="(product, index) in activePackProducts"
               :key="product.id"
@@ -351,7 +361,7 @@ onMounted(async () => {
               </h3>
 
               <!-- Description / Avantage -->
-              <p class="text-gray-600 text-sm leading-relaxed  text-center min-h-[80px]">
+              <p class="text-gray-600 text-sm leading-relaxed  text-center min-h-20">
                 {{ product.advantage }}
               </p>
 
@@ -378,8 +388,7 @@ onMounted(async () => {
                 Souscrire
               </router-link>
             </div>
-          </div>
-        </div>
+        </ScrollReveal>
 
         <!-- État vide packs -->
         <div v-else-if="packServices.length > 0" class="text-center py-12">

@@ -2,7 +2,7 @@
   <main class="min-h-screen bg-gray-50">
 
     <!-- Hero -->
-    <section class="relative h-[280px] flex items-center overflow-hidden">
+    <section class="relative h-70 flex items-center overflow-hidden">
       <div class="absolute inset-0">
         <img src="@/assets/images/hero_produits.png" class="w-full h-full object-cover" />
         <div class="absolute inset-0"></div>

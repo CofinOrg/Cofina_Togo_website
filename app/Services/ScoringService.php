@@ -128,9 +128,7 @@ class ScoringService
                 return null;
             }
 
-            // Utiliser CvExtractorService pour extraire le texte
             $extractor = app(CvExtractorService::class);
-            // CvExtractorService utilise un UploadedFile, donc on doit lire directement le fichier
             $parser = new Parser();
             $pdf = $parser->parseFile($fullPath);
             return trim($pdf->getText());

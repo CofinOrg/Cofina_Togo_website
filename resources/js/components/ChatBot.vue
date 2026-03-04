@@ -191,18 +191,27 @@ const sendMessage = async () => {
     </Transition>
 
     <!-- Bouton flottant -->
-    <button
-      @click="toggleChat"
-      class="w-12 h-12 bg-primary hover:bg-secondary text-white rounded-full shadow-2xl transition-all duration-300 flex items-center justify-center group hover:scale-110 shrink-0"
-      aria-label="Chat"
-    >
-      <svg v-if="!chatOpen" class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20">
-        <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd" />
-      </svg>
-      <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-      </svg>
-    </button>
+    <div class="relative shrink-0">
+      <!-- Anneaux de pulsation (visibles uniquement quand le chat est fermé) -->
+      <span v-if="!chatOpen" class="absolute inset-0 rounded-full bg-primary opacity-30 animate-ping"></span>
+      <span v-if="!chatOpen" class="absolute inset-0 rounded-full bg-primary opacity-20 animate-ping [animation-delay:0.5s]"></span>
+
+      <button
+        @click="toggleChat"
+        :class="[
+          'relative w-12 h-12 bg-primary hover:bg-secondary text-white rounded-full shadow-2xl transition-colors duration-300 flex items-center justify-center group hover:scale-110',
+          !chatOpen ? 'animate-wiggle' : ''
+        ]"
+        aria-label="Chat"
+      >
+        <svg v-if="!chatOpen" class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd" />
+        </svg>
+        <svg v-else class="w-5 h-5 animate-spin-once" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -224,5 +233,25 @@ const sendMessage = async () => {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+}
+
+/* Pulsation douce */
+.animate-wiggle {
+  animation: soft-pulse 2s ease-in-out infinite;
+}
+
+@keyframes soft-pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.15); }
+}
+
+/* Rotation rapide lors de la fermeture */
+.animate-spin-once {
+  animation: spinOnce 0.3s ease-out;
+}
+
+@keyframes spinOnce {
+  from { transform: rotate(-90deg); opacity: 0; }
+  to   { transform: rotate(0deg);   opacity: 1; }
 }
 </style>

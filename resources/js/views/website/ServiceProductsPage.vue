@@ -52,7 +52,7 @@ onMounted(() => {
     <section class="relative z-30 -mt-6 mb-8">
       <div class="container mx-auto px-6">
         <button @click="goBack"
-                class="bg-white shadow-lg rounded-full px-6 py-3 text-sm font-bold text-gray-700 hover:text-primary transition-colors">
+                class="bg-white shadow-lg rounded-full px-6 py-3 text-sm font-bold text-gray-700 hover:text-primary transition-colors cursor-pointer">
           &larr; Retour aux services
         </button>
       </div>

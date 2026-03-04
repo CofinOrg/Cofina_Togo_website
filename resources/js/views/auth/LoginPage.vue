@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="min-h-screen flex items-center justify-center bg-linear-to-br from-blue-50 via-white to-purple-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
 
       <!-- Logo et titre -->
@@ -25,7 +25,7 @@
 
           <!-- Alert erreur -->
           <div v-if="errorMessage" class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-start gap-3">
-            <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <svg class="w-5 h-5 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
             </svg>
             <div class="flex-1">
@@ -97,7 +97,7 @@
 
           <!-- Se souvenir de moi + Mot de passe oublié -->
           <div class="flex items-center justify-between">
-            <div class="flex items-center">
+     <!--        <div class="flex items-center">
               <input
                 id="remember-me"
                 v-model="form.rememberMe"
@@ -108,20 +108,20 @@
               <label for="remember-me" class="ml-2 block text-sm text-gray-700 cursor-pointer">
                 Se souvenir de moi
               </label>
-            </div>
-
+            </div> -->
+<!--
             <div class="text-sm">
               <a href="#" class="font-medium text-primary hover:text-primary/100 transition-colors">
                 Mot de passe oublié ?
               </a>
-            </div>
+            </div> -->
           </div>
 
           <!-- Bouton de connexion -->
           <button
             type="submit"
             :disabled="isLoading"
-            class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-primary to-background/100 hover:from-primary hover:to-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-linear-to-r from-primary to-background/100 hover:from-primary hover:to-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <svg v-if="isLoading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -134,12 +134,12 @@
       </form>
 
       <!-- Lien d'inscription (optionnel) -->
-      <p class="text-center text-sm text-gray-600">
+ <!--      <p class="text-center text-sm text-gray-600">
         Vous n'avez pas de compte ?
         <a href="#" class="font-medium text-primary hover:text-primary/100 transition-colors">
           Contactez l'administrateur
         </a>
-      </p>
+      </p> -->
 
       <!-- Footer -->
       <div class="text-center text-xs text-gray-500 mt-8">

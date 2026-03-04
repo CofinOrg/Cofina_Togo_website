@@ -31,11 +31,11 @@
       <div class="space-y-1">
         <!-- Dashboard -->
         <router-link
-          to="/admin/home"
+          to="/Cofinoistg@admin/home"
           class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors group"
-          active-class="bg-primary/10 text-gray-400"
+          active-class="bg-primary/10 text-primary"
         >
-          <Home class="w-5 h-5 flex-shrink-0" />
+          <Home class="w-5 h-5 shrink-0" />
           <span v-if="isExpanded" class="font-medium">Tableau de bord</span>
         </router-link>
 
@@ -49,9 +49,9 @@
           v-if="can('menu', 'blog')"
           to="/Cofinoistg@admin/add-blog"
           class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors group"
-          active-class="bg-primary/10 text-gray-400"
+          active-class="bg-primary/10 text-primary"
         >
-          <PenSquare class="w-5 h-5 flex-shrink-0" />
+          <PenSquare class="w-5 h-5 shrink-0" />
           <span v-if="isExpanded" class="font-medium">Blog</span>
         </router-link>
 
@@ -60,9 +60,9 @@
           v-if="can('menu', 'announcement')"
           to="/Cofinoistg@admin/insights"
           class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors group"
-          active-class="bg-primary/10 text-gray-400"
+          active-class="bg-primary/10 text-primary"
         >
-          <BarChart3 class="w-5 h-5 flex-shrink-0" />
+          <BarChart3 class="w-5 h-5 shrink-0" />
           <span v-if="isExpanded" class="font-medium">Performance du site</span>
         </router-link>
 
@@ -71,9 +71,9 @@
           v-if="can('menu', 'agence')"
           to="/Cofinoistg@admin/add-agency"
           class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors group"
-          active-class="bg-primary/10 text-gray-400"
+          active-class="bg-primary/10 text-primary"
         >
-          <MapPin class="w-5 h-5 flex-shrink-0" />
+          <MapPin class="w-5 h-5 shrink-0" />
           <span v-if="isExpanded" class="font-medium">Agence</span>
         </router-link>
 
@@ -81,9 +81,9 @@
           v-if="can('menu', 'announcement')"
           to="/Cofinoistg@admin/add-announcement"
           class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors group"
-          active-class="bg-primary/10 text-gray-400"
+          active-class="bg-primary/10 text-primary"
         >
-          <Megaphone class="w-5 h-5 flex-shrink-0" />
+          <Megaphone class="w-5 h-5 shrink-0" />
           <span v-if="isExpanded" class="font-medium">Annonce</span>
         </router-link>
 
@@ -91,9 +91,9 @@
           v-if="can('menu', 'slider')"
           to="/Cofinoistg@admin/add-slider"
           class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors group"
-          active-class="bg-primary/10 text-gray-400"
+          active-class="bg-primary/10 text-primary"
         >
-          <FileSlidersIcon class="w-5 h-5 flex-shrink-0" />
+          <FileSlidersIcon class="w-5 h-5 shrink-0" />
           <span v-if="isExpanded" class="font-medium">Sliders</span>
         </router-link>
 
@@ -101,9 +101,9 @@
           v-if="can('menu', 'service')"
           to="/Cofinoistg@admin/service-product"
           class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors group"
-          active-class="bg-primary/10 text-gray-400"
+          active-class="bg-primary/10 text-primary"
         >
-          <FileSlidersIcon class="w-5 h-5 flex-shrink-0" />
+          <FileSlidersIcon class="w-5 h-5 shrink-0" />
           <span v-if="isExpanded" class="font-medium">Service et Produits</span>
         </router-link>
 
@@ -111,9 +111,9 @@
           v-if="can('menu', 'preregistration') || can('menu', 'service')"
           to="/Cofinoistg@admin/pre-registrations"
           class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors group"
-          active-class="bg-primary/10 text-gray-400"
+          active-class="bg-primary/10 text-primary"
         >
-          <ClipboardList class="w-5 h-5 flex-shrink-0" />
+          <ClipboardList class="w-5 h-5 shrink-0" />
           <span v-if="isExpanded" class="font-medium">Pré-inscriptions</span>
         </router-link>
 
@@ -121,9 +121,9 @@
           v-if="can('menu', 'customermessage') || can('menu', 'service')"
           to="/Cofinoistg@admin/customer-messages"
           class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors group"
-          active-class="bg-primary/10 text-gray-400"
+          active-class="bg-primary/10 text-primary"
         >
-          <MessageSquare class="w-5 h-5 flex-shrink-0" />
+          <MessageSquare class="w-5 h-5 shrink-0" />
           <span v-if="isExpanded" class="font-medium">Messages clients</span>
         </router-link>
 
@@ -131,9 +131,9 @@
           v-if="can('menu', 'businessclubmember') || can('menu', 'service')"
           to="/Cofinoistg@admin/business-club-members"
           class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors group"
-          active-class="bg-primary/10 text-gray-400"
+          active-class="bg-primary/10 text-primary"
         >
-          <Crown class="w-5 h-5 flex-shrink-0" />
+          <Crown class="w-5 h-5 shrink-0" />
           <span v-if="isExpanded" class="font-medium">Business Club</span>
         </router-link>
 
@@ -147,9 +147,9 @@
           v-if="can('menu', 'joboffer')"
           to="/Cofinoistg@admin/offer"
           class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors group"
-          active-class="bg-primary/10 text-gray-400"
+          active-class="bg-primary/10 text-primary"
         >
-          <Briefcase class="w-5 h-5 flex-shrink-0" />
+          <Briefcase class="w-5 h-5 shrink-0" />
           <span v-if="isExpanded" class="font-medium">Offres d'emploi</span>
         </router-link>
 
@@ -158,9 +158,9 @@
           v-if="can('menu', 'joboffer')"
           to="/Cofinoistg@admin/offer-applications"
           class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors group"
-          active-class="bg-primary/10 text-gray-400"
+          active-class="bg-primary/10 text-primary"
         >
-          <FileText class="w-5 h-5 flex-shrink-0" />
+          <FileText class="w-5 h-5 shrink-0" />
           <span v-if="isExpanded" class="font-medium">Candidatures par offre</span>
         </router-link>
 
@@ -169,9 +169,9 @@
           v-if="can('menu', 'joboffer')"
           to="/Cofinoistg@admin/scoring-stats"
           class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors group"
-          active-class="bg-primary/10 text-gray-400"
+          active-class="bg-primary/10 text-primary"
         >
-          <BarChart3 class="w-5 h-5 flex-shrink-0" />
+          <BarChart3 class="w-5 h-5 shrink-0" />
           <span v-if="isExpanded" class="font-medium">Statistiques scoring</span>
         </router-link>
 
@@ -180,11 +180,11 @@
           v-if="can('menu', 'spontaneousapplication')"
           to="/Cofinoistg@admin/spontaneous-applications"
           class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors group"
-          active-class="bg-primary/10 text-gray-400"
+          active-class="bg-primary/10 text-primary"
         >
-          <Users class="w-5 h-5 flex-shrink-0" />
+          <Users class="w-5 h-5 shrink-0" />
           <span v-if="isExpanded" class="font-medium">Candidatures spontanées</span>
-          <span v-if="isExpanded" class="ml-auto bg-red-100 text-red-600 text-xs font-bold px-2 py-0.5 rounded-full">12</span>
+          <span v-if="isExpanded" class="ml-auto bg-red-100 text-red-600 text-xs font-bold px-2 py-0.5 rounded-full"></span>
         </router-link>
 
         <!-- Divider Gestion -->
@@ -197,9 +197,9 @@
           v-if="can('manage', 'all')"
           to="/Cofinoistg@admin/users"
           class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors group"
-          active-class="bg-primary/10 text-gray-400"
+          active-class="bg-primary/10 text-primary"
         >
-          <UserCog class="w-5 h-5 flex-shrink-0" />
+          <UserCog class="w-5 h-5 shrink-0" />
           <span v-if="isExpanded" class="font-medium">Utilisateurs</span>
         </router-link>
 

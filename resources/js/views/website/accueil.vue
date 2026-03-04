@@ -15,7 +15,7 @@ import ScrollReveal from '@/components/ScrollReveal.vue';
 
     <!-- <Rsisection /> -->
 
-    <ScrollReveal animation="fade-up" :duration="800">
+    <ScrollReveal animation="fade-up" :duration="500" :threshold="0.05">
       <Solutions />
     </ScrollReveal>
 
@@ -23,11 +23,11 @@ import ScrollReveal from '@/components/ScrollReveal.vue';
       <Privilege />
     </ScrollReveal>
 
-    <ScrollReveal animation="fade-right" :duration="700" :delay="100">
+    <ScrollReveal animation="fade-zoom" :duration="700">
       <CTA />
     </ScrollReveal>
 
-    <ScrollReveal animation="fade-up" :duration="800" :delay="150">
+    <ScrollReveal animation="fade-up" :duration="700" :delay="100">
       <Blog />
     </ScrollReveal>
   </div>

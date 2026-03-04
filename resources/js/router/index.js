@@ -36,6 +36,7 @@ import ScoringStats from '../views/admin/ScoringStats.vue'
 import Notifications from '../views/admin/Notifications.vue'
 import InsightPage from '../views/admin/InsightPage.vue'
 import BusinessClubMembers from '../views/admin/BusinessClubMembers.vue'
+import NotFoundPage from '../views/website/NotFoundPage.vue'
 
 
 const router = createRouter({
@@ -43,7 +44,6 @@ const router = createRouter({
     history: createWebHistory("/"),
 
     scrollBehavior(to, from, savedPosition) {
-        // 🔁 Bouton "retour" du navigateur
         if (savedPosition) {
             return savedPosition
         }
@@ -263,8 +263,14 @@ const router = createRouter({
         },
 
         {
-            path: '/login',
+            path: '/Cofinoistg@admin/login',
             component: LoginPage
+        },
+
+        {
+            path: '/:pathMatch(.*)*',
+            name: 'not-found',
+            component: NotFoundPage
         }
     ],
 })
@@ -283,7 +289,7 @@ router.beforeEach((to, _from, next) => {
 
         if (!authStore.isAuthenticated) {
             // Pas de token, rediriger vers login
-            return next({ path: '/login', query: { redirect: to.fullPath } })
+            return next({ path: '/Cofinoistg@admin/login', query: { redirect: to.fullPath } })
         }
 
         // Vérifier les permissions si la route a un subject/action

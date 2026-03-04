@@ -191,6 +191,7 @@ class JobOfferController extends APIController
 
             $this->scoringService = app(ScoringService::class);
 
+            /** @var Cv $cv */
             foreach ($spontaneousCVs as $cv) {
                 $scoreResult = $this->scoringService->scoreCV($cv, $jobOffer);
 

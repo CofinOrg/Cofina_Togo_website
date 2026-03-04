@@ -33,50 +33,91 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="min-h-screen bg-white">
-    <section class="relative h-75 flex items-center bg-[#333] overflow-hidden">
-      <div class="absolute inset-0 opacity-40">
-        <img src="../../assets/images/hero_produits.png" alt="Produits COFINA" class="w-full h-full object-cover" />
+  <main class="min-h-screen bg-gray-50">
+
+    <!-- Hero -->
+    <section class="relative h-80 flex items-end bg-[#1E1E1E] overflow-hidden">
+      <div class="absolute inset-0">
+        <img src="../../assets/images/hero_produits.png" alt="Produits COFINA"
+             class="w-full h-full object-cover opacity-30" />
+        <div class="absolute inset-0 bg-linear-to-r from-[#1E1E1E]/90 to-transparent"></div>
       </div>
-      <div class="container mx-auto px-6 relative z-10">
-        <h1 class="text-4xl md:text-5xl font-bold text-white tracking-tight">Nos produits & services</h1>
+      <div class="container mx-auto px-6 relative z-10 pb-16">
+        <!-- <p class="text-accent text-sm font-bold uppercase tracking-widest mb-2">COFINA Sénégal</p> -->
+        <h1 class="text-4xl md:text-5xl font-black text-white leading-tight">
+          Nos produits <br/><span class="text-primary">&amp; services</span>
+        </h1>
       </div>
+      <!-- Vague en bas -->
+     <!--  <div class="absolute bottom-0 left-0 right-0">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" class="w-full h-16 fill-gray-50">
+          <path d="M0,60 C360,0 1080,60 1440,20 L1440,60 Z"/>
+        </svg>
+      </div> -->
     </section>
 
-    <section class="py-20 bg-gray-50">
+    <!-- Contenu -->
+    <section class="py-16">
       <div class="container mx-auto px-6">
+
+        <!-- Intro -->
+        <div class="text-center mb-12">
+          <p class="text-secondary text-lg max-w-2xl mx-auto">
+            Découvrez l'ensemble de nos solutions financières pensées pour accompagner
+            votre croissance personnelle et professionnelle.
+          </p>
+        </div>
+
         <!-- Loading -->
-        <div v-if="loading" class="flex justify-center -mt-32 relative z-20">
+        <div v-if="loading" class="flex justify-center py-20">
           <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
         </div>
 
-        <!-- Services grid -->
-        <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-8 -mt-32 relative z-20">
-          <div v-for="service in services" :key="service.id"
-               class="bg-white rounded-lg overflow-hidden shadow-2xl hover:shadow-xl transition-shadow duration-300 flex flex-col">
-     <!--        <div class="h-64 overflow-hidden bg-gray-200">
-              <img v-if="service.image_path" :src="service.image_path" :alt="service.name" class="w-full h-full object-cover" />
-              <div v-else class="w-full h-full flex items-center justify-center text-gray-400">
-                <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
+        <!-- Grille des services -->
+        <div v-else-if="services.length > 0"
+             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div v-for="(service, index) in services" :key="service.id"
+               class="group bg-white rounded-2xl overflow-hidden shadow-md
+                      hover:shadow-2xl hover:-translate-y-1 transition-all duration-300
+                      flex flex-col">
+            <!-- Barre colorée -->
+            <div class="h-1.5 bg-primary w-full"></div>
+
+            <div class="p-8 flex flex-col grow">
+              <!-- Badge numéroté -->
+              <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+                <span class="text-primary font-black text-lg">
+                  {{ String(index + 1).padStart(2, '0') }}
+                </span>
               </div>
-            </div> -->
-            <div class="px-5 pt-2 pb-5 flex flex-col items-center text-center grow">
-              <h3 class="text-2xl font-bold text-gray-900 mb-4">{{ service.name }}</h3>
-              <p class="text-gray-600 mb-4 leading-relaxed">{{ service.description }}</p>
+
+              <h3 class="text-xl font-black text-gray-900 uppercase mb-3
+                         group-hover:text-primary transition-colors">
+                {{ service.name }}
+              </h3>
+              <p class="text-secondary text-sm leading-relaxed mb-8 grow">
+                {{ service.description }}
+              </p>
+
+              <!-- Lien flèche -->
               <button @click="openService(service)"
-                      class="mt-auto bg-[#D10000] hover:bg-red-700 text-white font-bold py-3 px-8 rounded transition-colors duration-200 uppercase text-sm tracking-widest">
-                Cliquez pour découvrir
+                      class="flex items-center gap-2 text-primary font-bold text-sm
+                             uppercase tracking-wider hover:gap-4 transition-all duration-200 cursor-pointer">
+                Découvrir
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                        d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                </svg>
               </button>
             </div>
           </div>
         </div>
 
-        <!-- Message si aucun service -->
-        <div v-if="!loading && services.length === 0" class="text-center py-12 -mt-20 relative z-20">
-          <p class="text-gray-500 text-lg">Aucun service disponible pour le moment.</p>
+        <!-- Aucun service -->
+        <div v-else class="text-center py-20">
+          <p class="text-secondary text-lg">Aucun service disponible pour le moment.</p>
         </div>
+
       </div>
     </section>
   </main>

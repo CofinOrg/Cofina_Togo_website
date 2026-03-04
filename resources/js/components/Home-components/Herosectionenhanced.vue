@@ -116,30 +116,30 @@ onUnmounted(() => {
         <div class="max-w-[1400px] mx-auto px-2 lg:px-8 w-full">
           <div class="max-w-4xl">
             <!-- Titre principal -->
-            <h1 class="text-white font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-6xl leading-[1.1] tracking-tight mb-2 animate-fade-in">
+            <h1 class="text-white font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-6xl leading-[1.1] tracking-tight mb-2 animate-fade-in">
               L'institution de mésofinance au service de votre avenir.
             </h1>
 
             <!-- Sous-titre -->
-            <p class="text-white/90 text-lg sm:text-xl md:text-2xl max-w-3xl leading-relaxed mb-2 animate-fade-in-delay">
+            <p class="text-white/90 text-sm sm:text-xl md:text-2xl max-w-3xl leading-relaxed mb-2 animate-fade-in-delay">
               Particuliers, Entrepreneurs et Institutions : découvrez une navigation fluide et des offres anticipées à vos ambitions
             </p>
 
             <!-- Boutons CTA -->
             <div class="flex flex-col sm:flex-row gap-4 pt-2 sm:pt-10 md:pt-16 lg:pt-28 animate-fade-in-delay-2">
-              <a
-                href="/contact#contact-form"
-                class="inline-flex items-center justify-center bg-primary text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-sm sm:text-base md:text-lg font-bold hover:bg-primary-dark shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
+              <router-link
+                to="/contact#contact-form"
+                class="inline-flex items-center justify-center bg-primary text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-sm sm:text-base md:text-lg font-bold hover:bg-secondary shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
               >
                 Parler à un gestionnaire
-              </a>
+              </router-link>
 
-              <a
-                href="/contact#map"
+              <router-link
+                to="/contact#map"
                 class="inline-flex items-center justify-center bg-transparent text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-sm sm:text-base md:text-lg font-bold border-2 border-white hover:bg-white hover:text-primary shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
               >
                 Trouver une agence
-              </a>
+              </router-link>
             </div>
           </div>
         </div>
@@ -167,7 +167,7 @@ onUnmounted(() => {
       <div class="max-w-[1000px] mx-auto px-4 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <!-- Carte 1: Nos packs -->
-          <div class="group bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8 border-b-[6px] md:border-b-[8px] border-primary hover:shadow-3xl hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col h-auto md:h-44">
+        <!--   <div class="group bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-4 lg:p-6 border-b-[6px] md:border-b-[8px] border-primary hover:shadow-3xl hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col h-auto md:h-44">
             <h3 class="text-gray-900 font-bold mb-2 md:mb-4 text-lg md:text-xl">
               Nos packs
             </h3>
@@ -193,11 +193,11 @@ onUnmounted(() => {
                 />
               </svg>
             </router-link>
-        </div>
+        </div> -->
 
 
           <!-- Carte 2: Nos crédits & financements -->
-        <div class="group bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-4 border-b-[6px] md:border-b-[8px] border-background hover:shadow-3xl hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col h-auto md:h-44">
+        <!-- <div class="group bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-4 border-b-[6px] md:border-b-[8px] border-background hover:shadow-3xl hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col h-auto md:h-44">
           <h3 class="text-gray-900 font-bold mb-2 md:mb-4 text-lg md:text-xl">
             Nos crédits & financements
           </h3>
@@ -210,10 +210,10 @@ onUnmounted(() => {
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
           </router-link>
-        </div>
+        </div> -->
 
         <!-- Carte 3: CofiPrivilège -->
-        <div class="group bg-gradient-to-br from-gray-900 via-black to-gray-900 rounded-2xl shadow-2xl p-4 sm:p-6 md:p-4 border-b-[6px] md:border-b-[8px] border-yellow-600 hover:shadow-3xl hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col h-auto md:h-44">
+     <!--    <div class="group bg-gradient-to-br from-gray-900 via-black to-gray-900 rounded-2xl shadow-2xl p-4 sm:p-6 md:p-4 border-b-[6px] md:border-b-[8px] border-yellow-600 hover:shadow-3xl hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col h-auto md:h-44">
           <h3 class="text-yellow-500 font-bold mb-2 md:mb-4 text-lg md:text-xl">
             CofiPrivilège
           </h3>
@@ -226,7 +226,7 @@ onUnmounted(() => {
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
           </router-link>
-        </div>
+        </div> -->
 
         </div>
       </div>

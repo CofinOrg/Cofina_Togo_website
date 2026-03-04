@@ -86,7 +86,7 @@ const prevSlide = () => {
           @click="prevSlide"
           :disabled="currentIndex === 0"
           :class="[
-            'absolute -left-4 lg:-left-12 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300',
+            'absolute left-0 lg:-left-12 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300',
             currentIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-primary hover:text-white hover:scale-110'
           ]"
         >
@@ -141,7 +141,7 @@ const prevSlide = () => {
           @click="nextSlide"
           :disabled="currentIndex >= articles.length - 1"
           :class="[
-            'absolute -right-4 lg:-right-12 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300',
+            'absolute right-0 lg:-right-12 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300',
             currentIndex >= articles.length - 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-primary hover:text-white hover:scale-110'
           ]"
         >

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, nextTick } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { ChevronDown } from 'lucide-vue-next'
 import api from '../utils/api'
@@ -30,6 +30,7 @@ const closeDropdown = () => {
 }
 
 // Annonce defilante
+const filialesScrollRef = ref<HTMLElement | null>(null)
 const announcement = ref<any>(null)
 
 const fetchAnnouncement = async () => {
@@ -46,15 +47,23 @@ const fetchAnnouncement = async () => {
   }
 }
 
-onMounted(() => {
+onMounted(async () => {
   fetchAnnouncement()
+  await nextTick()
+  if (filialesScrollRef.value) {
+    const children = Array.from(filialesScrollRef.value.children) as HTMLElement[]
+    const oneCopyWidth = children
+      .slice(0, filiales.length)
+      .reduce((sum, child) => sum + child.getBoundingClientRect().width, 0)
+    filialesScrollRef.value.style.setProperty('--scroll-distance', `-${Math.ceil(oneCopyWidth)}px`)
+  }
 })
 
 </script>
 
 
 <template>
-  <div class="min-h-screen flex flex-col font-sans">
+  <div class="min-h-screen flex flex-col font-sans bg-gray-50">
 <header class="fixed top-0 ml-0 w-full z-50 bg-primary shadow-lg text-white">
   <!-- Bande annonces + réseaux sociaux -->
   <div
@@ -70,13 +79,13 @@ onMounted(() => {
     </div>
 
       <div class="flex gap-3 ml-4">
-        <a href="https://www.facebook.com/share/1A8AURXRrs/?mibextid=wwXIfr" target="_blank" class="hover:text-accent">
+        <a href="https://www.facebook.com/share/1A8AURXRrs/?mibextid=wwXIfr" target="_blank" class="hover:text-primary">
           <i class="fab fa-facebook-f"></i>
         </a>
      <!--<a href="https://twitter.com" target="_blank" class="hover:text-accent">
           <i class="fab fa-twitter"></i>
         </a> -->
-        <a href="https://www.linkedin.com/company/101791086/admin/dashboard/" target="_blank" class="hover:text-accent">
+        <a href="https://www.linkedin.com/company/101791086/admin/dashboard/" target="_blank" class="hover:text-primary">
           <i class="fab fa-linkedin-in"></i>
         </a>
        <!--  <a href="https://instagram.com" target="_blank" class="hover:text-accent">
@@ -92,7 +101,7 @@ onMounted(() => {
     <div class=" mx-auto lg:pr-8">
       <div class="flex items-center justify-between pb-2 gap-4">
         <!-- Logo -->
-        <a class="flex-shrink-0 bg-white px-1 py-1 rounded-br-3xl shadow-md cursor-pointer" href="/">
+        <a class="shrink-0 bg-white px-1 py-1 rounded-br-3xl shadow-md cursor-pointer" href="/">
           <img
             src="../assets/images/accueil/COFINA Logo.png"
             alt="Cofina Togo"
@@ -137,7 +146,7 @@ onMounted(() => {
           >
             <button
               class="text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-white hover:text-primary transition-all duration-300 flex items-center gap-1"
-              :class="{'!bg-white !text-primary': route.path.startsWith('/simulateurs')}"
+              :class="{ 'bg-white! text-primary!': route.path.startsWith('/simulateurs') }"
             >
               Simulateurs et convertisseur
               <ChevronDown :size="16" :class="{'rotate-180': simulateursDropdownOpen}" class="transition-transform duration-300" />
@@ -192,7 +201,7 @@ onMounted(() => {
         </nav>
 
         <!-- Contact Button -->
-        <div class="hidden lg:flex flex-shrink-0">
+        <div class="hidden lg:flex shrink-0">
           <RouterLink
             to="/contact"
             class="inline-block text-primary bg-white px-6 py-1.5 rounded-full text-sm font-bold hover:bg-gray-100 hover:shadow-xl transition-all duration-300"
@@ -233,7 +242,7 @@ onMounted(() => {
       <!-- Navigation Mobile -->
       <nav
         v-if="mobileMenuOpen"
-        class="lg:hidden pb-4 space-y-2 border-t border-white/20 pt-4"
+        class="lg:hidden space-y-2 border-t border-white/20 pt-4"
       >
         <RouterLink
           to="/"
@@ -264,7 +273,7 @@ onMounted(() => {
         <div>
           <button
             class="w-full flex items-center justify-between text-white text-sm font-medium py-2 px-4 rounded hover:bg-white hover:text-primary transition-all"
-            :class="{'bg-white !text-primary': mobileSimulateursOpen}"
+            :class="{'bg-white text-primary!': mobileSimulateursOpen}"
             @click="mobileSimulateursOpen = !mobileSimulateursOpen"
           >
             Simulateurs et convertisseur
@@ -321,7 +330,7 @@ onMounted(() => {
 
 
     <!-- Contenu principal -->
-    <main class="flex-1 bg-gray-50 pt-[100px]">
+    <main class="flex-1 bg-gray-50 pt-20 lg:pt-25">
       <RouterView />
     </main>
 
@@ -334,12 +343,12 @@ onMounted(() => {
         <!-- Bordure bleue supérieure -->
         <div class="absolute top-0 left-0 right-0 h-1 bg-accent"></div>
 
-        <div class="max-w-[1400px] mx-auto px-4 lg:px-8 py-12 lg:py-10">
+        <div class="max-w-350 mx-auto px-4 lg:px-8 py-12 lg:py-10">
             <!-- Contenu principal du footer -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
                 <!-- Colonne 1: Cofina TOGO -->
                 <div>
-                   <img src="../assets/images/accueil/Logos-10-ans-Groupe-Cofina.png" alt="Logo Cofina" class="w-48 mb-4" />
+                   <img src="../assets/images/accueil/loge_dark.png" alt="Logo Cofina" class="w-48 mb-4" />
                     <p class="text-gray-400 text-sm leading-relaxed">
                         COFINA, Compagnie Financière Africaine crée en 2014, est une institution opérant dans le secteur de la méso finance.
                     </p>
@@ -390,11 +399,11 @@ onMounted(() => {
                                 Mentions légales
                             </a>
                         </li>
-                        <li>
+                     <!--    <li>
                             <a href="/cookies" class="text-white text-sm hover:text-accent transition-colors duration-300">
                                 Cookies & données
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
 
@@ -422,20 +431,20 @@ onMounted(() => {
 
             <!-- Section des filiales COFINA (défilante) -->
             <div class="mt-12 pt-8  overflow-hidden">
-                <div class="filiales-scroll">
+                <div ref="filialesScrollRef" class="filiales-scroll">
                     <a
-                      v-for="(filiale, index) in [...filiales, ...filiales]"
+                      v-for="(filiale, index) in [...filiales, ...filiales, ...filiales, ...filiales]"
                       :key="index"
                       :href="filiale.url"
                       target="_blank"
                       rel="noopener noreferrer"
-                      class="text-center flex-shrink-0 px-4 hover:opacity-80 transition-opacity"
+                      class="text-center shrink-0 px-4 hover:opacity-80 transition-opacity"
                     >
                         <div class="w-10 h-10 mx-auto mb-2 bg-white rounded-full flex items-center justify-center overflow-hidden">
                             <!-- Groupe COFINA : lettre G -->
                             <div
                               v-if="filiale.label"
-                              class="w-7 h-7 rounded-full bg-gradient-to-br from-red-600 to-pink-500 flex items-center justify-center"
+                              class="w-7 h-7 rounded-full bg-linear-to-br from-red-600 to-pink-500 flex items-center justify-center"
                             >
                                 <span class="text-white text-xs font-bold">{{ filiale.label }}</span>
                             </div>
@@ -472,7 +481,7 @@ onMounted(() => {
 .animate-marquee {
   display: inline-block;
   white-space: nowrap;
-  animation: marquee 20s linear infinite;
+  animation: marquee 30s linear infinite;
 }
 
 @keyframes dropdown {
@@ -491,9 +500,10 @@ onMounted(() => {
 }
 
 @keyframes scroll-filiales {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  from { transform: translateX(0); }
+  to { transform: translateX(var(--scroll-distance, -50%)); }
 }
+
 
 .filiales-scroll {
   display: flex;

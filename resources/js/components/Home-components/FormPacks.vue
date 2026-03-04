@@ -1,6 +1,6 @@
 <template>
   <main class="min-h-screen bg-white">
-    <section class="relative h-[300px] flex items-center bg-[#333] overflow-hidden">
+    <section class="relative h-75 flex items-center bg-[#333] overflow-hidden">
       <div class="absolute inset-0 opacity-40">
         <img src="@/assets/images/hero_produits.png" class="w-full h-full object-cover" alt="Hero Souscription" />
       </div>
@@ -25,7 +25,7 @@
 
     <section class="pb-20 container mx-auto px-6">
       <div class="max-w-2xl mx-auto">
-        <div class="bg-[#F2F2F2] p-8 md:p-12 rounded-3xl shadow-sm">
+        <div class="bg-[#fa2c2c] p-8 md:p-12 rounded-3xl shadow-sm">
 
           <form @submit.prevent="handleSubmit">
             <!-- Section Informations personnelles -->

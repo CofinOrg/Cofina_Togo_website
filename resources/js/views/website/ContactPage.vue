@@ -168,7 +168,7 @@ const socialLinks = [
 <template>
   <div class="min-h-screen bg-gray-50">
     <!-- Section principale avec image de fond et formulaire -->
-    <section class="relative py-12 md:py-16 bg-gradient-to-br from-gray-100 to-gray-200">
+    <section class="relative py-12 md:py-16 bg-linear-to-br from-gray-100 to-gray-200">
       <!-- Image de fond -->
       <div class="absolute inset-0 opacity-10">
         <div class="w-full h-full" style="background-image: url('/src/assets/images/contact/contact-bg.png'); background-size: cover; background-position: center;"></div>
@@ -224,7 +224,7 @@ const socialLinks = [
                     'flex items-center gap-4 p-4 bg-white rounded-xl hover:shadow-lg transition-all duration-300 transform hover:-translate-x-1 group border border-gray-100'
                   ]"
                 >
-                  <div :class="[info.bgColor, 'w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300']">
+                  <div :class="[info.bgColor, 'w-14 h-14 rounded-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300']">
                     <component
                       :is="info.icon"
                       :size="28"
@@ -242,7 +242,7 @@ const socialLinks = [
             <!-- Horaires -->
             <div class="bg-blue-50 border border-blue-100 rounded-xl p-5">
               <div class="flex items-start gap-3">
-                <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center shrink-0">
                   <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                   </svg>
@@ -418,7 +418,7 @@ const socialLinks = [
                 :key="agence.id"
                 @click="selectAgence(agence)"
                 :class="[
-                  'flex-shrink-0 flex items-center gap-3 px-4 py-3 cursor-pointer transition-all duration-300 border-r-2',
+                  'shrink-0 flex items-center gap-3 px-4 py-3 cursor-pointer transition-all duration-300 border-r-2',
                   selectedAgence?.id === agence.id
                     ? 'bg-red-50 border-primary'
                     : 'bg-white border-gray-200 hover:border-red-200 hover:bg-gray-50'
@@ -452,9 +452,9 @@ const socialLinks = [
 
 
           <div class="space-y-6">
-            <div class="bg-gradient-to-br from-red-50 to-pink-50 border-2 border-red-100 rounded-2xl p-6 shadow-lg">
+            <div class="bg-linear-to-br from-red-50 to-pink-50 border-2 border-red-100 rounded-2xl p-6 shadow-lg">
               <div class="flex items-start gap-4 mb-6">
-                <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center shrink-0">
                   <MapPin class="text-white" :size="28" />
                 </div>
                 <div class="flex-1">
@@ -463,7 +463,7 @@ const socialLinks = [
                   </div>
                   <h3 class="text-gray-900 font-bold text-xl mb-2">{{ selectedAgence.name }}</h3>
                   <p class="text-gray-600 text-sm mb-3 flex items-start gap-2">
-                    <MapPin class="text-primary flex-shrink-0 mt-0.5" :size="16" />
+                    <MapPin class="text-primary shrink-0 mt-0.5" :size="16" />
                     {{ selectedAgence.adress }}
                   </p>
                   <div class="flex items-center gap-2 mb-4">
