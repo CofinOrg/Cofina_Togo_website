@@ -75,7 +75,7 @@ const features = [
                 </span>
               </h2>
               <p class="text-gray-400 text-sm leading-relaxed max-w-md">
-                <span class="text-yellow-400 font-semibold">COFINA BUSINESS TOUCH</span> est un service exclusif réservé à une clientèle d'affaires sélectionnée. Profitez d'avantages inégalés et d'une relation bancaire personnalisée.
+                <span class="text-yellow-400 font-semibold">COFINA BUSINESS TOUCH</span> est un service exclusif réservé à une clientèle d'affaires sélectionnée. Profitez d'avantages inégalés et d'une relation personnalisée.
               </p>
             </div>
           </ScrollReveal>

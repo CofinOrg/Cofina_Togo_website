@@ -156,7 +156,7 @@ onMounted(async () => {
           <div
             v-for="product in activeFinancialProducts"
             :key="product.id"
-            class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-4 lg:p-5 border border-gray-100 hover:-translate-y-1 group"
+            class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-4 lg:p-5 border border-gray-100 hover:-translate-y-1 group flex flex-col"
           >
             <!-- Icône -->
             <div class="w-12 h-12 bg-pink-50 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
@@ -171,7 +171,7 @@ onMounted(async () => {
             </h3>
 
             <!-- Avantage -->
-            <p class="text-gray-600 text-sm leading-relaxed mb-4">
+            <p class="text-gray-600 text-sm leading-relaxed mb-4 flex-1">
               {{ product.advantage }}
             </p>
 
@@ -189,9 +189,9 @@ onMounted(async () => {
             <router-link
               v-if="!isCredit"
               :to="{ name: 'pack-form', params: { productId: product.id } }"
-              class="inline-flex items-center text-primary text-sm font-semibold hover:gap-2 gap-1 transition-all duration-300"
+              class="mt-auto block w-full text-center px-6 py-3 rounded-lg text-sm font-bold text-primary border-2 border-primary hover:bg-primary hover:text-white transition-all duration-300"
             >
-              Souscrire &rarr;
+              Souscrire
             </router-link>
           </div>
       </ScrollReveal>
@@ -343,7 +343,7 @@ onMounted(async () => {
               v-for="(product, index) in activePackProducts"
               :key="product.id"
               :class="[
-                'bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-2 lg:p-6 border-2 hover:-translate-y-1 relative',
+                'bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-2 lg:p-6 border-2 hover:-translate-y-1 relative flex flex-col',
                 index === 0 ? 'border-primary' : 'border-gray-200'
               ]"
             >
@@ -361,7 +361,7 @@ onMounted(async () => {
               </h3>
 
               <!-- Description / Avantage -->
-              <p class="text-gray-600 text-sm leading-relaxed  text-center min-h-20">
+              <p class="text-gray-600 text-sm leading-relaxed text-center flex-1">
                 {{ product.advantage }}
               </p>
 
@@ -379,7 +379,7 @@ onMounted(async () => {
               <router-link
                 :to="{ name: 'pack-form', params: { productId: product.id } }"
                 :class="[
-                  'block w-full text-center px-6 py-3 rounded-lg text-sm font-bold transition-all duration-300',
+                  'mt-auto block w-full text-center px-6 py-3 rounded-lg text-sm font-bold transition-all duration-300',
                   index === 0
                     ? 'bg-primary text-white hover:bg-secondary shadow-md hover:shadow-lg'
                     : 'bg-white text-primary border-2 border-primary hover:bg-primary hover:text-white'

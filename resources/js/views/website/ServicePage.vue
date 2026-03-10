@@ -70,7 +70,7 @@ onMounted(() => {
 
         <!-- Loading -->
         <div v-if="loading" class="flex justify-center py-20">
-          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+          <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-primary"></div>
         </div>
 
         <!-- Grille des services -->
@@ -83,7 +83,7 @@ onMounted(() => {
             <!-- Barre colorée -->
             <div class="h-1.5 bg-primary w-full"></div>
 
-            <div class="p-8 flex flex-col grow">
+            <div class="p-4 flex flex-col grow">
               <!-- Badge numéroté -->
               <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-6">
                 <span class="text-primary font-black text-lg">

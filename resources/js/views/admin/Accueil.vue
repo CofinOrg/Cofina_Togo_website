@@ -305,7 +305,7 @@ const quickActions = computed(() => {
       </div>
 
       <!-- ── Accès rapides ───────────────────────────────────────────────── -->
-      <div v-if="quickActions.length > 0">
+      <!-- <div v-if="quickActions.length > 0">
         <h2 class="text-gray-700 font-semibold text-sm uppercase tracking-wider mb-4">
           Accès rapides
         </h2>
@@ -325,7 +325,7 @@ const quickActions = computed(() => {
             <ArrowRight :size="14" class="text-gray-300 group-hover:text-primary ml-auto shrink-0 transition-colors" />
           </button>
         </div>
-      </div>
+      </div> -->
 
     </div>
   </div>

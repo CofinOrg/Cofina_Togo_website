@@ -98,7 +98,7 @@ class User extends AuthenticatableBase
             'admin' => [['subject' => ['all'], 'action' => ['manage']]],
             'rh' => [
                 [
-                    'subject' => ['spontaneousapplication', 'joboffer'],
+                    'subject' => ['spontaneousapplication'],
                     'action' => [
                         'menu',
                         'read',
@@ -109,6 +109,33 @@ class User extends AuthenticatableBase
 
                 [
                     'subject' => ['notification'],
+                    'action' => [
+                        'menu',
+                        'read',
+                        'delete'
+                    ]
+                ],  
+                
+                [
+                    'subject' => ['application'],
+                    'action' => [
+                        'menu',
+                        'read',
+                        'delete'
+                    ]
+                ],  
+                
+                [
+                    'subject' => ['joboffer'],
+                    'action' => [
+                        'menu',
+                        'read',
+                        'delete'
+                    ]
+                ],
+
+                [
+                    'subject' => ['cv'],
                     'action' => [
                         'menu',
                         'read',
@@ -170,7 +197,7 @@ class User extends AuthenticatableBase
                 ],
 
                 [
-                    'subject' => ['notification'],
+                    'subject' => ['applications'],
                     'action' => [
                         'menu',
                         'read',

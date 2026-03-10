@@ -151,7 +151,6 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-
 const montant = ref<number>(5000000);
 const dureeMois = ref<number>(12);
 const taux = ref<number>(4);
@@ -177,6 +176,7 @@ const formatCompact = (value: number) => {
   if (value >= 1000) return (value / 1000).toLocaleString('fr-FR', { maximumFractionDigits: 0 }) + ' K';
   return value.toLocaleString('fr-FR');
 };
+
 </script>
 
 <style scoped>

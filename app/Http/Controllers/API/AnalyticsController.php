@@ -9,6 +9,10 @@ use Google\Analytics\Data\V1beta\Dimension;
 use Google\Analytics\Data\V1beta\Metric;
 use Google\Analytics\Data\V1beta\OrderBy;
 use Google\Analytics\Data\V1beta\OrderBy\DimensionOrderBy;
+use Google\Analytics\Data\V1beta\Filter;
+use Google\Analytics\Data\V1beta\Filter\StringFilter;
+use Google\Analytics\Data\V1beta\Filter\StringFilter\MatchType;
+use Google\Analytics\Data\V1beta\FilterExpression;
 use Google\Analytics\Data\V1beta\OrderBy\MetricOrderBy;
 use Google\Analytics\Data\V1beta\RunReportRequest;
 use Illuminate\Http\JsonResponse;
@@ -169,6 +173,18 @@ class AnalyticsController extends Controller
                 new Metric(['name' => 'totalUsers']),
                 new Metric(['name' => 'averageSessionDuration']),
             ],
+            'dimension_filter' => new FilterExpression([
+                'not_expression' => new FilterExpression([
+                    'filter' => new Filter([
+                        'field_name' => 'pagePath',
+                        'string_filter' => new StringFilter([
+                            'match_type' => MatchType::BEGINS_WITH,
+                            'value' => '/Cofinoistg@admin',
+                            'case_sensitive' => false,
+                        ]),
+                    ]),
+                ]),
+            ]),
             'order_bys' => [
                 new OrderBy([
                     'metric' => new MetricOrderBy(['metric_name' => 'screenPageViews']),

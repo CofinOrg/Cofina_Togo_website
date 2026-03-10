@@ -370,7 +370,7 @@ async function handleLogout() {
     // On déconnecte même si l'appel API échoue
   } finally {
     authStore.logout()
-    router.push('/login')
+    router.push('/Cofinoistg@admin/login')
   }
 }
 

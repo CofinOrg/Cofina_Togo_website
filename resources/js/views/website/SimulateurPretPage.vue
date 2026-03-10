@@ -93,18 +93,19 @@
               <div class="flex gap-3 pt-2">
                 <button
                   @click="afficherTableau = true"
-                  class="flex-1 border-2 border-primary text-primary py-3 rounded-xl font-bold text-sm hover:bg-primary hover:text-white transition-all duration-200"
+                  class="flex-1 border-2 border-primary text-primary py-3 rounded-xl font-bold text-sm hover:bg-primary hover:text-white transition-all duration-200 cursor-pointer"
                 >
                   Tableau d'amortissement
                 </button>
                 <button
-                  @click="imprimerTableau"
-                  class="px-5 border-2 border-gray-200 text-gray-500 py-3 rounded-xl font-bold text-sm hover:bg-gray-50 transition-all duration-200"
-                  title="Imprimer"
+                  @click="exporterPDF"
+                  class="px-5 border-2 border-gray-200 text-gray-500 py-3 rounded-xl font-bold text-sm hover:bg-gray-50 transition-all duration-200 flex items-center gap-2 cursor-pointer"
+                  title="Télécharger PDF"
                 >
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
                   </svg>
+                  PDF
                 </button>
               </div>
             </div>
@@ -211,11 +212,14 @@
         </div>
 
         <div class="p-4 border-t flex justify-end gap-3">
-          <button @click="afficherTableau = false" class="px-5 py-2 border border-gray-200 rounded-xl text-sm hover:bg-gray-50">
+          <button @click="afficherTableau = false" class="px-5 py-2 border border-gray-200 rounded-xl text-sm hover:bg-gray-50 cursor-pointer">
             Fermer
           </button>
-          <button @click="imprimerTableau" class="px-5 py-2 bg-primary text-white rounded-xl text-sm hover:bg-red-700 transition-colors">
-            Imprimer
+          <button @click="exporterPDF" class="px-5 py-2 bg-primary text-white rounded-xl text-sm hover:bg-red-700 transition-colors flex items-center gap-2 cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+            </svg>
+            Télécharger PDF
           </button>
         </div>
       </div>
@@ -225,7 +229,12 @@
 </template>
 
 <script setup>
-import { ref, computed, nextTick } from 'vue';
+import { ref, computed } from 'vue';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+
+const t = (str) => str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+const fmtPDF = (value) => String(new Intl.NumberFormat('fr-FR').format(value)).replace(/[\u00a0\u202f]/g, ' ');
 
 const montant = ref(5000000);
 const duree = ref(3);
@@ -290,13 +299,115 @@ const formatPrice = (value) => new Intl.NumberFormat('fr-FR').format(value);
 const formatCompact = (value) => {
   if (value >= 1000000) return (value / 1000000).toLocaleString('fr-FR', { maximumFractionDigits: 1 }) + ' M';
   if (value >= 1000) return (value / 1000).toLocaleString('fr-FR', { maximumFractionDigits: 0 }) + ' K';
-  return value.toLocaleString('fr-FR');
+  return value.toLocaleString('fr-FR').replace(/[\u00a0\u202f]/g, ' ');
 };
 
-const imprimerTableau = async () => {
-  afficherTableau.value = true;
-  await nextTick();
-  window.print();
+const exporterPDF = () => {
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+  // En-tete rouge
+  doc.setFillColor(209, 0, 0);
+  doc.rect(0, 0, 210, 22, 'F');
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(15);
+  doc.setFont('helvetica', 'bold');
+  doc.text('COFINA TOGO', 14, 14);
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'normal');
+  doc.text(t('Simulation de pret'), 196, 14, { align: 'right' });
+
+  // Date de generation
+  doc.setTextColor(120, 120, 120);
+  doc.setFontSize(8.5);
+/*   doc.text(t(`Generee le ${new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' })}`), 14, 30); */
+
+  // Titre section
+  doc.setTextColor(30, 30, 30);
+  doc.setFontSize(12);
+  doc.setFont('helvetica', 'bold');
+  doc.text(t('Parametres de la simulation'), 14, 40);
+
+  // Parametres
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  doc.setTextColor(60, 60, 60);
+  doc.text(t('Montant du credit :'), 14, 50);
+  doc.text(t('Duree :'), 14, 58);
+  doc.text('Taux annuel :', 14, 66);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(30, 30, 30);
+  doc.text(`${fmtPDF(montant.value)} FCFA`, 65, 50);
+  doc.text(t(`${duree.value} an(s) - ${duree.value * 12} mois`), 65, 58);
+  doc.text(`${taux.value}%`, 65, 66);
+
+  // Encadre resultats
+  doc.setFillColor(248, 248, 248);
+  doc.roundedRect(14, 72, 182, 26, 3, 3, 'F');
+  doc.setDrawColor(230, 230, 230);
+  doc.roundedRect(14, 72, 182, 26, 3, 3, 'S');
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(9);
+  doc.setTextColor(120, 120, 120);
+  doc.text(t('Echeance mensuelle'), 20, 81);
+  doc.text(t('Cout total du credit'), 110, 81);
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(13);
+  doc.setTextColor(209, 0, 0);
+  doc.text(`${fmtPDF(resultats.value.echeance)} FCFA`, 20, 91);
+  doc.setTextColor(30, 30, 30);
+  doc.text(`${fmtPDF(resultats.value.total)} FCFA`, 110, 91);
+
+  // Tableau d'amortissement
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(11);
+  doc.setTextColor(30, 30, 30);
+  doc.text(t("Tableau d'amortissement"), 14, 108);
+
+  autoTable(doc, {
+    startY: 112,
+    head: [[t('Periode'), t('Capital restant du'), t('Interet'), 'TAF (10%)', 'Capital', t('Echeance'), 'Capital amorti']],
+    body: tableauAmortissement.value.map(l => [
+      l.periode,
+      `${l.capitalRestant.toLocaleString('fr-FR').replace(/[\u00a0\u202f]/g, ' ')} F`,
+      `${l.interet.toLocaleString('fr-FR').replace(/[\u00a0\u202f]/g, ' ')} F`,
+      `${l.taf.toLocaleString('fr-FR').replace(/[\u00a0\u202f]/g, ' ')} F`,
+      `${l.capital.toLocaleString('fr-FR').replace(/[\u00a0\u202f]/g, ' ')} F`,
+      `${l.echeance.toLocaleString('fr-FR').replace(/[\u00a0\u202f]/g, ' ')} F`,
+      `${l.capitalAmorti.toLocaleString('fr-FR').replace(/[\u00a0\u202f]/g, ' ')} F`,
+    ]),
+    foot: [['TOTAL', '',
+      `${totaux.value.interets.toLocaleString('fr-FR').replace(/[\u00a0\u202f]/g, ' ')} F`,
+      `${totaux.value.taf.toLocaleString('fr-FR').replace(/[\u00a0\u202f]/g, ' ')} F`,
+      `${totaux.value.capital.toLocaleString('fr-FR').replace(/[\u00a0\u202f]/g, ' ')} F`,
+      `${totaux.value.total.toLocaleString('fr-FR').replace(/[\u00a0\u202f]/g, ' ')} F`,
+      '',
+    ]],
+    headStyles: { fillColor: [209, 0, 0], textColor: 255, fontStyle: 'bold', fontSize: 7.5, halign: 'right' },
+    footStyles: { fillColor: [235, 235, 235], textColor: 30, fontStyle: 'bold', fontSize: 7.5, halign: 'right' },
+    bodyStyles: { fontSize: 7.5, halign: 'right' },
+    columnStyles: { 0: { halign: 'center' } },
+    alternateRowStyles: { fillColor: [252, 252, 252] },
+    margin: { left: 14, right: 14 },
+    styles: { cellPadding: 2 },
+  });
+
+  // Pied de page sur chaque page
+  const pageCount = doc.getNumberOfPages();
+  for (let i = 1; i <= pageCount; i++) {
+    doc.setPage(i);
+    const pageH = doc.internal.pageSize.height;
+    doc.setDrawColor(220, 220, 220);
+    doc.line(14, pageH - 14, 196, pageH - 14);
+    doc.setFontSize(7);
+    doc.setTextColor(150);
+    doc.setFont('helvetica', 'normal');
+    doc.text("Simulation indicative, hors assurance. Rapprochez-vous de votre agence.", 14, pageH - 9);
+    doc.text(`Page ${i} / ${pageCount}`, 196, pageH - 9, { align: 'right' });
+  }
+
+  doc.save(`simulation-pret-cofina-${new Date().toISOString().slice(0, 10)}.pdf`);
 };
 </script>
 
