@@ -62,7 +62,7 @@
                   <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">De</label>
                   <select
                     v-model="deviseSource"
-                    class="w-full px-4 py-3 bg-gray-50 rounded-xl font-bold text-gray-900 outline-none focus:ring-2 focus:ring-primary/30 transition appearance-none cursor-pointer"
+                    class="w-full px-4 py-3 bg-gray-50 text-xs rounded-xl font-bold text-gray-900 outline-none focus:ring-2 focus:ring-primary/30 transition appearance-none cursor-pointer"
                   >
                     <option v-for="d in devisesPrincipales" :key="d.code" :value="d.code">
                       {{ d.code.toUpperCase() }} — {{ d.nom }}
@@ -85,7 +85,7 @@
                   <label class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">Vers</label>
                   <select
                     v-model="deviseCible"
-                    class="w-full px-4 py-3 bg-gray-50 rounded-xl font-bold text-gray-900 outline-none focus:ring-2 focus:ring-primary/30 transition appearance-none cursor-pointer"
+                    class="w-full px-4 py-3 bg-gray-50 text-xs rounded-xl font-bold text-gray-900 outline-none focus:ring-2 focus:ring-primary/30 transition appearance-none cursor-pointer"
                   >
                     <option v-for="d in devisesPrincipales" :key="d.code" :value="d.code">
                       {{ d.code.toUpperCase() }} — {{ d.nom }}
@@ -140,7 +140,7 @@ const API_BASE_URL = 'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@lat
 const API_FALLBACK = 'https://latest.currency-api.pages.dev/v1/currencies';
 
 const devisesPrincipales: Devise[] = [
-  { code: 'xof', nom: 'Franc CFA (BCEAO)' },
+  { code: 'xof', nom: 'Franc CFA' },
   { code: 'eur', nom: 'Euro' },
   { code: 'usd', nom: 'Dollar Américain' },
   { code: 'gbp', nom: 'Livre Sterling' },
@@ -155,7 +155,7 @@ const devisesPrincipales: Devise[] = [
   { code: 'sgd', nom: 'Dollar de Singapour' },
 ];
 
-const montant = ref<number>(1000);
+const montant = ref<number>(0);
 const deviseSource = ref<string>('eur');
 const deviseCible = ref<string>('xof');
 const tauxDeChange = ref<TauxAPI>({});

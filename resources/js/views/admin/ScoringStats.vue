@@ -299,7 +299,6 @@ const statusLegend = computed(() => [
 // --- Chart : Par offre ---
 const perOfferData = computed(() => {
   const offerMap: Record<number, { title: string; count: number; totalScore: number }> = {}
-
   applications.value.forEach(a => {
     const id = a.job_offer_id
     const title = a.job_offer?.title ?? `Offre #${id}`
@@ -307,28 +306,22 @@ const perOfferData = computed(() => {
     offerMap[id].count++
     offerMap[id].totalScore += a.score
   })
-
   const entries = Object.values(offerMap).sort((a, b) => b.count - a.count).slice(0, 8)
-
   return {
     labels: entries.map(e => e.title.length > 22 ? e.title.slice(0, 22) + '…' : e.title),
     datasets: [
-      {
-        label: 'Candidats',
-        data: entries.map(e => e.count),
-        backgroundColor: '#818cf8',
-        borderRadius: 4,
-        borderSkipped: false,
-        yAxisID: 'y',
-      },
-      {
-        label: 'Score moyen (%)',
-        data: entries.map(e => Math.round(e.totalScore / e.count)),
-        backgroundColor: '#34d399',
-        borderRadius: 4,
-        borderSkipped: false,
-        yAxisID: 'y',
-      }
+        {
+            label: 'Candidats',
+            data: entries.map(e => e.count),
+            backgroundColor: '#818cf8',
+            borderSkipped: false,
+        },
+        {
+            label: 'Score moyen (%)',
+            data: entries.map(e => Math.round(e.totalScore / e.count)),
+            backgroundColor: '#34d399',
+            borderSkipped: false,
+        },
     ]
   }
 })
@@ -336,13 +329,20 @@ const perOfferData = computed(() => {
 const perOfferOptions = {
   responsive: true,
   maintainAspectRatio: false,
-  plugins: { legend: { position: 'top' as const } },
+  plugins: {
+    legend: { position: 'top' as const }
+  },
   scales: {
     y: { beginAtZero: true, grid: { color: '#f3f4f6' } },
     x: { grid: { display: false } }
+  },
+  datasets: {
+    bar: {
+      barPercentage: 1.0,
+      categoryPercentage: 0.7,  
+    }
   }
 }
-
 // --- Chart : Source ---
 const sourceChartData = computed(() => ({
   labels: ['Spontanées', 'Sur offre'],

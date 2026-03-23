@@ -23,6 +23,7 @@ const isJobApplicationModalOpen = ref(false);
 const isLoading = ref(true);
 const jobs = ref<JobOffer[]>([]);
 const selectedJob = ref<JobOffer | null>(null);
+const jobToApply = ref<JobOffer | null>(null);
 
 // Récupérer uniquement les offres actives
 const activeJobs = computed(() => jobs.value.filter(job => job.status === 'active'));
@@ -78,14 +79,14 @@ const closeJobDetails = () => {
   selectedJob.value = null;
 };
 
-const applyToJob = (job: JobOffer) => {
-  openJobApplication(job);
-  setTimeout(() => closeJobDetails(), 100);
+const openJobApplication = (job: JobOffer) => {
+  jobToApply.value = job;  // ← ref séparée
+  isJobApplicationModalOpen.value = true;
 };
 
-const openJobApplication = (job: JobOffer) => {
-  selectedJob.value = job;
-  isJobApplicationModalOpen.value = true;
+const applyToJob = (job: JobOffer) => {
+  closeJobDetails();       // plus besoin du setTimeout
+  openJobApplication(job);
 };
 
 onMounted(() => {
@@ -183,7 +184,8 @@ onMounted(() => {
     </Teleport>
 
     <Teleport to="body">
-      <JobApplicationModal :is-open="isJobApplicationModalOpen" :job="selectedJob" @close="isJobApplicationModalOpen = false" />
+      <JobApplicationModal :is-open="isJobApplicationModalOpen" :job="jobToApply"  @close="isJobApplicationModalOpen = false" />
+
     </Teleport>
 
     <!-- Job Details Modal -->
@@ -213,9 +215,9 @@ onMounted(() => {
               <div class="p-8">
                 <h2 class="text-2xl font-black text-gray-800 uppercase mb-4">{{ selectedJob.title }}</h2>
 
-                <div class="bg-primary/5 rounded-lg p-4 mb-6">
-                  <p class="text-gray-700 font-medium">{{ selectedJob.summary }}</p>
-                </div>
+
+
+
 
                 <div class="prose prose-gray max-w-none">
                   <h3 class="text-lg font-bold text-gray-800 mb-3">Description du poste</h3>

@@ -175,7 +175,8 @@ const submitForm = async () => {
     }, 2000);
 
   } catch (error: any) {
-    console.error('Erreur lors de l\'envoi:', error);
+        console.error('Status:', error.response?.status);
+        console.error('Data:', JSON.stringify(error.response?.data, null, 2));
     if (error.response?.data?.errors) {
       const errors = error.response.data.errors;
       submitError.value = Object.values(errors).flat().join(', ');
