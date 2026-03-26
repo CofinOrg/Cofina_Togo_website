@@ -117,18 +117,34 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section class="py-16 md:py-20 bg-gray-50">
+  <section class="py-16 md:py-10 bg-gray-50">
     <div class="max-w-350 mx-auto px-4 lg:px-14">
 
       <!-- ===================== SOLUTIONS FINANCIÈRES ===================== -->
-      <div class="text-center mb-8 md:mb-10">
+
+
+    <div class="ticker-wrapper overflow-hidden py-4 mb-8 md:mb-10">
+    <div class="ticker-track flex whitespace-nowrap">
+        <span
+        v-for="i in 20"
+        :key="i"
+        class="inline-flex items-center gap-5 px-8 text-gray-900 font-black text-sm md:text-xs uppercase tracking-[0.2em] select-none"
+        >
+        Nos produits & services
+        <span class="w-2 h-2 rounded-full bg-primary inline-block flex-shrink-0" />
+        </span>
+    </div>
+    </div>
+
+
+     <!--  <div class="text-center mb-8 md:mb-10">
         <h2 class="text-gray-900 text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-          Nos solutions financières
-        </h2>
-        <p class="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">
+          Nos produits & services
+        </h2> -->
+      <!--   <p class="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">
           Des produits adaptés à chaque étape de votre vie, ou de vos ambitions entreprise
-        </p>
-      </div>
+        </p> -->
+      <!-- </div> -->
 
       <!-- Onglets solutions financières (dynamiques) -->
       <div v-if="financialServices.length > 0" class="flex justify-center gap-4 mb-12 flex-wrap">
@@ -413,5 +429,24 @@ onMounted(async () => {
 
 .animate-fade-in {
   animation: fadeIn 0.5s ease-out;
+}
+
+.ticker-wrapper {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+}
+
+.ticker-track {
+  animation: ticker-scroll 35s linear infinite;
+  will-change: transform;
+}
+
+.ticker-wrapper:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 </style>

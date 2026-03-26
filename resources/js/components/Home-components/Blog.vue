@@ -70,7 +70,7 @@ const prevSlide = () => {
 </script>
 
 <template>
-  <section class="py-16 md:py-20 bg-gray-50 overflow-x-hidden">
+  <section class="py-10 md:py-8 bg-gray-50 overflow-x-hidden">
     <div class="max-w-[1400px] mx-auto px-4 lg:px-8">
       <!-- Titre de la section -->
       <div class="text-center mb-12">
@@ -80,7 +80,7 @@ const prevSlide = () => {
       </div>
 
       <!-- Carousel d'actualités -->
-      <div class="relative mb-16">
+      <div class="relative mb-10">
         <!-- Bouton précédent -->
         <button
           @click="prevSlide"
@@ -166,27 +166,27 @@ const prevSlide = () => {
     </div>
 
     <!-- Bandeau rouge : Devenir Cofinois -->
-      <div class="relative bg-gradient-to-r from-primary to-accent w-full shadow-2xl overflow-hidden">
+     <!--  <div class="relative bg-gradient-to-r from-primary to-accent w-full shadow-2xl overflow-hidden"> -->
         <!-- Motif décoratif en arrière-plan -->
-        <div class="absolute inset-0 opacity-10">
+      <!--   <div class="absolute inset-0 opacity-10">
           <div class="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2" />
           <div class="absolute bottom-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2" />
         </div>
 
         <div class="relative z-10 py-12 px-8 md:px-12 lg:px-16">
-          <div class="flex flex-col lg:flex-row items-center justify-between gap-6">
+          <div class="flex flex-col lg:flex-row items-center justify-between gap-6"> -->
             <!-- Texte -->
-            <div class="text-center lg:text-left">
+ <!--            <div class="text-center lg:text-left">
               <h2 class="text-white text-3xl md:text-4xl font-bold mb-3">
                 Devenir Cofinois ?
               </h2>
               <p class="text-white/90 text-base md:text-lg">
                 Découvrez nos offres d'emploi ou déposez une candidature spontanée.
               </p>
-            </div>
+            </div> -->
 
             <!-- Bouton -->
-            <a
+ <!--            <a
               href="/carrieres"
               class="inline-flex items-center justify-center gap-2 bg-white text-primary px-8 py-3.5 rounded-lg text-base font-bold hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 whitespace-nowrap"
             >
@@ -195,7 +195,7 @@ const prevSlide = () => {
             </a>
           </div>
         </div>
-      </div>
+      </div> -->
 
   </section>
 </template>

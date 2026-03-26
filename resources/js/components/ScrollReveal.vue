@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 
 const props = withDefaults(defineProps<{
+  id?: string
   animation?: 'fade-up' | 'fade-left' | 'fade-right' | 'fade-zoom'
   delay?: number
   duration?: number
@@ -66,6 +67,7 @@ onMounted(() => {
 <template>
   <div
     ref="elRef"
+    :id="id"
     :class="stagger ? undefined : ['scroll-reveal', `sr-${animation}`, { 'is-visible': isVisible }]"
     :style="stagger ? undefined : { '--sr-delay': `${delay}ms`, '--sr-duration': `${duration}ms` }"
   >

@@ -11,7 +11,7 @@ defineProps({
 </script>
 
 <template>
-  <section class="relative overflow-hidden bg-white mt-20">
+  <section class="relative overflow-hidden bg-white">
     <!-- Section avec image de fond Vector 2.png - Hauteur réduite -->
     <div class="relative py-8 md:py-12 lg:py-12">
       <!-- Image de fond -->
@@ -86,7 +86,7 @@ defineProps({
     </div>
 
     <!-- Section grise : Image de fond avec texte et boutons -->
-  <!--   <div class="relative py-12 md:py-6">
+    <div class="relative py-12 md:py-6">
 
 
       <div class="relative z-10 max-w-[1000px] mx-auto px-4 lg:px-8">
@@ -96,7 +96,7 @@ defineProps({
               Un projet en tête ?
             </h2>
             <p class="text-gray-600 text-base md:text-lg leading-relaxed">
-              Simulez votre prochain prêt ou votre DAT chez nous gratuitement et sans engagement en toute simplicité.
+             Simulez votre prochain crédit ou votre DAT chez nous gratuitement et sans engagement.
             </p>
           </div>
 
@@ -117,7 +117,38 @@ defineProps({
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
+
+      <div class="relative bg-primary mb-10 w-full shadow-2xl overflow-hidden">
+        <!-- Motif décoratif en arrière-plan -->
+        <div class="absolute inset-0 opacity-10">
+          <div class="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2" />
+          <div class="absolute bottom-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2" />
+        </div>
+
+        <div class="relative z-10 py-12 px-8 md:px-12 lg:px-16">
+          <div class="flex flex-col lg:flex-row items-center justify-between gap-6">
+            <!-- Texte -->
+            <div class="text-center lg:text-left">
+              <h2 class="text-white text-3xl md:text-4xl font-bold mb-3">
+                Devenir Cofinois ?
+              </h2>
+              <p class="text-white/90 text-base md:text-lg">
+                Découvrez nos offres d'emploi ou déposez une candidature spontanée.
+              </p>
+            </div>
+
+            <!-- Bouton -->
+            <a
+              href="/carrieres"
+              class="inline-flex items-center justify-center gap-2 bg-white text-primary px-8 py-3.5 rounded-lg text-base font-bold hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 whitespace-nowrap"
+            >
+              Voir les opportunités
+              <ArrowRight :size="20" />
+            </a>
+          </div>
+        </div>
+      </div>
   </section>
 </template>
 

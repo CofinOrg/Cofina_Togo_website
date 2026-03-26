@@ -37,6 +37,7 @@ import Notifications from '../views/admin/Notifications.vue'
 import InsightPage from '../views/admin/InsightPage.vue'
 import BusinessClubMembers from '../views/admin/BusinessClubMembers.vue'
 import NotFoundPage from '../views/website/NotFoundPage.vue'
+import PremiumPage from '../views/website/PremiumPage.vue'
 
 
 const router = createRouter({
@@ -87,6 +88,11 @@ const router = createRouter({
                     path: 'contact',
                     name: 'contact',
                     component: ContactPage,
+                },
+                {
+                    path: 'premium',
+                    name: 'premium',
+                    component: PremiumPage,
                 },
                 {
                     path: 'service-types',

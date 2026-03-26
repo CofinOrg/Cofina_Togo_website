@@ -48,6 +48,7 @@
             <thead class="bg-gray-50">
               <tr>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Slide</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Texte</th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Auteur</th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
@@ -76,6 +77,9 @@
                     />
                     <span class="text-sm text-gray-500 truncate max-w-[200px]">{{ }}</span>
                   </div>
+                </td>
+                <td class="px-6 py-4">
+                  <div class="text-sm font-medium text-gray-900">{{ item.text || 'Aucun texte disponible' }}</div>
                 </td>
                 <td class="px-6 py-4">
                   <div class="text-sm font-medium text-gray-900">{{ item.user?.name }}</div>
@@ -156,6 +160,16 @@
             <img :src="previewUrl" alt="Aperçu" class="max-h-40 rounded-lg border" />
           </div>
         </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-3">
+            Texte du slide
+          </label>
+          <input
+            type="text"
+            v-model="slider.text"
+            class="w-full px-5 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
+          />
+        </div>
 
         <!-- Statut -->
         <div>
@@ -202,7 +216,8 @@ const selectedFile = ref<File | null>(null)
 const previewUrl = ref('')
 
 const slider = ref({
-  is_published: '' as string | boolean,
+    is_published: '' as string | boolean,
+    text: '' as string
 })
 
 const formSection = ref<HTMLElement | null>(null)
@@ -250,7 +265,8 @@ const editSlider = (item: any) => {
   selectedFile.value = null
   previewUrl.value = item.slide_path || ''
   slider.value = {
-    is_published: !!item.is_published,
+      is_published: !!item.is_published,
+      text: item.text || ''
   }
   scrollToForm()
 }
@@ -262,7 +278,8 @@ const cancelEdit = () => {
   selectedFile.value = null
   previewUrl.value = ''
   slider.value = {
-    is_published: '',
+      is_published: '',
+      text: ''
   }
 }
 
@@ -294,7 +311,8 @@ const saveSlider = async () => {
   if (selectedFile.value) {
     formData.append('slide_path', selectedFile.value)
   }
-  formData.append('is_published', slider.value.is_published ? '1' : '0')
+    formData.append('is_published', slider.value.is_published ? '1' : '0')
+    formData.append('text', slider.value.text || '')
 
   try {
     if (isEditing.value && editingId.value) {

@@ -13,8 +13,9 @@ const fetchSlides = async () => {
     slides.value = data.map(item => ({
       id: item.id,
       image: item.slide_path,
+      text: item.text || '',
       alt: `Cofina Togo - Slide ${item.id}`,
-    }))
+    })).reverse()
   } catch (error) {
     console.error('Erreur lors du chargement des slides', error)
   }
@@ -73,6 +74,9 @@ const stopAutoplay = () => {
 onMounted(async () => {
   await fetchSlides()
   if (slides.value.length > 0) {
+    const startId = 5
+    const index = slides.value.findIndex(s => s.id === startId)
+    currentSlide.value = index !== -1 ? index : 0
     startAutoplay()
   }
 })
@@ -86,7 +90,7 @@ onUnmounted(() => {
   <section class="relative bg-gray-50">
     <!-- Hero Slider Section -->
     <div
-      class="relative h-[400px] sm:h-[500px] md:h-[550px] lg:h-[650px] overflow-hidden"
+      class="relative h-100 sm:h-125 md:h-137.5 lg:h-162.5 overflow-hidden"
       @mouseenter="stopAutoplay"
       @mouseleave="startAutoplay"
     >
@@ -106,24 +110,24 @@ onUnmounted(() => {
               class="w-full h-full object-cover object-center"
             >
             <!-- Overlay gradient -->
-            <div class="absolute inset-0 bg-gradient-to-r from-black/10 via-black/15 to-black/10" />
+            <div class="absolute inset-0 bg-linear-to-r from-black/10 via-black/15 to-black/10" />
           </div>
         </TransitionGroup>
       </div>
 
       <!-- Contenu du Hero -->
       <div class="relative z-10 h-full flex items-center">
-        <div class="max-w-[1400px] mx-auto px-2 lg:px-8 w-full">
+        <div class="max-w-350 mx-auto px-2 lg:px-8 w-full">
           <div class="max-w-4xl">
             <!-- Titre principal -->
             <h1 class="text-white font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-6xl leading-[1.1] tracking-tight mb-2 animate-fade-in">
-              L'institution de mésofinance au service de votre avenir.
+              {{ slides[currentSlide]?.text || 'Bienvenue chez Cofina Togo' }}
             </h1>
 
             <!-- Sous-titre -->
-            <p class="text-white/90 text-sm sm:text-xl md:text-2xl max-w-3xl leading-relaxed mb-2 animate-fade-in-delay">
+          <!--   <p class="text-white/90 text-sm sm:text-xl md:text-2xl max-w-3xl leading-relaxed mb-2 animate-fade-in-delay">
               Particuliers, Entrepreneurs et Institutions : découvrez une navigation fluide et des offres anticipées à vos ambitions
-            </p>
+            </p> -->
 
             <!-- Boutons CTA -->
             <div class="flex flex-col sm:flex-row gap-4 pt-2 sm:pt-10 md:pt-16 lg:pt-28 animate-fade-in-delay-2">
@@ -147,7 +151,7 @@ onUnmounted(() => {
 
 
       <!-- Indicateurs rectangulaires -->
-      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3">
+ <!--      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3">
         <button
           v-for="(slide, index) in slides"
           :key="slide.id"
@@ -159,15 +163,15 @@ onUnmounted(() => {
           ]"
           @click="goToSlide(index)"
         />
-      </div>
+      </div> -->
     </div>
 
     <!-- Section des 3 cartes qui chevauchent le slider (50% sur slider, 50% sur page) -->
-    <div class="relative z-30 -mt-24 sm:-mt-28 md:-mt-32 lg:-mt-16 pb-4 md:pb-4 lg:pb-16">
-      <div class="max-w-[1000px] mx-auto px-4 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <!--   <div class="relative z-30 -mt-24 sm:-mt-28 md:-mt-32 lg:-mt-16 pb-4 md:pb-4 lg:pb-16"> -->
+    <!--   <div class="max-w-250 mx-auto px-4 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6"> -->
           <!-- Carte 1: Nos packs -->
-        <!--   <div class="group bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-4 lg:p-6 border-b-[6px] md:border-b-[8px] border-primary hover:shadow-3xl hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col h-auto md:h-44">
+         <!--   <div class="group bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-4 lg:p-6 border-b-[6px] md:border-b-8 border-primary hover:shadow-3xl hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col h-auto md:h-44">
             <h3 class="text-gray-900 font-bold mb-2 md:mb-4 text-lg md:text-xl">
               Nos packs
             </h3>
@@ -193,11 +197,11 @@ onUnmounted(() => {
                 />
               </svg>
             </router-link>
-        </div> -->
-
+        </div>
+ -->
 
           <!-- Carte 2: Nos crédits & financements -->
-        <!-- <div class="group bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-4 border-b-[6px] md:border-b-[8px] border-background hover:shadow-3xl hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col h-auto md:h-44">
+       <!--  <div class="group bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-4 border-b-[6px] md:border-b-8 border-background hover:shadow-3xl hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col h-auto md:h-44">
           <h3 class="text-gray-900 font-bold mb-2 md:mb-4 text-lg md:text-xl">
             Nos crédits & financements
           </h3>
@@ -213,7 +217,7 @@ onUnmounted(() => {
         </div> -->
 
         <!-- Carte 3: CofiPrivilège -->
-     <!--    <div class="group bg-gradient-to-br from-gray-900 via-black to-gray-900 rounded-2xl shadow-2xl p-4 sm:p-6 md:p-4 border-b-[6px] md:border-b-[8px] border-yellow-600 hover:shadow-3xl hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col h-auto md:h-44">
+       <!-- <div class="group bg-linear-to-br from-gray-900 via-black to-gray-900 rounded-2xl shadow-2xl p-4 sm:p-6 md:p-4 border-b-[6px] md:border-b-8 border-yellow-600 hover:shadow-3xl hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col h-auto md:h-44">
           <h3 class="text-yellow-500 font-bold mb-2 md:mb-4 text-lg md:text-xl">
             CofiPrivilège
           </h3>
@@ -228,9 +232,9 @@ onUnmounted(() => {
           </router-link>
         </div> -->
 
-        </div>
+     <!--    </div>
       </div>
-    </div>
+    </div> -->
   </section>
 </template>
 

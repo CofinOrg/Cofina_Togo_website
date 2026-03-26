@@ -65,7 +65,8 @@ class SliderController extends APIController
     {
         $connectedUser = $request->user();
         $this->storeValidationArray = [
-            'slide_path' => 'required|image|max:5120',
+            'slide_path' => 'required|image|max:20240',
+            'text' => 'nullable|string',
             'is_published' => 'required|boolean'
         ];
         $this->storeManualValidationsFunction = function ($requestData) use ($connectedUser) {

@@ -34,6 +34,7 @@ class Slider extends ModelBase
         // Ajoutez vos colonnes ici
         'user_id',
         'slide_path',
+        'text',
         'is_published'
     ];
 

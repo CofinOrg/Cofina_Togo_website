@@ -5,6 +5,7 @@ import { RouterLink, useRoute } from 'vue-router'
 import { ChevronDown } from 'lucide-vue-next'
 import api from '../utils/api'
 import ChatBot from '../components/ChatBot.vue'
+import logoGroup from '../assets/logo-groupe.svg'
 
 
 const mobileMenuOpen = ref(false)
@@ -13,7 +14,7 @@ const mobileSimulateursOpen = ref(false)
 const route = useRoute()
 
 const filiales = [
-  { name: 'Groupe COFINA', flag: '', label: 'G', url: 'https://www.groupecofina.com' },
+  { name: 'Groupe COFINA', flag: logoGroup, label: 'G', url: 'https://www.groupecofina.com' },
   { name: 'COFINA Togo', flag: 'https://flagcdn.com/w80/tg.png', url: 'https://www.cofinatogo.com' },
   { name: 'COFINA Burkina', flag: 'https://flagcdn.com/w80/bf.png', url: 'https://www.cofinaburkina.com' },
   { name: 'COFINA Côte d\'Ivoire', flag: 'https://flagcdn.com/w80/ci.png', url: 'https://www.cofinacotedivoire.com' },
@@ -22,6 +23,7 @@ const filiales = [
   { name: 'COFINA Guinée', flag: 'https://flagcdn.com/w80/gn.png', url: 'https://www.cofinaguinee.com' },
   { name: 'COFINA Mali', flag: 'https://flagcdn.com/w80/ml.png', url: 'https://www.cofinamali.com' },
   { name: 'COFINA Sénégal', flag: 'https://flagcdn.com/w80/sn.png', url: 'https://www.cofinasenegal.com' },
+  { name: 'COFINA France', flag: 'https://flagcdn.com/w80/fr.png', url: 'https://www.cofinaservicesfrance.com/' },
 ]
 
 // Fermer le dropdown
@@ -78,20 +80,33 @@ onMounted(async () => {
       </div>
     </div>
 
-      <div class="flex gap-3 ml-4">
-        <a href="https://www.facebook.com/share/1A8AURXRrs/?mibextid=wwXIfr" target="_blank" class="hover:text-primary">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-     <!--<a href="https://twitter.com" target="_blank" class="hover:text-accent">
-          <i class="fab fa-twitter"></i>
-        </a> -->
-        <a href="https://www.linkedin.com/company/101791086/admin/dashboard/" target="_blank" class="hover:text-primary">
-          <i class="fab fa-linkedin-in"></i>
-        </a>
-       <!--  <a href="https://instagram.com" target="_blank" class="hover:text-accent">
-          <i class="fab fa-instagram"></i>
-        </a> -->
-      </div>
+   <div class="flex gap-4 ml-4 text-xl items-center">
+
+    <!-- Facebook -->
+    <a href="https://www.facebook.com/share/1A8AURXRrs/?mibextid=wwXIfr" target="_blank"
+       class="text-[#1877F2] hover:scale-110 transition-transform duration-200">
+        <i class="fab fa-facebook-f"></i>
+    </a>
+
+    <!-- LinkedIn -->
+    <a href="https://www.linkedin.com/company/101791086/admin/dashboard/" target="_blank"
+       class="text-[#0A66C2] hover:scale-110 transition-transform duration-200">
+        <i class="fab fa-linkedin-in"></i>
+    </a>
+
+    <!-- WhatsApp -->
+    <a href="https://wa.me/22892686060" target="_blank"
+       class="text-[#25D366] hover:scale-110 transition-transform duration-200">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Image Cofina -->
+    <a href="https://play.google.com/store/apps/details?id=com.smartsolutionomb.app&hl=fr" target="_blank"
+       class="hover:scale-110 transition-transform duration-200">
+        <img src="../assets/cofina-mobile+.webp" alt="Cofina" class="h-5 w-5 rounded-[30%] inline-block align-middle">
+    </a>
+
+</div>
 
 
   </div>
@@ -110,7 +125,7 @@ onMounted(async () => {
         </a>
 
         <!-- Navigation Desktop -->
-        <nav class="hidden lg:flex items-center gap-6 xl:gap-8 flex-1 justify-center">
+        <nav class="hidden lg:flex items-center gap-1 xl:gap-1 flex-1 justify-center">
 
           <RouterLink
               to="/"
@@ -135,7 +150,15 @@ onMounted(async () => {
             class="text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-white hover:text-primary transition-all duration-300"
             active-class="bg-white !text-primary"
           >
-            Nos Produits & Services
+            Devenir client
+          </RouterLink>
+
+          <RouterLink
+            to="/carrieres"
+            class="text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-white hover:text-primary transition-all duration-300"
+            active-class="bg-white !text-primary"
+          >
+            Devenir cofinois
           </RouterLink>
 
           <!-- Menu déroulant Simulateurs -->
@@ -190,12 +213,13 @@ onMounted(async () => {
             </div>
           </div>
 
-           <RouterLink
-            to="/carrieres"
+
+          <RouterLink
+            to="/premium"
             class="text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-white hover:text-primary transition-all duration-300"
             active-class="bg-white !text-primary"
           >
-            Carrière
+            Espace Premium
           </RouterLink>
 
         </nav>
@@ -206,7 +230,7 @@ onMounted(async () => {
             to="/contact"
             class="inline-block text-primary bg-white px-6 py-1.5 rounded-full text-sm font-bold hover:bg-gray-100 hover:shadow-xl transition-all duration-300"
           >
-            Contactez nous
+            Contact
           </RouterLink>
         </div>
 
@@ -267,7 +291,17 @@ onMounted(async () => {
           active-class="bg-white !text-primary"
           @click="mobileMenuOpen = false"
         >
-          Nos Produits & Services
+          Devenir client
+        </RouterLink>
+
+        <RouterLink
+          to="/carrieres"
+          class="block text-white text-sm font-medium py-2 px-4 rounded hover:bg-white hover:text-primary transition-all"
+          active-class="bg-white !text-primary"
+          @click="mobileMenuOpen = false"
+        >
+
+          Devenir cofinois
         </RouterLink>
 
         <div>
@@ -307,21 +341,24 @@ onMounted(async () => {
           </div>
         </div>
 
+
         <RouterLink
-          to="/carrieres"
-          class="block text-white text-sm font-medium py-2 px-4 rounded hover:bg-white hover:text-primary transition-all"
+          to="/premium"
+          class="block text-white text-sm font-medium py-2 px-4 mb-4 rounded hover:bg-white hover:text-primary transition-all"
           active-class="bg-white !text-primary"
           @click="mobileMenuOpen = false"
         >
 
-          Carrière
+          Espace premium
         </RouterLink>
+
+
         <RouterLink
           to="/contact"
           class="block text-primary text-sm font-bold py-2 px-4 bg-white rounded-full text-center mt-4"
           @click="mobileMenuOpen = false"
         >
-          Contactez nous
+          Contact
         </RouterLink>
       </nav>
     </div>
@@ -343,9 +380,9 @@ onMounted(async () => {
         <!-- Bordure bleue supérieure -->
         <div class="absolute top-0 left-0 right-0 h-1 bg-accent"></div>
 
-        <div class="max-w-350 mx-auto px-4 lg:px-8 py-12 lg:py-10">
+        <div class="max-w-350 mx-auto px-4 lg:px-8 py-8 lg:py-10">
             <!-- Contenu principal du footer -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
                 <!-- Colonne 1: Cofina TOGO -->
                 <div>
                    <img src="../assets/images/accueil/loge_dark.png" alt="Logo Cofina" class="w-48 mb-4" />
@@ -386,7 +423,31 @@ onMounted(async () => {
                 <!-- Colonne 3: Légal -->
                 <div>
                     <h3 class="text-white text-base font-bold mb-4 uppercase">
-                        Légal
+                       Vous êtes ?
+                    </h3>
+                    <ul class="space-y-2.5">
+                        <li>
+                            <a href="/services" class="text-white text-sm hover:text-accent transition-colors duration-300">
+                                Particulier
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/services" class="text-white text-sm hover:text-accent transition-colors duration-300">
+                                Entrepreneur
+                            </a>
+                        </li>
+                     <!--    <li>
+                            <a href="/cookies" class="text-white text-sm hover:text-accent transition-colors duration-300">
+                                Cookies & données
+                            </a>
+                        </li> -->
+                    </ul>
+                </div>
+
+                <!-- Colonne 5: Vous êtes -->
+                <div>
+                    <h3 class="text-white text-base font-bold mb-4 uppercase">
+                         Légal
                     </h3>
                     <ul class="space-y-2.5">
                         <li>
@@ -410,14 +471,20 @@ onMounted(async () => {
                 <!-- Colonne 4: Contacts -->
                 <div>
                     <h3 class="text-white text-base font-bold mb-4 uppercase">
-                        Contacts
+                        Contactez notre call center
                     </h3>
                     <ul class="space-y-2.5">
                         <li class="text-gray-400 text-sm">
-                            <span class="font-medium text-white">Lomé, Togo</span>
+                            <span class="font-medium text-white">WhatsApp :</span>
+                        <a href="https://wa.me/22892686060" class="hover:text-accent transition-colors duration-300">
+                            +228 92 68 60 60
+                        </a>
                         </li>
                         <li class="text-gray-400 text-sm">
-                            <span class="font-medium text-white">Tél :</span> +228 92 68 60 60 - +228 22 23 68 68
+                            <span class="font-medium text-white">Tèl :</span>
+                        <a href="tel:+22892686060"  class="hover:text-accent transition-colors duration-300">
+                            +228 92 68 60 60
+                        </a>
                         </li>
                         <li class="text-gray-400 text-sm">
                             <span class="font-medium text-white">Mail :</span>
@@ -427,6 +494,24 @@ onMounted(async () => {
                         </li>
                     </ul>
                 </div>
+            </div>
+
+            <div class="mt-16">
+
+            <a href="/contact#map"
+                class="flex items-center justify-between bg-white/5 border border-white/10 border-l-4 border-l-primary rounded-xl px-6 py-4 hover:bg-white/10 transition-all duration-300 group"
+            >
+                <div class="flex items-center gap-4">
+                <div class="w-2 h-2 rounded-full bg-primary shrink-0" />
+                <p class="text-gray-300 text-sm">
+                    <span class="text-white font-bold">Trouver une agence près de chez vous</span>
+                    — Carte interactive &amp; horaires d'ouverture
+                </p>
+                </div>
+                <span class="text-primary text-sm font-bold whitespace-nowrap ml-6 group-hover:translate-x-1 transition-transform duration-300">
+                Voir les agences →
+                </span>
+            </a>
             </div>
 
             <!-- Section des filiales COFINA (défilante) -->
@@ -441,20 +526,18 @@ onMounted(async () => {
                       class="text-center shrink-0 px-4 hover:opacity-80 transition-opacity"
                     >
                         <div class="w-10 h-10 mx-auto mb-2 bg-white rounded-full flex items-center justify-center overflow-hidden">
-                            <!-- Groupe COFINA : lettre G -->
+                            <img
+                                v-if="filiale.flag"
+                                :src="filiale.flag"
+                                :alt="filiale.name"
+                                class="w-7 h-7 rounded-full object-cover"
+                            />
                             <div
-                              v-if="filiale.label"
-                              class="w-7 h-7 rounded-full bg-linear-to-br from-red-600 to-pink-500 flex items-center justify-center"
+                                v-else
+                                class="w-7 h-7 rounded-full bg-linear-to-br from-red-600 to-pink-500 flex items-center justify-center"
                             >
                                 <span class="text-white text-xs font-bold">{{ filiale.label }}</span>
-                            </div>
-                            <!-- Autres filiales : drapeau -->
-                            <img
-                              v-else
-                              :src="filiale.flag"
-                              :alt="filiale.name"
-                              class="w-7 h-7 rounded-full object-cover"
-                            />
+                        </div>
                         </div>
                         <p class="text-[10px] text-gray-400 font-medium whitespace-nowrap">{{ filiale.name }}</p>
                     </a>
@@ -464,7 +547,7 @@ onMounted(async () => {
             <!-- Ligne de séparation et copyright -->
             <div class="border-t border-gray-800 mt-4 pt-6">
                 <p class="text-gray-500 text-sm text-center">
-                    © 2025 Cofina Togo. Tous droits réservés.
+                    © 2026 Cofina Togo. Tous droits réservés.
                 </p>
             </div>
         </div>
