@@ -49,7 +49,7 @@ const fetchAnnouncement = async () => {
   }
 }
 
-onMounted(async () => {
+onMounted(async () => { 
   fetchAnnouncement()
   await nextTick()
   if (filialesScrollRef.value) {
