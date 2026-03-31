@@ -286,9 +286,10 @@ const fetchProducts = async () => {
     } while (page <= lastPage);
 
     // Filtrer uniquement les produits d'épargne
-    products.value = allProducts.filter(p =>
-      (p.service?.name || '').toLowerCase().includes('épargne')
-    );
+  products.value = allProducts.filter(p => {
+    const name = (p.service?.name || '').toLowerCase();
+    return name.includes('épargne') || name.includes('particulier');
+  });
 
   } catch (error) {
     console.error('Erreur lors du chargement des produits', error);

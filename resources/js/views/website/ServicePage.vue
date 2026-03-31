@@ -52,7 +52,7 @@ const selectService = (service) => {
 };
 
 const goToSubscribe = (productId) => {
-  router.push({ name: 'pack-form', params: { productId } });
+  router.push({ name: 'pack-form2'});
 };
 
 onMounted(() => {
@@ -121,7 +121,7 @@ onMounted(() => {
         </h2>
 
         <!-- Grille produits -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div v-for="product in products" :key="product.id"
                class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-shadow">
 
