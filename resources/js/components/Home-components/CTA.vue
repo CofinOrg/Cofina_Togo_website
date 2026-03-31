@@ -33,7 +33,7 @@ defineProps({
             </h2>
 
             <p class="text-white/90 text-sm md:text-base mb-6 leading-relaxed max-w-lg">
-              L'application de banking N°1 qui vous permet d'effectuer des opérations sur votre compte en toute sécurité partout où vous soyez
+              L’application de banking qui vous permet d’effectuer vos opérations en toute sécurité, où que vous soyez.
             </p>
 
             <!-- Boutons de téléchargement -->

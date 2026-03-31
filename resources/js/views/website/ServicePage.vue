@@ -5,16 +5,26 @@ import api from '../../utils/api';
 
 const router = useRouter();
 
-// Services chargés depuis l'API
 const services = ref([]);
 const loading = ref(false);
+const selectedService = ref(null);
+const products = ref([]);
+const loadingProducts = ref(false);
 
 const fetchServices = async () => {
   loading.value = true;
   try {
     const response = await api.get('/services');
     const data = response.data.data || response.data;
-    services.value = data;
+
+    const filteredData = data.filter(service => service.type === 'pack');
+    services.value = filteredData;
+
+
+    // Sélectionner le premier service par défaut
+    if (filteredData.length > 0) {
+      selectService(filteredData[0]);
+    }
   } catch (error) {
     console.error('Erreur lors du chargement des services', error);
   } finally {
@@ -22,9 +32,27 @@ const fetchServices = async () => {
   }
 };
 
-// Naviguer vers la page des produits du service
-const openService = (service) => {
-  router.push({ name: 'serviceProducts', params: { id: service.id }, query: { name: service.name } });
+const fetchProducts = async (serviceId) => {
+  loadingProducts.value = true;
+  products.value = [];
+  try {
+    const response = await api.get(`/service_products?service_id=${serviceId}`);
+    const data = response.data.data || response.data;
+    products.value = data;
+  } catch (error) {
+    console.error('Erreur lors du chargement des produits', error);
+  } finally {
+    loadingProducts.value = false;
+  }
+};
+
+const selectService = (service) => {
+  selectedService.value = service;
+  fetchProducts(service.id);
+};
+
+const goToSubscribe = (productId) => {
+  router.push({ name: 'pack-form', params: { productId } });
 };
 
 onMounted(() => {
@@ -33,7 +61,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="min-h-screen bg-gray-50">
+  <main class="min-h-screen bg-white">
 
     <!-- Hero -->
     <section class="relative h-80 flex items-end bg-[#1E1E1E] overflow-hidden">
@@ -43,82 +71,103 @@ onMounted(() => {
         <div class="absolute inset-0 bg-linear-to-r from-[#1E1E1E]/90 to-transparent"></div>
       </div>
       <div class="container mx-auto px-6 relative z-10 pb-16">
-        <!-- <p class="text-accent text-sm font-bold uppercase tracking-widest mb-2">COFINA Sénégal</p> -->
         <h1 class="text-4xl md:text-5xl font-black text-white leading-tight">
           Nos produits <br/><span class="text-primary">&amp; services</span>
         </h1>
       </div>
-      <!-- Vague en bas -->
-     <!--  <div class="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" class="w-full h-16 fill-gray-50">
-          <path d="M0,60 C360,0 1080,60 1440,20 L1440,60 Z"/>
-        </svg>
-      </div> -->
     </section>
 
-    <!-- Contenu -->
-    <section class="py-16">
-      <div class="container mx-auto px-6">
+    <!-- Boutons de navigation des services (style image) -->
+    <section class="relative z-30 -mt-16 mb-20">
+      <div class="container mx-auto px-4 flex justify-center flex-wrap gap-6">
 
-        <!-- Intro -->
-        <div class="text-center mb-12">
-          <p class="text-secondary text-lg max-w-2xl mx-auto">
-            Découvrez l'ensemble de nos solutions financières pensées pour accompagner
-            votre croissance personnelle et professionnelle.
-          </p>
-        </div>
-
-        <!-- Loading -->
-        <div v-if="loading" class="flex justify-center py-20">
+        <div v-if="loading" class="flex justify-center py-10 w-full">
           <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-primary"></div>
         </div>
 
-        <!-- Grille des services -->
-        <div v-else-if="services.length > 0"
-             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div v-for="(service, index) in services" :key="service.id"
-               class="group bg-white rounded-2xl overflow-hidden shadow-md
-                      hover:shadow-2xl hover:-translate-y-1 transition-all duration-300
-                      flex flex-col">
-            <!-- Barre colorée -->
-            <div class="h-1.5 bg-primary w-full"></div>
-
-            <div class="p-4 flex flex-col grow">
-              <!-- Badge numéroté -->
-              <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-6">
-                <span class="text-primary font-black text-lg">
-                  {{ String(index + 1).padStart(2, '0') }}
-                </span>
-              </div>
-
-              <h3 class="text-xl font-black text-gray-900 uppercase mb-3
-                         group-hover:text-primary transition-colors">
-                {{ service.name }}
-              </h3>
-              <p class="text-secondary text-sm leading-relaxed mb-8 grow">
-                {{ service.description }}
-              </p>
-
-              <!-- Lien flèche -->
-              <button @click="openService(service)"
-                      class="flex items-center gap-2 text-primary font-bold text-sm
-                             uppercase tracking-wider hover:gap-4 transition-all duration-200 cursor-pointer">
-                Découvrir
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                        d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Aucun service -->
-        <div v-else class="text-center py-20">
-          <p class="text-secondary text-lg">Aucun service disponible pour le moment.</p>
-        </div>
+        <button
+          v-for="service in services"
+          :key="service.id"
+          @click="selectService(service)"
+          :class="selectedService?.id === service.id
+            ? 'bg-primary text-white'
+            : 'bg-white text-gray-500 hover:bg-gray-50'"
+          class="w-52 py-8 rounded-2xl shadow-2xl transition-all flex flex-col items-center gap-2"
+        >
+          <!-- Icône générique pack -->
+          <svg class="w-7 h-7" :class="selectedService?.id === service.id ? 'text-white' : 'text-primary'"
+               fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+          </svg>
+          <span class="font-bold text-sm uppercase text-center px-2">{{ service.name }}</span>
+        </button>
 
       </div>
     </section>
+
+    <!-- Produits du service sélectionné -->
+    <section class="container mx-auto px-6 pb-20">
+
+      <!-- Loading produits -->
+      <div v-if="loadingProducts" class="flex justify-center py-20">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+      </div>
+
+      <!-- Titre section -->
+      <div v-else-if="products.length > 0">
+        <h2 class="text-2xl font-black text-gray-800 uppercase mb-8 text-center">
+          {{ selectedService?.name }}
+        </h2>
+
+        <!-- Grille produits -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div v-for="product in products" :key="product.id"
+               class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-shadow">
+
+            <div class="h-1.5 bg-primary w-full"></div>
+
+            <div class="p-8 flex flex-col h-full">
+              <h3 class="text-xl font-black text-gray-700 uppercase mb-4">{{ product.name }}</h3>
+
+              <div v-if="product.advantage" class="mb-4">
+                <p class="text-xs font-semibold text-gray-400 uppercase mb-1">Avantages</p>
+                <p class="text-gray-600 text-sm leading-relaxed">{{ product.advantage }}</p>
+              </div>
+
+              <div v-if="product.deposit_at_opening" class="mb-6">
+                <p class="text-xs font-semibold text-gray-400 uppercase mb-1">Dépôt à l'ouverture</p>
+                <p class="text-primary font-black text-xl">
+                  {{ Number(product.deposit_at_opening).toLocaleString('fr-FR') }} FCFA
+                </p>
+              </div>
+
+              <button
+                @click="goToSubscribe(product.id)"
+                class="mt-auto w-full text-center border border-primary text-primary py-3 rounded-lg font-bold hover:bg-primary hover:text-white transition-colors uppercase text-sm cursor-pointer"
+              >
+                Pré-souscrire
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Aucun produit -->
+      <div v-else-if="selectedService && !loadingProducts" class="text-center py-20">
+        <p class="text-gray-500 text-lg">Aucun produit disponible pour ce service.</p>
+      </div>
+
+    </section>
   </main>
 </template>
+
+<style scoped>
+.line-clamp-3 {
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+</style>

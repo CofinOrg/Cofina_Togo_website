@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router'
 import identity from '../../assets/images/accueil/27.png'
 import realization from '../../assets/images/accueil/11.png'
 import joinUs from '../../assets/images/accueil/4.png'
-import group from '../../assets/images/accueil/23.png'
+import group from '../../assets/logo-groupe.svg'
 
 const router = useRouter()
 
@@ -14,6 +14,7 @@ const blocks = [
     image: identity,
     link: '/a-propos',
     isExternal: false,
+    objectFit: 'object-cover object-top'
   },
   {
     id: 2,
@@ -21,6 +22,7 @@ const blocks = [
     image: realization,
     link: '#blog',
     isExternal: false,
+    objectFit: 'object-cover object-top'
   },
   {
     id: 3,
@@ -28,6 +30,7 @@ const blocks = [
     image: joinUs,
     link: '/carrieres',
     isExternal: false,
+    objectFit: 'object-cover object-top'
   },
   {
     id: 4,
@@ -35,6 +38,7 @@ const blocks = [
     image: group,
     link: 'https://www.groupecofina.com/',
     isExternal: true,
+    objectFit: 'p-4 bg-white'
   },
 ]
 
@@ -54,7 +58,7 @@ const navigate = (block) => {
 </script>
 
 <template>
-  <section class="nous-connaitre-section bg-gray-50 py-16 md:py-10">
+  <section class="nous-connaitre-section bg-gray-50 py-16 md:py-10 overflow-hidden">
 
     <!-- ===== TICKER / TEXTE DÉFILANT ===== -->
     <div class="ticker-wrapper overflow-hidden bg-white py-3 mb-12">
@@ -71,24 +75,24 @@ const navigate = (block) => {
     </div>
 
     <!-- ===== GRILLE 4 BLOCS ===== -->
-    <div class="max-w-350 mx-auto px-4 lg:px-8">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <div
           v-for="block in blocks"
           :key="block.id"
           class="block-card group bg-white rounded-2xl shadow-md hover:shadow-2xl border border-gray-100 overflow-hidden transition-all duration-400 hover:-translate-y-2 cursor-pointer"
           @click="navigate(block)"
         >
-          <!-- Image -->
-          <div class="relative overflow-hidden h-48">
-            <img
-              :src="block.image"
-              :alt="block.title"
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              loading="lazy"
-            >
-            <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-all duration-300" />
-          </div>
+        <!-- Image -->
+        <div class="relative overflow-hidden h-48">
+        <img
+            :src="block.image"
+            :alt="block.title"
+            class="w-full h-full transition-transform duration-700 group-hover:scale-105"
+            :class="block.objectFit || 'object-cover'"
+            loading="lazy"
+        >
+        </div>
 
           <!-- Titre -->
           <div class="p-5">

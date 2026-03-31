@@ -116,38 +116,32 @@ onUnmounted(() => {
       </div>
 
       <!-- Contenu du Hero -->
-      <div class="relative z-10 h-full flex items-center">
-        <div class="max-w-350 mx-auto px-2 lg:px-8 w-full">
-          <div class="max-w-4xl">
-            <!-- Titre principal -->
-            <h1 class="text-white font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-6xl leading-[1.1] tracking-tight mb-2 animate-fade-in">
-              {{ slides[currentSlide]?.text || 'Bienvenue chez Cofina Togo' }}
-            </h1>
+<div class="relative z-10 h-full flex items-center">
+  <div class="max-w-350 mx-auto px-2 lg:px-8 w-full">
+    <div class="max-w-4xl mx-auto text-center">
+      <!-- Titre principal -->
+      <h1 class="text-white font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-6xl leading-[1.1] tracking-tight mb-2 animate-fade-in">
+        {{ slides[currentSlide]?.text || 'Bienvenue chez Cofina Togo' }}
+      </h1>
 
-            <!-- Sous-titre -->
-          <!--   <p class="text-white/90 text-sm sm:text-xl md:text-2xl max-w-3xl leading-relaxed mb-2 animate-fade-in-delay">
-              Particuliers, Entrepreneurs et Institutions : découvrez une navigation fluide et des offres anticipées à vos ambitions
-            </p> -->
-
-            <!-- Boutons CTA -->
-            <div class="flex flex-col sm:flex-row gap-4 pt-2 sm:pt-10 md:pt-16 lg:pt-28 animate-fade-in-delay-2">
-              <router-link
-                to="/contact#contact-form"
-                class="inline-flex items-center justify-center bg-primary text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-sm sm:text-base md:text-lg font-bold hover:bg-secondary shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
-              >
-                Parler à un gestionnaire
-              </router-link>
-
-              <router-link
-                to="/contact#map"
-                class="inline-flex items-center justify-center bg-transparent text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-sm sm:text-base md:text-lg font-bold border-2 border-white hover:bg-white hover:text-primary shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
-              >
-                Trouver une agence
-              </router-link>
-            </div>
-          </div>
-        </div>
+      <!-- Boutons CTA -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center pt-2 sm:pt-10 md:pt-16 lg:pt-28 animate-fade-in-delay-2">
+        <router-link
+          to="/contact#contact-form"
+          class="inline-flex items-center justify-center bg-primary text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-sm sm:text-base md:text-lg font-bold hover:bg-secondary shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
+        >
+          Parler à un gestionnaire
+        </router-link>
+        <router-link
+          to="/contact#map"
+          class="inline-flex items-center justify-center bg-transparent text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-sm sm:text-base md:text-lg font-bold border-2 border-white hover:bg-white hover:text-primary shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300"
+        >
+          Trouver une agence
+        </router-link>
       </div>
+    </div>
+  </div>
+</div>
 
 
       <!-- Indicateurs rectangulaires -->

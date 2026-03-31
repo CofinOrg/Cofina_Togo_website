@@ -131,7 +131,7 @@ onMounted(async () => {
         class="inline-flex items-center gap-5 px-8 text-gray-900 font-black text-sm md:text-xs uppercase tracking-[0.2em] select-none"
         >
         Nos produits & services
-        <span class="w-2 h-2 rounded-full bg-primary inline-block flex-shrink-0" />
+        <span class="w-2 h-2 rounded-full bg-primary inline-block shrink-0" />
         </span>
     </div>
     </div>
@@ -175,36 +175,42 @@ onMounted(async () => {
             class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-4 lg:p-5 border border-gray-100 hover:-translate-y-1 group flex flex-col"
           >
             <!-- Icône -->
-            <div class="w-12 h-12 bg-pink-50 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
-              <svg class="w-6 h-6 text-primary group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+         <!-- Badge épargne -->
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-12 h-12 bg-pink-50 rounded-lg flex items-center justify-center group-hover:bg-primary group-hover:scale-110 transition-all duration-300 shrink-0">
+                    <svg class="w-6 h-6 text-primary group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <span v-if="!isCredit" class="inline-block text-primary/50 text-sm font-bold px-3 py-1 rounded-full group-hover:text-primary">
+                    Plans d'épargne
+                </span>
             </div>
-
+                        <!-- Icône -->
             <!-- Nom -->
-            <h3 class="text-gray-900 text-xl font-bold mb-3">
+            <h3 class="text-primary  text-xl font-bold mb-3">
               {{ product.name }}
             </h3>
 
             <!-- Avantage -->
+            <p v-if="product.credit_access" class="text-gray-600 text-sm mb-2">
+              Taux de rémunération : {{ product.credit_access }}
+            </p>
             <p class="text-gray-600 text-sm leading-relaxed mb-4 flex-1">
               {{ product.advantage }}
             </p>
 
             <!-- Crédit -->
-            <p v-if="product.credit_access" class="text-gray-500 text-xs mb-2">
-              Taux de rémunération : {{ product.credit_access }}
-            </p>
 
             <!-- Dépôt -->
-            <p v-if="product.deposit_at_opening" class="text-gray-500 text-xs mb-4">
-              Dépôt à l'ouverture : {{ product.deposit_at_opening }}
-            </p>
+       <!--      <p v-if="product.deposit_at_opening" class="text-gray-500 text-sm mb-4">
+              Dépôt à l'ouverture : {{ product.deposit_at_opening }} FCFA
+            </p> -->
 
             <!-- Lien -->
             <router-link
               v-if="!isCredit"
-              :to="{ name: 'pack-form', params: { productId: product.id } }"
+              :to="{ name: 'pack-form2' }"
               class="mt-auto block w-full text-center px-6 py-3 rounded-lg text-sm font-bold text-primary border-2 border-primary hover:bg-primary hover:text-white transition-all duration-300"
             >
               Souscrire
@@ -252,7 +258,7 @@ onMounted(async () => {
         </div> -->
 
         <!-- 4 badges infos clés -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+       <!--  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
           <div
             v-for="(info, idx) in creditKeyInfos"
             :key="idx"
@@ -276,11 +282,11 @@ onMounted(async () => {
             <p class="text-primary font-bold text-lg">{{ info.value }}</p>
           </div>
         </div>
-
+ -->
         <!-- Pénalités & Commissions -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- <div class="grid grid-cols-1 md:grid-cols-2 gap-6"> -->
           <!-- Pénalités de retard -->
-          <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-6">
+   <!--        <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-6">
             <div class="flex items-center gap-3 mb-4">
               <div class="w-10 h-10 bg-red-50 rounded-lg flex items-center justify-center">
                 <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -295,10 +301,10 @@ onMounted(async () => {
                 Intérêt de retard : 0,3% de l'échéance due / jour + 1 000 F Forfaitaire
               </li>
             </ul>
-          </div>
+          </div> -->
 
           <!-- Commissions sur remboursement anticipé -->
-          <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-6">
+          <!-- <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-6">
             <div class="flex items-center gap-3 mb-4">
               <div class="w-10 h-10 bg-orange-50 rounded-lg flex items-center justify-center">
                 <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -317,23 +323,23 @@ onMounted(async () => {
                 Rachat externe : 5% sur l'encours restant dû (pour les clients qui nous quittent)
               </li>
             </ul>
-          </div>
-        </div>
+          </div> -->
+        <!-- </div> -->
 
       </div>
 
 
 
       <!-- ===================== PACKS ===================== -->
-      <div class="mt-16">
-        <div class="text-center mb-10">
+     <!--  <div class="mt-16"> -->
+       <!--  <div class="text-center mb-10">
           <h2 class="text-primary text-2xl md:text-3xl lg:text-4xl font-bold">
             Nos Packs
           </h2>
-        </div>
+        </div> -->
 
         <!-- Onglets packs (dynamiques) -->
-        <div v-if="packServices.length > 0" class="flex justify-center gap-4 mb-12 flex-wrap">
+<!--         <div v-if="packServices.length > 0" class="flex justify-center gap-4 mb-12 flex-wrap">
           <button
             v-for="service in packServices"
             :key="service.id"
@@ -345,10 +351,10 @@ onMounted(async () => {
           >
             {{ service.name }}
           </button>
-        </div>
+        </div> -->
 
         <!-- Cartes des produits du pack actif -->
-        <ScrollReveal
+ <!--        <ScrollReveal
           v-if="activePackProducts.length > 0"
           :key="activePackId"
           :stagger="true"
@@ -362,37 +368,37 @@ onMounted(async () => {
                 'bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-2 lg:p-6 border-2 hover:-translate-y-1 relative flex flex-col',
                 index === 0 ? 'border-primary' : 'border-gray-200'
               ]"
-            >
+            > -->
               <!-- Badge premier produit -->
-              <div
+        <!--       <div
                 v-if="index === 0"
                 class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-xs font-bold px-4 py-1 rounded-full"
               >
                 Populaire
-              </div>
+              </div> -->
 
               <!-- Titre -->
-              <h3 class="text-xl md:text-2xl font-bold mb-4 text-center text-gray-900">
+             <!--  <h3 class="text-xl md:text-2xl font-bold mb-4 text-center text-gray-900">
                 {{ product.name }}
-              </h3>
+              </h3> -->
 
               <!-- Description / Avantage -->
-              <p class="text-gray-600 text-sm leading-relaxed text-center flex-1">
+             <!--  <p class="text-gray-600 text-sm leading-relaxed text-center flex-1">
                 {{ product.advantage }}
-              </p>
+              </p> -->
 
               <!-- Crédit -->
-              <p v-if="product.credit_access" class="text-gray-500 text-xs text-center mb-2">
+              <!-- <p v-if="product.credit_access" class="text-gray-500 text-sm text-center mb-2">
                 Crédit : {{ product.credit_access }} de FCFA
               </p>
-
+ -->
               <!-- Dépôt -->
-              <p v-if="product.deposit_at_opening" class="text-gray-500 text-xs text-center mb-4">
+             <!--  <p v-if="product.deposit_at_opening" class="text-gray-500 text-sm text-center mb-4">
                 Dépôt à l'ouverture : {{ product.deposit_at_opening }} FCFA
-              </p>
+              </p> -->
 
               <!-- Bouton -->
-              <router-link
+          <!--     <router-link
                 :to="{ name: 'pack-form', params: { productId: product.id } }"
                 :class="[
                   'mt-auto block w-full text-center px-6 py-3 rounded-lg text-sm font-bold transition-all duration-300',
@@ -404,14 +410,14 @@ onMounted(async () => {
                 Souscrire
               </router-link>
             </div>
-        </ScrollReveal>
+        </ScrollReveal> -->
 
         <!-- État vide packs -->
-        <div v-else-if="packServices.length > 0" class="text-center py-12">
+    <!--     <div v-else-if="packServices.length > 0" class="text-center py-12">
           <p class="text-gray-600 text-lg">Aucun produit pour ce pack.</p>
-        </div>
+        </div> -->
       </div>
-    </div>
+    <!-- </div> -->
   </section>
 </template>
 

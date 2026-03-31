@@ -21,6 +21,7 @@ import AddBlog from '../views/admin/AddBlog.vue'
 import LoginPage from '../views/auth/LoginPage.vue'
 import ConvertisseurDevise from '../views/website/ConvertisseurDevisePage.vue'
 import FormPacks from '../components/Home-components/FormProducts.vue'
+import FormPacks2 from '../components/Home-components/FormProducts2.vue'
 import FormBusinessClub from '../components/Home-components/FormBusinessClub.vue'
 import AddAgency from '../views/admin/AddAgency.vue'
 import ManageUsers from '../views/admin/ManageUsers.vue'
@@ -132,6 +133,11 @@ const router = createRouter({
                     name: "pack-form",
                     component: FormPacks,
                     props: true
+                },
+                {
+                    path: "pack-form2",
+                    name: "pack-form2",
+                    component: FormPacks2,
                 },
                 {
                     path: "businesstouch/adhesion",

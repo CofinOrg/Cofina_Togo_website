@@ -1,6 +1,6 @@
 <template>
   <main class="min-h-screen bg-white">
-    <section class="relative h-[300px] flex items-center bg-[#333] overflow-hidden">
+    <section class="relative h-75 flex items-center bg-[#333] overflow-hidden">
       <div class="absolute inset-0 opacity-40">
         <img src="@/assets/images/hero_produits.png" class="w-full h-full object-cover" alt="Hero Souscription" />
       </div>
@@ -25,7 +25,7 @@
         </template>
         <template v-else>
           <p class="text-gray-700 leading-relaxed mb-4">
-            Remplissez le formulaire ci-dessous pour souscrire à nos services bancaires.
+            Une épargne est plus qu'un compte. Il s'agit d'un PLAN avec une vision et des objectifs pour réaliser vos projets. Démarrez votre plan dès aujourd'hui et laissez COFINA vous accompagner.
           </p>
         </template>
         <p class="text-gray-700 leading-relaxed mb-4">

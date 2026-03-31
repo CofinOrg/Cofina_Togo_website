@@ -80,7 +80,7 @@ const changeCategory = (cat: string) => {
 
         <button
           class="bg-primary text-white w-full py-4 rounded-full font-bold text-xl hover:bg-red-700 transition-all uppercase shadow-lg">
-          Souscrire
+          Pré-souscrire
         </button>
       </div>
     </div>

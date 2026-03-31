@@ -24,12 +24,14 @@ const getCoverUrl = (coverImage) => {
 
 const articles = computed(() => {
   if (blogs.value.length === 0) return []
-  return blogs.value.map(blog => ({
-    id: blog.id,
-    image: getCoverUrl(blog.coverImage),
-    title: blog.title,
-    description: blog.summary,
-    linkText: 'Lire la suite →'
+    return blogs.value
+        .filter(blog => blog.status === "published")
+        .map(blog => ({
+        id: blog.id,
+        image: getCoverUrl(blog.coverImage),
+        title: blog.title,
+        description: blog.summary,
+        linkText: 'Lire la suite →'
   }))
 })
 
@@ -71,11 +73,11 @@ const prevSlide = () => {
 
 <template>
   <section class="py-10 md:py-8 bg-gray-50 overflow-x-hidden">
-    <div class="max-w-[1400px] mx-auto px-4 lg:px-8">
+    <div class="max-w-350 mx-auto px-4 lg:px-8">
       <!-- Titre de la section -->
       <div class="text-center mb-12">
         <h2 class="text-gray-900 text-3xl md:text-4xl font-bold">
-          Actualités & success stories
+          Actualités
         </h2>
       </div>
 
@@ -102,14 +104,14 @@ const prevSlide = () => {
           <div
             v-for="(article, index) in articles"
             :key="article.id"
-            class="flex-shrink-0 w-[280px] md:w-[320px] bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group hover:-translate-y-1 snap-start"
+            class="shrink-0 w-70 md:w-[320px] bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group hover:-translate-y-1 snap-start"
           >
             <!-- Image - Taille réduite -->
             <div class="relative h-40 overflow-hidden">
               <img
                 :src="article.image"
                 :alt="article.title"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
               >
             </div>
 

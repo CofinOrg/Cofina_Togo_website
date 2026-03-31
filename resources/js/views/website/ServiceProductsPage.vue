@@ -83,15 +83,15 @@ onMounted(() => {
                 <p class="text-primary font-bold text-lg">{{ Number(product.deposit_at_opening).toLocaleString('fr-FR') }} FCFA</p>
               </div>
 
-              <div v-if="product.credit_access" class="mb-4">
-                <p class="text-xs font-semibold text-gray-500 uppercase mb-1">Accès au crédit</p>
-                <p class="text-gray-600 text-sm">{{ product.credit_access }}</p>
-              </div>
+            <!--     <div v-if="product.credit_access" class="mb-4">
+                    <p class="text-xs font-semibold text-gray-500 uppercase mb-1">Accès au crédit</p>
+                    <p class="text-gray-600 text-sm">{{ product.credit_access }}</p>
+                </div> -->
 
               <router-link
                 :to="{ name: 'pack-form', params: { productId: product.id } }"
                 class="mt-auto block w-full text-center border border-primary text-primary py-3 rounded-lg font-bold hover:bg-primary hover:text-white transition-colors uppercase text-sm">
-                Souscrire
+                Pré-souscrire
               </router-link>
             </div>
           </div>

@@ -41,12 +41,12 @@
                 </div>
                 <input
                   type="range" v-model.number="montant"
-                  :min="500000" :max="100000000" :step="500000"
-                  :style="sliderStyle(montant, 500000, 100000000)"
+                  :min="500000" :max="500000000" :step="500000"
+                  :style="sliderStyle(montant, 500000, 500000000)"
                   class="slider w-full"
                 />
                 <div class="flex justify-between text-xs text-gray-300 font-medium">
-                  <span>500 K</span><span>100 M</span>
+                  <span>500 K</span><span>500 M</span>
                 </div>
               </div>
 

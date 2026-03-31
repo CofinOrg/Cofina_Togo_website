@@ -49,7 +49,7 @@ const fetchAnnouncement = async () => {
   }
 }
 
-onMounted(async () => { 
+onMounted(async () => {
   fetchAnnouncement()
   await nextTick()
   if (filialesScrollRef.value) {
@@ -102,10 +102,10 @@ onMounted(async () => {
 
     <!-- Image Cofina -->
     <a href="https://play.google.com/store/apps/details?id=com.smartsolutionomb.app&hl=fr" target="_blank"
-       class="hover:scale-110 transition-transform duration-200">
-        <img src="../assets/cofina-mobile+.webp" alt="Cofina" class="h-5 w-5 rounded-[30%] inline-block align-middle">
+        class="hover:scale-110 transition-transform duration-200 inline-flex items-center gap-2">
+        <img src="../assets/cofina-mobile+.webp" alt="Cofina" class="h-5 w-5 rounded-[30%]">
+        <p class="text-xs">Cofina mobile+</p>
     </a>
-
 </div>
 
 
@@ -171,7 +171,7 @@ onMounted(async () => {
               class="text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-white hover:text-primary transition-all duration-300 flex items-center gap-1"
               :class="{ 'bg-white! text-primary!': route.path.startsWith('/simulateurs') }"
             >
-              Simulateurs et convertisseur
+              Simulateurs & convertisseur
               <ChevronDown :size="16" :class="{'rotate-180': simulateursDropdownOpen}" class="transition-transform duration-300" />
             </button>
 
