@@ -192,6 +192,14 @@ onMounted(() => {
               >
                 Pré-souscrire
               </button>
+                  <router-link
+              v-else
+              to="/simulateurs"
+              class="mt-auto block w-full text-center px-6 py-3 rounded-lg text-sm font-bold text-primary border-2 border-primary hover:bg-primary hover:text-white transition-all duration-300"
+            >
+              Simuler le crédit
+            </router-link>
+
             </div>
 
           </div>
