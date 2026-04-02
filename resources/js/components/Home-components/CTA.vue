@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import mobilePersonDefault from  '../../assets/images/accueil/Adobe-Express-file-final.png';
 import ScrollReveal from '../ScrollReveal.vue'
+import { ArrowRight } from 'lucide-vue-next'
 
 defineProps({
   mobilePersonImage: {

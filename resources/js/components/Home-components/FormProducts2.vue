@@ -285,10 +285,10 @@ const fetchProducts = async () => {
       page++;
     } while (page <= lastPage);
 
-    // Filtrer uniquement les produits d'épargne
+    // Filtrer uniquement les produits d'épargne (exclure les crédits)
   products.value = allProducts.filter(p => {
     const name = (p.service?.name || '').toLowerCase();
-    return name.includes('épargne') || name.includes('particulier');
+    return (name.includes('épargne') || name.includes('particulier')) && !name.includes('crédit');
   });
 
   } catch (error) {

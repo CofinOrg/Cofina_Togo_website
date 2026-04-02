@@ -1,6 +1,6 @@
 <template>
   <main class="min-h-screen bg-white">
-    <section class="relative h-[300px] flex items-center bg-[#333] overflow-hidden">
+    <section class="relative h-75 flex items-center bg-[#333] overflow-hidden">
       <div class="absolute inset-0 opacity-50">
         <img src="../../assets/images/hero_produits.png" class="w-full h-full object-cover" alt="Services" />
       </div>

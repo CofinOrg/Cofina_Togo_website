@@ -114,7 +114,7 @@ onMounted(async () => {
   <!-- Bande principale -->
   <div class="bg-primary">
     <div class=" mx-auto lg:pr-8">
-      <div class="flex items-center justify-between pb-2 gap-4">
+      <div class="flex items-center justify-between pb-2 ">
         <!-- Logo -->
         <a class="shrink-0 bg-white px-1 py-1 rounded-br-3xl shadow-md cursor-pointer" href="/">
           <img
@@ -220,6 +220,13 @@ onMounted(async () => {
             active-class="bg-white !text-primary"
           >
             Espace Premium
+          </RouterLink>
+          <RouterLink
+            to="/marche-financier"
+            class="text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-white hover:text-primary transition-all duration-300"
+            active-class="bg-white !text-primary"
+          >
+            Marché financier
           </RouterLink>
 
         </nav>
@@ -350,6 +357,16 @@ onMounted(async () => {
         >
 
           Espace premium
+        </RouterLink>
+
+        <RouterLink
+          to="/marche-financier"
+          class="block text-white text-sm font-medium py-2 px-4 mb-4 rounded hover:bg-white hover:text-primary transition-all"
+          active-class="bg-white !text-primary"
+          @click="mobileMenuOpen = false"
+        >
+
+          Marché financier
         </RouterLink>
 
 

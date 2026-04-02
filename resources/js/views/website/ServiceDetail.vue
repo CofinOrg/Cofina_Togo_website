@@ -20,7 +20,7 @@ const changeCategory = (cat: string) => {
 
 <template>
   <main v-if="data" class="min-h-screen">
-    <section class="relative h-[300px] bg-[#333] flex items-center">
+    <section class="relative h-75 bg-[#333] flex items-center">
       <div class="absolute inset-0 opacity-40">
         <img src="../../assets/images/hero_produits.png" alt="Produits COFINA" class="w-full h-full object-cover" />
       </div>
@@ -57,7 +57,7 @@ const changeCategory = (cat: string) => {
 
     <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-start pb-20">
       <img :src="data.image ?? '/assets/images/accueil/finedone.jpg'"
-        class="rounded-xl shadow-lg w-full object-cover h-[400px]" />
+        class="rounded-xl shadow-lg w-full object-cover h-100" />
 
       <div class="space-y-10">
         <div>

@@ -37,6 +37,7 @@ class Service extends ModelBase
         'name',
         'description',
         'type',
+        'customer_type',
     ];
 
     /**

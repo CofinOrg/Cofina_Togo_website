@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4">
+  <div class="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 py-12 px-4">
     <div class="max-w-5xl mx-auto">
       <!-- En-tête -->
       <div class="mb-8 flex items-center justify-between">
@@ -169,6 +169,18 @@
             <option value="" disabled>Sélectionnez un type</option>
             <option value="pack">Pack</option>
             <option value="financial_solution">Solution financière</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-3">Type de client</label>
+          <select
+            v-model="serviceForm.customer_type"
+            class="w-full px-5 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none"
+          >
+            <option value="" disabled>Sélectionnez un type</option>
+            <option value="particulier">Particulier</option>
+            <option value="entreprise">Entreprise</option>
           </select>
         </div>
 
@@ -399,6 +411,7 @@ const serviceForm = ref({
   name: '',
   description: '',
   type: '' as string,
+  customer_type: '' as string,
 })
 
 const serviceFormSection = ref<HTMLElement | null>(null)
@@ -407,7 +420,8 @@ const filteredServices = computed(() => {
   return services.value.filter(s => {
     const matchesSearch = (s.name || '').toLowerCase().includes(serviceSearchQuery.value.toLowerCase())
     const matchesType = serviceFilterType.value === 'all' || s.type === serviceFilterType.value
-    return matchesSearch && matchesType
+    const matchesCustomerType = serviceFilterType.value === 'all' || s.customer_type === serviceFilterType.value
+    return matchesSearch && matchesType && matchesCustomerType
   })
 })
 
@@ -431,6 +445,7 @@ const editService = (item: any) => {
     name: item.name || '',
     description: item.description || '',
     type: item.type || '',
+    customer_type: item.customer_type || '',
   }
   scrollToServiceForm()
 }
@@ -438,7 +453,8 @@ const editService = (item: any) => {
 const cancelEditService = () => {
   isEditingService.value = false
   editingServiceId.value = null
-  serviceForm.value = { name: '', description: '', type: '' }
+serviceForm.value = { name: '', description: '', type: '', customer_type: '' }
+
 }
 
 const deleteService = async (id: number) => {
@@ -470,6 +486,7 @@ const saveService = async () => {
     name: serviceForm.value.name,
     description: serviceForm.value.description,
     type: serviceForm.value.type,
+    customer_type: serviceForm.value.customer_type,
   }
 
   try {

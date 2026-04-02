@@ -69,7 +69,8 @@ class ServiceController extends APIController
         $this->storeValidationArray = [
             'name' => 'required|string',
             'description' => 'required|string',
-            'type' => 'required|in:pack,financial_solution'
+            'type' => 'required|in:pack,financial_solution',
+            'customer_type' => 'nullable|in:particulier,entreprise',
         ];
         $this->storeManualValidationsFunction = function ($requestData) use ($connectedUser) {
             return null;

@@ -21,19 +21,57 @@ const financialServices = computed(() => {
   return services.value.filter(s => s.type === 'financial_solution').sort((a, b) => a.id - b.id)
 })
 
-// Onglet actif = id du premier service financial_solution
+// Identifier les services de crédit
+const creditServices = computed(() => {
+  return financialServices.value.filter(s =>
+    s.name.toLowerCase().includes('crédit') ||
+    s.name.toLowerCase().includes('credit') ||
+    s.name.toLowerCase().includes('avance')
+  )
+})
+
+// Identifier les autres services (non-crédit)
+const otherFinancialServices = computed(() => {
+  return financialServices.value.filter(s => !creditServices.value.map(c => c.id).includes(s.id))
+})
+
+// Boutons : autres services EN PREMIER, puis "Tous les crédits" si y'a des crédits
+const displayedFinancialTabs = computed(() => {
+  const tabs = [...otherFinancialServices.value]
+  if (creditServices.value.length > 0) {
+    tabs.push({ id: 'all-credits', name: 'Offres de crédit' })
+  }
+  return tabs
+})
+
+// Onglet actif = id du premier service ou 'all-credits'
 const activeFinancialId = ref(null)
 
 const activeFinancialService = computed(() => {
+  if (activeFinancialId.value === 'all-credits') {
+    return { name: 'Tous les crédits' }
+  }
   return financialServices.value.find(s => s.id === activeFinancialId.value)
 })
 
 const activeFinancialProducts = computed(() => {
-  return (activeFinancialService.value?.service_product || []).filter(p => p.section !== 'premium')
+  if (activeFinancialId.value === 'all-credits') {
+    // Combiner tous les produits des services de crédit
+    let allProducts = []
+    creditServices.value.forEach(service => {
+      allProducts = allProducts.concat((service.service_product || []).filter(p => p.section !== 'premium'))
+    })
+    return allProducts
+  }
+
+  const service = financialServices.value.find(s => s.id === activeFinancialId.value)
+  return (service?.service_product || []).filter(p => p.section !== 'premium')
 })
 
 const isCredit = computed(() => {
-  return activeFinancialService.value?.name?.toLowerCase().includes('crédit') || activeFinancialService.value?.name?.toLowerCase().includes('credit')
+  return activeFinancialId.value === 'all-credits' ||
+         activeFinancialService.value?.name?.toLowerCase().includes('crédit') ||
+         activeFinancialService.value?.name?.toLowerCase().includes('credit')
 })
 
 const changeFinancialTab = (id) => {
@@ -107,8 +145,10 @@ const creditKeyInfos = [
 onMounted(async () => {
   await fetchServices()
   // Sélectionner le premier onglet par défaut
-  if (financialServices.value.length > 0) {
-    activeFinancialId.value = financialServices.value[0].id
+  if (otherFinancialServices.value.length > 0) {
+    activeFinancialId.value = otherFinancialServices.value[0].id
+  } else if (creditServices.value.length > 0) {
+    activeFinancialId.value = 'all-credits'
   }
   if (packServices.value.length > 0) {
     activePackId.value = packServices.value[0].id
@@ -117,7 +157,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section class="py-16 md:py-10 bg-gray-50">
+  <section class="py-8 md:py-6 bg-gray-50">
     <div class="max-w-350 mx-auto px-4 lg:px-14">
 
       <!-- ===================== SOLUTIONS FINANCIÈRES ===================== -->
@@ -147,9 +187,9 @@ onMounted(async () => {
       <!-- </div> -->
 
       <!-- Onglets solutions financières (dynamiques) -->
-      <div v-if="financialServices.length > 0" class="flex justify-center gap-4 mb-12 flex-wrap">
+      <div v-if="displayedFinancialTabs.length > 0" class="flex justify-center gap-4 mb-12 flex-wrap">
         <button
-          v-for="service in financialServices"
+          v-for="service in displayedFinancialTabs"
           :key="service.id"
           @click="changeFinancialTab(service.id)"
           class="px-8 py-3 rounded-full text-sm md:text-base font-bold transition-all duration-300"
@@ -215,11 +255,18 @@ onMounted(async () => {
             >
               Souscrire
             </router-link>
+            <router-link
+              v-else
+              to="/simulateurs"
+              class="mt-auto block w-full text-center px-6 py-3 rounded-lg text-sm font-bold text-primary border-2 border-primary hover:bg-primary hover:text-white transition-all duration-300"
+            >
+              Simuler le crédit
+            </router-link>
           </div>
       </ScrollReveal>
 
       <!-- État vide solutions -->
-      <div v-else-if="financialServices.length > 0" class="text-center py-12 mb-16">
+      <div v-else-if="displayedFinancialTabs.length > 0" class="text-center py-12 mb-16">
         <p class="text-gray-600 text-lg">Aucun produit pour cette solution.</p>
       </div>
 
@@ -325,6 +372,9 @@ onMounted(async () => {
             </ul>
           </div> -->
         <!-- </div> -->
+
+        <!-- Simulateur de Crédit CTA -->
+
 
       </div>
 

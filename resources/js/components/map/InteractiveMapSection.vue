@@ -256,7 +256,7 @@ const getCurrentLocation = () => {
 
 <template>
   <section class="py-8 bg-gray-50">
-    <div class="max-w-[1400px] mx-auto px-4 lg:px-8">
+    <div class="max-w-350 mx-auto px-4 lg:px-8">
       <!-- Titre -->
       <div class="mb-6">
         <h2 class="text-gray-900 text-2xl md:text-3xl font-bold mb-2 flex items-center gap-2">

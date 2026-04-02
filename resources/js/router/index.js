@@ -39,6 +39,7 @@ import InsightPage from '../views/admin/InsightPage.vue'
 import BusinessClubMembers from '../views/admin/BusinessClubMembers.vue'
 import NotFoundPage from '../views/website/NotFoundPage.vue'
 import PremiumPage from '../views/website/PremiumPage.vue'
+import FinancialMarketPage from '../views/website/FinancialMarketPage.vue'
 
 
 const router = createRouter({
@@ -94,6 +95,11 @@ const router = createRouter({
                     path: 'premium',
                     name: 'premium',
                     component: PremiumPage,
+                },
+                {
+                    path: 'marche-financier',
+                    name: 'financial-market',
+                    component: FinancialMarketPage,
                 },
                 {
                     path: 'service-types',

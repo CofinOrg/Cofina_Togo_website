@@ -72,7 +72,7 @@ const prevSlide = () => {
 </script>
 
 <template>
-  <section class="py-10 md:py-8 bg-gray-50 overflow-x-hidden">
+  <section class="py-6 md:py-8 bg-gray-50 overflow-x-hidden">
     <div class="max-w-350 mx-auto px-4 lg:px-8">
       <!-- Titre de la section -->
       <div class="text-center mb-12">

@@ -1,6 +1,6 @@
 {
   "node_modules/.pnpm/canvg@3.0.11/node_modules/canvg/lib/index.es.js": {
-    "file": "assets/index.es-Dvk2AkgV.js",
+    "file": "assets/index.es-BZ8k8rvq.js",
     "name": "index.es",
     "src": "node_modules/.pnpm/canvg@3.0.11/node_modules/canvg/lib/index.es.js",
     "isDynamicEntry": true,
@@ -25,7 +25,7 @@
     "src": "public/images/Ellipse-removebg-preview.png"
   },
   "resources/css/app.css": {
-    "file": "assets/app-CasIMO8G.css",
+    "file": "assets/app-TNvd_JQS.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
@@ -72,10 +72,6 @@
   "resources/js/assets/images/accueil/11.png": {
     "file": "assets/11-BtYT0Nb0.png",
     "src": "resources/js/assets/images/accueil/11.png"
-  },
-  "resources/js/assets/images/accueil/23.png": {
-    "file": "assets/23-Deul0cjz.png",
-    "src": "resources/js/assets/images/accueil/23.png"
   },
   "resources/js/assets/images/accueil/27.png": {
     "file": "assets/27-BEefqo-w.png",
@@ -154,7 +150,7 @@
     "src": "resources/js/assets/logo-groupe.svg"
   },
   "resources/js/main.js": {
-    "file": "assets/main-BLNCBjvd.js",
+    "file": "assets/main-BpnbqN74.js",
     "name": "main",
     "src": "resources/js/main.js",
     "isEntry": true,
@@ -164,7 +160,7 @@
       "node_modules/.pnpm/canvg@3.0.11/node_modules/canvg/lib/index.es.js"
     ],
     "css": [
-      "assets/main-CwFAkrts.css"
+      "assets/main-C80G4lWD.css"
     ],
     "assets": [
       "assets/cofina-mobile_-QGJ-n2O7.webp",
@@ -179,7 +175,6 @@
       "assets/27-BEefqo-w.png",
       "assets/11-BtYT0Nb0.png",
       "assets/4-BvV1bc3M.png",
-      "assets/23-Deul0cjz.png",
       "assets/Gemini_Generated_Image_21h5qu21h5qu21h5-BYmwXrm_.png",
       "assets/african-american-business-woman-holding-laptop-standing-by-window-DTL5-svw.jpg",
       "assets/business-hands-joined-together-teamwork-DzdCm59R.jpg",

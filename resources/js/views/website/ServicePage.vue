@@ -7,23 +7,35 @@ const router = useRouter();
 
 const services = ref([]);
 const loading = ref(false);
-const selectedService = ref(null);
 const products = ref([]);
 const loadingProducts = ref(false);
+const customerTypes = ref([]);
+const selectedCustomerType = ref('');
 
 const fetchServices = async () => {
   loading.value = true;
   try {
     const response = await api.get('/services');
     const data = response.data.data || response.data;
+    // Récupérer TOUS les services (pas seulement pack) qui ont un customer_type
+    services.value = data.filter(service => service.customer_type);
 
-    const filteredData = data.filter(service => service.type === 'pack');
-    services.value = filteredData;
+    console.log('=== TOUS LES SERVICES AVEC CUSTOMER_TYPE ===');
+    console.table(services.value.map(s => ({ id: s.id, name: s.name, type: s.type, customer_type: s.customer_type })));
 
+    // Extraire les types de clients uniques
+    const typeSet = new Set();
+    services.value.forEach(s => {
+      if (s.customer_type) typeSet.add(s.customer_type);
+    });
+    const types = Array.from(typeSet).sort();
+    customerTypes.value = types;
 
-    // Sélectionner le premier service par défaut
-    if (filteredData.length > 0) {
-      selectService(filteredData[0]);
+    console.log('Types de clients disponibles:', types);
+
+    // Sélectionner le premier type de client
+    if (types.length > 0) {
+      await selectCustomerType(types[0]);
     }
   } catch (error) {
     console.error('Erreur lors du chargement des services', error);
@@ -32,13 +44,44 @@ const fetchServices = async () => {
   }
 };
 
-const fetchProducts = async (serviceId) => {
-  loadingProducts.value = true;
+const selectCustomerType = async (type) => {
+  selectedCustomerType.value = type;
   products.value = [];
+  loadingProducts.value = true;
+
+  const servicesOfType = services.value.filter(s => s.customer_type === type);
+  const serviceIds = servicesOfType.map(s => s.id);
+
+  console.log(`\n=== SÉLECTION TYPE: "${type}" ===`);
+  console.log('Services avec customer_type "' + type + '":', servicesOfType.map(s => ({ id: s.id, name: s.name })));
+  console.log('Service IDs attendus:', serviceIds);
+
+  if (serviceIds.length === 0) {
+    console.error('❌ AUCUN service trouvé pour ce type!');
+    loadingProducts.value = false;
+    return;
+  }
+
   try {
-    const response = await api.get(`/service_products?service_id=${serviceId}`);
+    // Récupérer TOUS les produits (sans pagination)
+    const response = await api.get('/service_products?paginate=false');
     const data = response.data.data || response.data;
-    products.value = data;
+
+    console.log('\n📦 TOUS LES PRODUITS reçus de l\'API:');
+    console.table(data.map(p => ({ id: p.id, name: p.name, service_id: p.service_id })));
+
+    if (Array.isArray(data)) {
+      // Filtrer par service_id
+      const filtered = data.filter(product => {
+        const match = serviceIds.includes(product.service_id);
+        console.log(`  Produit ${product.id} (service_id=${product.service_id}): ${match ? '✅ MATCH' : '❌ NO MATCH'}`);
+        return match;
+      });
+
+      console.log(`\n✅ RÉSULTAT: ${filtered.length} produit(s) filtré(s)`);
+      console.table(filtered.map(p => ({ id: p.id, name: p.name, service_id: p.service_id })));
+      products.value = filtered;
+    }
   } catch (error) {
     console.error('Erreur lors du chargement des produits', error);
   } finally {
@@ -46,13 +89,17 @@ const fetchProducts = async (serviceId) => {
   }
 };
 
-const selectService = (service) => {
-  selectedService.value = service;
-  fetchProducts(service.id);
+const getCustomerTypeLabel = (type) => {
+  return type === 'entreprise' ? 'Entreprise' : 'Particulier';
+};
+
+const isCredit = (product) => {
+  // Vérifier si le nom du produit contient "crédit" ou "avance"
+  return product.name.toLowerCase().includes('crédit') || product.name.toLowerCase().includes('avance');
 };
 
 const goToSubscribe = (productId) => {
-  router.push({ name: 'pack-form2'});
+  router.push({ name: 'pack-form2' });
 };
 
 onMounted(() => {
@@ -77,7 +124,7 @@ onMounted(() => {
       </div>
     </section>
 
-    <!-- Boutons de navigation des services (style image) -->
+    <!-- Boutons Particulier / Entreprise -->
     <section class="relative z-30 -mt-16 mb-20">
       <div class="container mx-auto px-4 flex justify-center flex-wrap gap-6">
 
@@ -86,41 +133,37 @@ onMounted(() => {
         </div>
 
         <button
-          v-for="service in services"
-          :key="service.id"
-          @click="selectService(service)"
-          :class="selectedService?.id === service.id
+          v-for="type in customerTypes"
+          :key="type"
+          @click="selectCustomerType(type)"
+          :class="selectedCustomerType === type
             ? 'bg-primary text-white'
             : 'bg-white text-gray-500 hover:bg-gray-50'"
           class="w-52 py-8 rounded-2xl shadow-2xl transition-all flex flex-col items-center gap-2"
         >
-          <!-- Icône générique pack -->
-          <svg class="w-7 h-7" :class="selectedService?.id === service.id ? 'text-white' : 'text-primary'"
+          <svg class="w-7 h-7" :class="selectedCustomerType === type ? 'text-white' : 'text-primary'"
                fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
           </svg>
-          <span class="font-bold text-sm uppercase text-center px-2">{{ service.name }}</span>
+          <span class="font-bold text-sm uppercase text-center px-2">{{ getCustomerTypeLabel(type) }}</span>
         </button>
 
       </div>
     </section>
 
-    <!-- Produits du service sélectionné -->
+    <!-- Produits -->
     <section class="container mx-auto px-6 pb-20">
 
-      <!-- Loading produits -->
       <div v-if="loadingProducts" class="flex justify-center py-20">
         <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
 
-      <!-- Titre section -->
       <div v-else-if="products.length > 0">
         <h2 class="text-2xl font-black text-gray-800 uppercase mb-8 text-center">
-          {{ selectedService?.name }}
+          {{ getCustomerTypeLabel(selectedCustomerType) }}
         </h2>
 
-        <!-- Grille produits -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div v-for="product in products" :key="product.id"
                class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-shadow">
@@ -143,6 +186,7 @@ onMounted(() => {
               </div>
 
               <button
+                v-if="!isCredit(product)"
                 @click="goToSubscribe(product.id)"
                 class="mt-auto w-full text-center border border-primary text-primary py-3 rounded-lg font-bold hover:bg-primary hover:text-white transition-colors uppercase text-sm cursor-pointer"
               >
@@ -154,9 +198,8 @@ onMounted(() => {
         </div>
       </div>
 
-      <!-- Aucun produit -->
-      <div v-else-if="selectedService && !loadingProducts" class="text-center py-20">
-        <p class="text-gray-500 text-lg">Aucun produit disponible pour ce service.</p>
+      <div v-else-if="!loadingProducts" class="text-center py-20">
+        <p class="text-gray-500 text-lg">Aucun produit disponible.</p>
       </div>
 
     </section>
