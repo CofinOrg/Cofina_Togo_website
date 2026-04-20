@@ -90,7 +90,7 @@ defineProps({
     <div class="relative py-12 md:py-6">
 
 
-      <div class="relative z-10 max-w-[1000px] mx-auto px-4 lg:px-8">
+      <div class="relative z-10 max-w-250 mx-auto px-4 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
             <h2 class="text-gray-900 text-3xl md:text-4xl font-bold mb-4">

@@ -96,7 +96,7 @@ const navigate = (block) => {
 
           <!-- Titre -->
           <div class="p-5">
-            <h3 class="text-gray-900 font-bold text-lg md:text-xl leading-tight group-hover:text-primary transition-colors duration-300">
+            <h3 class="text-gray-900 font-bold text-lg text-center md:text-xl leading-tight group-hover:text-primary transition-colors duration-300">
               {{ block.title }}
             </h3>
           </div>

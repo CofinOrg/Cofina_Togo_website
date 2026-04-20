@@ -106,7 +106,7 @@
 
               <div>
                 <p class="text-white/60 text-xs uppercase tracking-wide mb-1">Vous avez</p>
-                <p class="text-white text-xl font-black">{{ formatPrice(montant) }} <span class="text-white/50 text-sm font-normal">{{ deviseSource.toUpperCase() }}</span></p>
+                <p class="text-white text-xl font-black break-all">{{ formatPrice(montant) }} <span class="text-white/50 text-sm font-normal">{{ deviseSource.toUpperCase() }}</span></p>
               </div>
 
               <div class="border-t border-white/15 pt-6">
@@ -116,7 +116,7 @@
 
               <div class="bg-white/10 rounded-2xl p-6">
                 <p class="text-white/50 text-xs uppercase tracking-widest mb-2">Équivaut à</p>
-                <p class="text-2xl font-black text-white leading-none">{{ formatPrice(montantConverti) }}</p>
+                <p class="text-xl font-black text-white leading-none break-all">{{ formatPrice(montantConverti) }}</p>
                 <p class="text-white/50 text-sm mt-1">{{ deviseCible.toUpperCase() }}</p>
               </div>
             </div>

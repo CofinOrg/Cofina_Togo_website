@@ -223,7 +223,7 @@ onMounted(async () => {
                     </svg>
                 </div>
                 <span v-if="!isCredit" class="inline-block text-primary/50 text-sm font-bold px-3 py-1 rounded-full group-hover:text-primary">
-                    Plans d'épargne
+                    Solutions d'épargne
                 </span>
             </div>
                         <!-- Icône -->
@@ -233,7 +233,7 @@ onMounted(async () => {
             </h3>
 
             <!-- Avantage -->
-            <p v-if="product.credit_access" class="text-gray-600 text-sm mb-2">
+            <p v-if="product.credit_access" class="text-gray-600 font-bold text-sm mb-2">
               Taux de rémunération : {{ product.credit_access }}
             </p>
             <p class="text-gray-600 text-sm leading-relaxed mb-4 flex-1">

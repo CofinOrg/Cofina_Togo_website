@@ -36,6 +36,9 @@ const toggleFaq = (i) => { faqs.value[i].open = !faqs.value[i].open }
     <!-- HERO -->
     <section class="relative pt-18 pb-20 overflow-hidden">
 
+      <div class="absolute bottom-12 left-16 w-1.5 h-1.5 bg-yellow-400 rounded-full animate-ping" />
+      <div class="absolute top-10 right-20 w-1 h-1 bg-yellow-400/60 rounded-full animate-ping" style="animation-delay:1s" />
+
       <!-- Background -->
       <div class="absolute inset-0 pointer-events-none">
         <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-200 h-80 bg-yellow-500/8 rounded-full blur-3xl" />

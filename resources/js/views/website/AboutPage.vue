@@ -4,6 +4,7 @@ import {
   EyeIcon, TargetIcon, StarIcon, CheckCircleIcon, BriefcaseIcon, ShapesIcon
 } from 'lucide-vue-next';
 import cofina_logo from '../../assets/cofina_petit_logo.png';
+
 import PanAfricanMap from '@/components/about/PanAfricanMap.vue';
 
 // Etats réactifs
@@ -30,10 +31,11 @@ const rseTasks = [
 ];
 
 const timelineEvents = [
-  { year: '2020', text: 'Démarrage des activités au Togo' },
-  { year: '2021', text: 'Expansion du réseau d\'agences locales' },
-  { year: '2022', text: 'Lancement des services digitaux innovants' },
+  { year: '2021', text: 'Démarrage des activités' },
+  { year: '2022', text: 'Extension du réseau' },
   { year: '2023', text: 'Obtention de la certification RSE Groupe' },
+  { year: '2024', text: 'Consolidation de la position sur le marché' },
+  { year: '2025', text: 'Croissance' },
 ];
 
 // const countries = [
@@ -57,7 +59,7 @@ onMounted(() => {
   <div class="bg-gray-50 font-sans text-gray-800 pb-10 overflow-x-hidden">
 
     <section class="relative">
-      <div class="h-[300px] md:h-[450px] overflow-hidden">
+      <div class="h-75 md:h-112.5 overflow-hidden">
         <img
           src="../../assets/images/about_images/Gemini_Generated_Image_21h5qu21h5qu21h5.png"
           alt="Cofina Building"
@@ -94,9 +96,9 @@ onMounted(() => {
         </div>
         <h2 class="text-2xl font-bold uppercase tracking-tighter">Notre <span class="text-primary">Vision</span></h2>
         <div class="flex items-center justify-center my-4">
-          <div class="h-[1px] bg-gray-300 w-12"></div>
+          <div class="h-px bg-gray-300 w-12"></div>
           <EyeIcon class="w-5 h-5 mx-3 text-primary" />
-          <div class="h-[1px] bg-gray-300 w-12"></div>
+          <div class="h-px bg-gray-300 w-12"></div>
         </div>
         <p class="italic text-gray-600 font-medium px-4">"Être le modèle panafricain de la finance inclusive"</p>
       </div>
@@ -107,9 +109,9 @@ onMounted(() => {
         </div>
         <h2 class="text-2xl font-bold uppercase tracking-tighter">Notre <span class="text-primary">Mission</span></h2>
         <div class="flex items-center justify-center my-4">
-          <div class="h-[1px] bg-gray-300 w-12"></div>
+          <div class="h-px bg-gray-300 w-12"></div>
           <TargetIcon class="w-5 h-5 mx-3 text-primary" />
-          <div class="h-[1px] bg-gray-300 w-12"></div>
+          <div class="h-px bg-gray-300 w-12"></div>
         </div>
         <p class="italic text-gray-600 font-medium px-4">"Créer de la valeur ajoutée pour nos partenaires et participer durablement au développement du continent africain"</p>
       </div>
@@ -120,9 +122,9 @@ onMounted(() => {
         <div class="text-center mb-16">
           <h2 class="text-3xl font-bold uppercase">Nos <span class="text-primary">Valeurs</span></h2>
           <div class="flex items-center justify-center mt-2">
-             <div class="h-[1px] bg-gray-300 w-12"></div>
+             <div class="h-px bg-gray-300 w-12"></div>
              <StarIcon class="w-5 h-5 mx-3 text-primary" />
-             <div class="h-[1px] bg-gray-300 w-12"></div>
+             <div class="h-px bg-gray-300 w-12"></div>
           </div>
         </div>
 
@@ -131,7 +133,7 @@ onMounted(() => {
             <h3 class="font-bold text-gray-400 uppercase tracking-widest text-sm">Valeurs du Groupe Cofina : 2R - 2S - 2I</h3>
             <div v-for="val in values" :key="val.code" class="flex items-center gap-8 group">
               <span class="text-4xl font-black text-primary w-16 opacity-80 group-hover:opacity-100 transition-opacity">{{ val.code }}</span>
-              <div class="h-10 w-[2px] bg-gray-200 group-hover:bg-primary transition-colors"></div>
+              <div class="h-10 w-0.5 bg-gray-200 group-hover:bg-primary transition-colors"></div>
               <span class="text-xl font-bold text-gray-700">{{ val.labels }}</span>
             </div>
           </div>
@@ -149,29 +151,29 @@ onMounted(() => {
         <div class="text-center mb-16">
           <h2 class="text-3xl font-bold uppercase">Notre <span class="text-primary">Histoire</span></h2>
           <div class="flex items-center justify-center mt-2">
-             <div class="h-[1px] bg-gray-300 w-12"></div>
+             <div class="h-px bg-gray-300 w-12"></div>
              <StarIcon class="w-5 h-5 mx-3 text-primary" />
-             <div class="h-[1px] bg-gray-300 w-12"></div>
+             <div class="h-px bg-gray-300 w-12"></div>
           </div>
         </div>
 
         <div class="relative mt-10">
-          <div class="absolute top-1/2 left-0 w-full h-[3px] bg-gray-300 -translate-y-1/2">
+          <div class="absolute top-1/2 left-0 w-full h-0.75 bg-gray-300 -translate-y-1/2">
             <div class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 w-4 h-4 bg-primary rotate-45 border-b-4 border-l-4 border-gray-100"></div>
             <div class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 w-4 h-4 bg-primary rotate-45 border-t-4 border-r-4 border-gray-100"></div>
           </div>
 
-          <div class="relative flex justify-between items-center min-h-[350px]">
+          <div class="relative flex justify-between items-center min-h-87.5">
             <div v-for="(event, index) in timelineEvents" :key="index" class="relative flex flex-col items-center flex-1 group">
 
               <div class="absolute w-44 p-4 bg-white rounded-xl shadow-md border border-gray-100 transition-all duration-700 transform"
                 :class="[
-                  index % 2 === 0 ? 'bottom-[60px] group-hover:-translate-y-2' : 'top-[60px] group-hover:translate-y-2',
+                  index % 2 === 0 ? 'bottom-15 group-hover:-translate-y-2' : 'top-15 group-hover:translate-y-2',
                   showTimeline ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 ]"
                 :style="{ transitionDelay: (index * 200) + 'ms' }">
                 <p class="text-[11px] font-medium text-gray-700 leading-tight">{{ event.text }}</p>
-                <div class="absolute left-1/2 -translate-x-1/2 w-[2px] bg-primary transition-all duration-1000"
+                <div class="absolute left-1/2 -translate-x-1/2 w-0.5 bg-primary transition-all duration-1000"
                   :class="[index % 2 === 0 ? 'top-full h-10' : 'bottom-full h-10', showTimeline ? 'scale-y-100' : 'scale-y-0']"
                   :style="{ transformOrigin: index % 2 === 0 ? 'top' : 'bottom', transitionDelay: (index * 200 + 300) + 'ms' }">
                 </div>
@@ -182,7 +184,7 @@ onMounted(() => {
                    :style="{ transitionDelay: (index * 200 + 100) + 'ms' }"></div>
 
               <div class="absolute font-black text-xl text-gray-300 group-hover:text-primary transition-colors duration-300"
-                   :class="index % 2 === 0 ? 'top-[40px]' : 'bottom-[40px]'">
+                   :class="index % 2 === 0 ? 'top-10' : 'bottom-10'">
                 {{ event.year }}
               </div>
             </div>
@@ -211,11 +213,11 @@ onMounted(() => {
       <div class="grid md:grid-cols-2 gap-16 mb-24 items-center">
         <div class="space-y-6">
           <h3 class="text-primary font-bold text-lg italic flex items-center gap-2">
-            <span class="w-8 h-[2px] bg-primary"></span> Notre mission RSE
+            <span class="w-8 h-0.5 bg-primary"></span> Notre mission RSE
           </h3>
           <ul class="space-y-6">
             <li v-for="task in rseTasks" :key="task" class="flex gap-4 text-sm group">
-              <CheckCircleIcon class="w-6 h-6 text-primary flex-shrink-0 group-hover:scale-110 transition-transform" />
+              <CheckCircleIcon class="w-6 h-6 text-primary shrink-0 group-hover:scale-110 transition-transform" />
               <span class="text-gray-700 leading-snug">{{ task }}</span>
             </li>
           </ul>

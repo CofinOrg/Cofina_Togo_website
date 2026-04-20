@@ -24,44 +24,5 @@ api.interceptors.request.use(
     }
 )
 
-/* // Intercepteur de réponse (gérer les erreurs globalement)
-api.interceptors.response.use(
-    (response) => {
-        return response
-    },
-    (error) => {
-        // Gérer les erreurs globalement
-        if (error.response) {
-            switch (error.response.status) {
-                case 401:
-                    // Non authentifié
-                    localStorage.removeItem('userToken')
-                    window.location.href = '/login'
-                    break
-                case 403:
-                    // Non autorisé
-                    console.error('Accès refusé')
-                    break
-                case 404:
-                    console.error('Ressource non trouvée')
-                    break
-                case 422:
-                    // Erreurs de validation
-                    console.error('Erreurs de validation:', error.response.data.errors)
-                    break
-                case 500:
-                    console.error('Erreur serveur')
-                    break
-                default:
-                    console.error('Erreur:', error.response.data.message)
-            }
-        } else if (error.request) {
-            console.error('Pas de réponse du serveur')
-        } else {
-            console.error('Erreur:', error.message)
-        }
-        return Promise.reject(error)
-    }
-) */
 
 export default api

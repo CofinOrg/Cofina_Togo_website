@@ -1,110 +1,115 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import {
-  TrendingUp, TrendingDown, BarChart3, Globe, ArrowRight,
-  Sparkles, Zap, Award, ArrowUpRight, ArrowDownLeft, Briefcase
+  TrendingUp, TrendingDown, BarChart3, Globe,
+  ArrowUpRight, ArrowDownLeft, Briefcase,
+  Sparkles, Zap, Award, ArrowRight
 } from 'lucide-vue-next'
 import ScrollReveal from '@/components/ScrollReveal.vue'
-import { financeService } from '@/data/financeService'
+import { financeService, type NewsItem } from '@/data/financeService'
 
-// État global
-const loading = ref(true)
-const error = ref('')
 
-// Initialisation des données
+// ── 1. Refs simples (tous déclarés en premier) ────────────────────────────────
+const loading     = ref(true)
+const error       = ref('')
+const usdToXofRate = ref(610)
+
 const goldPrices = ref({
-  current: 0, change: 0, changePercent: 0, daily_high: 0, daily_low: 0, currency: 'USD/oz'
+  current: 0, change: 0, changePercent: 0,
+  high: 0, low: 0, currency: 'USD/oz',
+  updatedAt: null as string | null,
 })
 
 const brvmData = ref({
-  index: 0, change: 0, changePercent: 0, volume: 0, listed_companies: 45, market_cap: 8200000000000
+  index: 0, change: 0, changePercent: 0,
+  volume: 0, listed_companies: 45, market_cap: 8_200_000_000_000,
+  updatedAt: null as string | null,
+  is_fallback: false,
 })
 
-// Indicateurs clés (Calculés dynamiquement si possible, sinon statiques)
-const keyIndicators = computed(() => [
-  { name: 'Croissance UEMOA', value: '6.2%', change: 0.15, icon: TrendingUp },
-  { name: 'Inflation', value: '2.1%', change: -0.08, icon: TrendingDown },
-  { name: 'Taux EUR/FCFA', value: '655.96', change: 0, icon: Globe },
-  { name: 'Volume BRVM', value: formatLargeNumber(brvmData.value.volume), change: brvmData.value.changePercent, icon: BarChart3 }
-])
+const macroData = ref({ gdp: '0%', inflation: '0%' })
 
-// --- MÉTHODES DE FORMATAGE (Indispensables pour le template) ---
 
-const formatPrice = (price: number) => {
-  return new Intl.NumberFormat('fr-FR', {
+const news = ref<NewsItem[]>([])
+
+// ── 2. Fonctions utilitaires ──────────────────────────────────────────────────
+const formatPrice = (price: number) =>
+  new Intl.NumberFormat('fr-FR', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   }).format(price)
-}
 
 const formatLargeNumber = (num: number) => {
-  if (num >= 1000000000) return (num / 1000000000).toFixed(1) + 'B'
-  if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M'
-  if (num >= 1000) return (num / 1000).toFixed(1) + 'K'
+  if (num >= 1_000_000_000) return (num / 1_000_000_000).toFixed(1) + 'B'
+  if (num >= 1_000_000)     return (num / 1_000_000).toFixed(1) + 'M'
+  if (num >= 1_000)         return (num / 1_000).toFixed(1) + 'K'
   return num.toString()
 }
 
-
-// On récupère le cours du dollar (approximatif ou via API)
-const usdToXofRate = ref(610) // Taux moyen actuel USD/XOF
+// ── 3. Computed (après les refs et fonctions) ─────────────────────────────────
+const keyIndicators = computed(() => [
+  { name: 'Croissance UEMOA', value: macroData.value.gdp,       change: 0.15,  icon: TrendingUp  },
+  { name: 'Inflation',        value: macroData.value.inflation,  change: -0.08, icon: TrendingDown },
+  { name: 'Taux EUR/FCFA',   value: '655.96',                   change: 0,     icon: Globe       },
+  { name: 'Volume BRVM',     value: formatLargeNumber(brvmData.value.volume),
+                              change: brvmData.value.changePercent,             icon: BarChart3   },
+])
 
 const goldStats = computed(() => {
-  const gramPerOunce = 31.1035
-  const priceUsd = goldPrices.value.current
-
-  // Calculs
+  const gramPerOunce    = 31.1035
+  const priceUsd        = goldPrices.value.current
   const priceXofPerOunce = priceUsd * usdToXofRate.value
-  const priceXofPerGram = priceXofPerOunce / gramPerOunce
-
+  const priceXofPerGram  = priceXofPerOunce / gramPerOunce
   return {
     ounceXof: priceXofPerOunce,
-    gramXof: priceXofPerGram,
-    kiloXof: priceXofPerGram * 1000
+    gramXof:  priceXofPerGram,
+    kiloXof:  priceXofPerGram * 1000
   }
 })
 
-
-
-
-
-// --- RÉCUPÉRATION DES DONNÉES ---
-
-const macroData = ref({ gdp: '0', inflation: '0' });
-
+// ── 4. Fetch ──────────────────────────────────────────────────────────────────
 const fetchData = async () => {
   try {
-    loading.value = true;
+    loading.value = true
+    error.value   = ''
 
-    // On lance tout en même temps
-    const [gold, brvm, gdp, inflation] = await Promise.all([
-      financeService.getGoldPrice(),
-      financeService.getBRVMData(),
-      financeService.getMacroIndicator('GDP'),
-      financeService.getMacroIndicator('INFLATION')
-    ]);
+      const { gold, brvm, gdp, inflation, news: newsData } = await financeService.fetchAll()
 
-    // Mise à jour de l'Or
-    goldPrices.value = { ...goldPrices.value, ...gold };
+       console.log('BRVM raw:', brvm)
 
-    // Mise à jour BRVM
-    brvmData.value = { ...brvmData.value, ...brvm };
 
-    // Mise à jour des indicateurs macro
-    macroData.value = {
-        gdp: gdp.value + '%',
-        inflation: inflation.value + '%'
-    };
+    if (newsData) news.value = newsData
+
+    if (gold) {
+      goldPrices.value = { ...goldPrices.value, ...gold }
+    }
+    if (brvm) {
+    brvmData.value = {
+        ...brvmData.value,
+        index:            brvm.index,
+        change:           brvm.change,
+        changePercent:    brvm.changePercent ?? (brvm as any).change_percent ?? 0,
+        volume:           brvm.volume,
+        listed_companies: brvm.listed_companies,
+        market_cap:       brvm.market_cap,
+        updatedAt:        (brvm as any).updatedAt ?? (brvm as any).updated_at ?? (brvm as any).scraped_at ?? null,
+        is_fallback:      (brvm as any).is_fallback ?? false,
+    }
+    }
+
+    if (gdp)       macroData.value.gdp       = gdp.value + '%'
+    if (inflation) macroData.value.inflation = inflation.value + '%'
 
   } catch (err) {
-    error.value = "Erreur de synchronisation avec les marchés.";
+    error.value = 'Erreur de synchronisation avec les marchés.'
+    console.error(err)
   } finally {
-    loading.value = false;
+    loading.value = false
   }
-};
-// Lifecycle
-onMounted(() => {
-  fetchData() // <--- Ne pas oublier d'appeler la fonction ici !
-})
+}
+
+// ── 5. Lifecycle ──────────────────────────────────────────────────────────────
+onMounted(fetchData)
 </script>
 
 <template>
@@ -173,6 +178,7 @@ onMounted(() => {
         <div class="bg-linear-to-br from-yellow-500/10 to-transparent border border-white/10 rounded-3xl p-8 lg:p-12">
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
             <div class="lg:col-span-2">
+
               <p class="text-gray-400 text-sm font-bold uppercase mb-4">Prix SPOT (XAU/USD)</p>
               <div class="flex items-baseline gap-4 mb-8">
                 <h3 class="text-6xl lg:text-6xl font-black text-white leading-none">
@@ -180,6 +186,7 @@ onMounted(() => {
                 </h3>
                 <span class="text-xl text-gray-500 font-bold">USD/oz</span>
               </div>
+
               <div class="flex gap-4">
                 <div class="bg-white/5 border border-white/10 rounded-xl p-4 flex-1">
                   <p class="text-gray-500 text-xs mb-2">VARIATION DU JOUR</p>
@@ -195,14 +202,18 @@ onMounted(() => {
                 </div>
               </div>
             </div>
+
             <div class="space-y-4">
+             <p v-if="goldPrices.updatedAt" class="text-gray-600 text-xs mb-4">
+                Mis à jour le {{ new Date(goldPrices.updatedAt).toLocaleString('fr-FR') }}
+             </p>
               <div class="bg-white/3 border border-white/10 rounded-2xl p-6">
                 <p class="text-gray-500 text-xs uppercase mb-1">Plus Haut (24h)</p>
-                <p class="text-2xl font-black text-white">{{ formatPrice(goldPrices.daily_high) }}</p>
+                <p class="text-2xl font-black text-white">{{ formatPrice(goldPrices.high) }}</p>
               </div>
               <div class="bg-white/3 border border-white/10 rounded-2xl p-6">
                 <p class="text-gray-500 text-xs uppercase mb-1">Plus Bas (24h)</p>
-                <p class="text-2xl font-black text-white">{{ formatPrice(goldPrices.daily_low) }}</p>
+                <p class="text-2xl font-black text-white">{{ formatPrice(goldPrices.low) }}</p>
               </div>
             </div>
           </div>
@@ -238,25 +249,141 @@ onMounted(() => {
             </div>
         </div>
       </section>
-
-        <section class="py-12 max-w-7xl mx-auto px-4 lg:px-8 mb-20">
+        <section class="py-6 max-w-7xl mx-auto px-4 lg:px-8 mb-20">
         <h2 class="text-white text-3xl font-black mb-8 flex items-center gap-3">
-                <span class="w-2 h-8 bg-blue-500 rounded-full"></span>
-                Marché BRVM
+            <span class="w-2 h-8 bg-blue-500 rounded-full"></span>
+            Marché BRVM
+        </h2>
+
+        <div :class="`relative bg-linear-to-br ${brvmData.change >= 0 ? 'from-green-500/5' : 'from-red-500/5'} to-transparent border border-white/10 rounded-3xl p-8 text-white`">
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+
+            <div class="lg:col-span-2">
+                <p class="text-gray-400 text-sm font-bold uppercase mb-2">Indice BRVM Composite</p>
+                <h3 class="text-6xl font-black mb-4">{{ formatPrice(brvmData.index) }}</h3>
+                <div class="flex items-center gap-3 flex-wrap">
+                <div :class="`inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold ${brvmData.change >= 0 ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`">
+                    <component :is="brvmData.change >= 0 ? ArrowUpRight : ArrowDownLeft" :size="16" />
+                    {{ brvmData.change >= 0 ? '+' : '' }}{{ formatPrice(brvmData.change) }}
+                </div>
+                <div :class="`inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold ${brvmData.changePercent >= 0 ? 'bg-green-500/10 text-green-400' : 'bg-red-500/10 text-red-400'}`">
+                    {{ brvmData.changePercent >= 0 ? '+' : '' }}{{ brvmData.changePercent.toFixed(2) }}%
+                </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col justify-center">
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-5">
+                <p class="text-gray-500 text-xs uppercase mb-1">Dernière mise à jour</p>
+                <p class="text-white font-bold text-sm">{{ brvmData.updatedAt ? new Date(brvmData.updatedAt).toLocaleString('fr-FR') : '—' }}</p>
+                <div v-if="brvmData.is_fallback" class="mt-2 inline-flex items-center gap-1 text-xs text-yellow-400 bg-yellow-500/10 px-2 py-1 rounded-full">
+                    <Zap :size="10" />
+                    Données estimées
+                </div>
+                </div>
+            </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+            <div class="bg-white/3 border border-white/10 rounded-2xl p-5">
+                <div class="flex items-center gap-2 mb-3">
+                <BarChart3 :size="16" class="text-blue-400" />
+                <p class="text-gray-500 text-xs font-bold uppercase">Volume échangé</p>
+                </div>
+                <p class="text-2xl font-black text-white">{{ formatLargeNumber(brvmData.volume) }}</p>
+                <p class="text-gray-600 text-xs mt-1">FCFA</p>
+            </div>
+
+            <div class="bg-white/3 border border-white/10 rounded-2xl p-5">
+                <div class="flex items-center gap-2 mb-3">
+                <Briefcase :size="16" class="text-purple-400" />
+                <p class="text-gray-500 text-xs font-bold uppercase">Capitalisation</p>
+                </div>
+                <p class="text-2xl font-black text-white">{{ formatLargeNumber(brvmData.market_cap) }}</p>
+                <p class="text-gray-600 text-xs mt-1">FCFA</p>
+            </div>
+
+            <div class="bg-white/3 border border-white/10 rounded-2xl p-5">
+                <div class="flex items-center gap-2 mb-3">
+                <Award :size="16" class="text-yellow-400" />
+                <p class="text-gray-500 text-xs font-bold uppercase">Sociétés cotées</p>
+                </div>
+                <p class="text-2xl font-black text-white">{{ brvmData.listed_companies }}</p>
+                <p class="text-gray-600 text-xs mt-1">Entreprises</p>
+            </div>
+
+            <div class="bg-white/3 border border-white/10 rounded-2xl p-5">
+                <div class="flex items-center gap-2 mb-3">
+                <component :is="brvmData.changePercent >= 0 ? TrendingUp : TrendingDown" :size="16" :class="brvmData.changePercent >= 0 ? 'text-green-400' : 'text-red-400'" />
+                <p class="text-gray-500 text-xs font-bold uppercase">Tendance</p>
+                </div>
+                <p :class="`text-2xl font-black ${brvmData.changePercent >= 0 ? 'text-green-400' : 'text-red-400'}`">
+                {{ brvmData.changePercent >= 0 ? 'Haussier' : 'Baissier' }}
+                </p>
+                <p class="text-gray-600 text-xs mt-1">Séance du jour</p>
+            </div>
+
+            </div>
+        </div>
+        </section>
+
+        <!-- Actualités du marché -->
+        <section class="py-4 max-w-7xl mx-auto px-4 lg:px-8 mb-20">
+            <h2 class="text-white text-3xl font-black mb-8 flex items-center gap-3">
+                <span class="w-2 h-8 bg-purple-500 rounded-full"></span>
+                Actualités des marchés
             </h2>
 
-            <div :class="`relative bg-linear-to-br ${brvmData.change >= 0 ? 'from-green-500/5' : 'from-red-500/5'} border border-white/10 rounded-3xl p-8 text-white`" >
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="lg:col-span-2">
-                    <p class="text-gray-400 text-sm font-bold uppercase mb-2">Indice BRVM Composite</p>
-                    <h3 class="text-6xl font-black mb-4">{{ formatPrice(brvmData.index) }}</h3>
-                    <div :class="`inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold ${brvmData.change >= 0 ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`">
-                    <component :is="brvmData.change >= 0 ? ArrowUpRight : ArrowDownLeft" />
-                    {{ brvmData.change >= 0 ? '+' : '' }}{{ brvmData.changePercent.toFixed(2) }}%
-                    </div>
-                </div>
+            <div v-if="news.length === 0" class="text-center py-12 text-gray-500">
+                Aucune actualité disponible
+            </div>
 
-                </div>
+            <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a
+
+                v-for="(item, i) in news.slice(0, 6)"
+                :key="i"
+                :href="item.url"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group bg-white/3 border border-white/10 hover:border-white/20 rounded-2xl p-6 transition-all hover:bg-white/5"
+                >
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-xs font-bold text-purple-400 uppercase tracking-wider">
+                            {{ item.source }}
+                            </span>
+                            <span class="text-gray-600 text-xs">
+                            {{ new Date(item.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) }}
+                            </span>
+                        </div>
+
+                        <h3 class="text-white font-bold text-base leading-snug mb-2 line-clamp-2 group-hover:text-yellow-400 transition-colors">
+                            {{ item.title }}
+                        </h3>
+
+                        <p class="text-gray-500 text-sm line-clamp-2">
+                            {{ item.description }}
+                        </p>
+                        </div>
+
+                        <img
+                        v-if="item.image"
+                        :src="item.image"
+                        :alt="item.title"
+                        class="w-20 h-20 rounded-xl object-cover shrink-0 opacity-80"
+                        @error="($event.target as HTMLImageElement).style.display = 'none'"
+                        />
+                    </div>
+
+                    <div class="flex items-center gap-1 mt-4 text-xs text-gray-600 group-hover:text-yellow-400 transition-colors">
+                        <ArrowRight :size="12" />
+                        <span>Lire l'article</span>
+                    </div>
+                </a>
             </div>
         </section>
     </template>

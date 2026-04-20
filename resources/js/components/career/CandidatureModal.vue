@@ -1,6 +1,11 @@
 <template>
-  <div v-if="isOpen" class="fixed inset-0 z-[100] flex items-center justify-center p-4">
-    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="$emit('close')"></div>
+  <div v-if="isOpen" class="fixed inset-0 z-100 flex items-center justify-center p-4">
+   <button
+        @click="$emit('close')"
+        :disabled="isSubmitting"
+        class="text-gray-400 hover:text-black text-2xl disabled:opacity-30"
+        >&times;
+    </button>
 
     <div class="relative bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
       <div class="p-8 md:p-12">
@@ -162,9 +167,13 @@ const submitForm = async () => {
     payload.append('source', formData.value.source);
     payload.append('cv_path', cvFile.value);
 
-    await api.post('/cvs', payload, {
-      headers: { 'Content-Type': 'multipart/form-data' }
+    const response = await api.post('/cvs', payload, {
     });
+
+    console.log("Status:", response.status);
+    console.log("Data:", response.data);
+
+
 
     submitSuccess.value = true;
 

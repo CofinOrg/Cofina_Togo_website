@@ -19,6 +19,8 @@ use App\Http\Controllers\API\ChatController;
 use App\Http\Controllers\API\CvExtractorController;
 use App\Http\Controllers\API\ApplicationController;
 use App\Http\Controllers\API\CvController;
+use App\Http\Controllers\API\BrvmMarketDataController;
+use App\Http\Controllers\API\NewsController;
 use Illuminate\Support\Facades\Route;
 
 // Routes publiques (pas d'authentification requise)
@@ -80,6 +82,14 @@ Route::post('/chat', [ChatController::class, 'ask'])->name('chat');
 Route::prefix('cvs')->name('cv.')->controller(CvController::class)->group(function () {
     Route::post('/', 'store')->name('store');
 });
+
+
+Route::prefix('brvm')->group(function () {
+    Route::get('/latest', [BrvmMarketDataController::class, 'latest']);
+    Route::get('/history', [BrvmMarketDataController::class, 'history']);
+});
+
+Route::get('/news', [NewsController::class, 'index']);
 
 
 

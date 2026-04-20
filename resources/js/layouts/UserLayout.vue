@@ -10,7 +10,9 @@ import logoGroup from '../assets/logo-groupe.svg'
 
 const mobileMenuOpen = ref(false)
 const simulateursDropdownOpen = ref(false)
+const joinUsDropdownOpen = ref(false)
 const mobileSimulateursOpen = ref(false)
+const mobileJoinUsOpen = ref(false)
 const route = useRoute()
 
 const filiales = [
@@ -29,6 +31,9 @@ const filiales = [
 // Fermer le dropdown
 const closeDropdown = () => {
   simulateursDropdownOpen.value = false
+}
+const closeJoinUsDropdown = () => {
+  joinUsDropdownOpen.value = false
 }
 
 // Annonce defilante
@@ -145,7 +150,51 @@ onMounted(async () => {
           </RouterLink>
 
 
-          <RouterLink
+              <div
+            class="relative"
+            @mouseenter="joinUsDropdownOpen = true"
+            @mouseleave="joinUsDropdownOpen = false"
+          >
+            <button
+              class="text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-white hover:text-primary transition-all duration-300 flex items-center gap-1"
+              :class="{ 'bg-white! text-primary!': route.path.startsWith('/join-us') }"
+            >
+              Nous rejoindre
+              <ChevronDown :size="16" :class="{'rotate-180': joinUsDropdownOpen}" class="transition-transform duration-300" />
+            </button>
+
+            <!-- Dropdown menu - conteneur avec padding pour éviter le gap -->
+            <div
+              v-show="joinUsDropdownOpen"
+              class="absolute top-full left-0 pt-2 z-50"
+            >
+              <div class="w-56 bg-white rounded-lg shadow-xl border border-gray-200 py-2 animate-dropdown">
+                <RouterLink
+                  to="/services"
+                  class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors"
+                  @click="closeJoinUsDropdown"
+                >
+                  <div class="font-medium"> Devenir client </div>
+                </RouterLink>
+
+                <div class="border-t border-gray-100 my-1"></div>
+
+                <RouterLink
+                  to="/carrieres"
+                  class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors"
+                  @click="closeJoinUsDropdown"
+                >
+                  <div class="font-medium">Devenir cofinois</div>
+                </RouterLink>
+
+
+
+              </div>
+            </div>
+          </div>
+
+
+        <!--   <RouterLink
             to="/services"
             class="text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-white hover:text-primary transition-all duration-300"
             active-class="bg-white !text-primary"
@@ -159,7 +208,7 @@ onMounted(async () => {
             active-class="bg-white !text-primary"
           >
             Devenir cofinois
-          </RouterLink>
+          </RouterLink> -->
 
           <!-- Menu déroulant Simulateurs -->
           <div
@@ -291,6 +340,11 @@ onMounted(async () => {
         >
           A propos
         </RouterLink>
+
+
+
+
+
 
         <RouterLink
           to="/services"
@@ -488,7 +542,7 @@ onMounted(async () => {
                 <!-- Colonne 4: Contacts -->
                 <div>
                     <h3 class="text-white text-base font-bold mb-4 uppercase">
-                        Contactez notre call center
+                        Call center
                     </h3>
                     <ul class="space-y-2.5">
                         <li class="text-gray-400 text-sm">
