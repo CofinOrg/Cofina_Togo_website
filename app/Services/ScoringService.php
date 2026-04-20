@@ -9,8 +9,8 @@ use Smalot\PdfParser\Parser;
 
 class ScoringService
 {
-    private const API_URL = 'https://cofbot.mawena.online/docs#/default/score_cvs_score_cvs_post';
-    private const SCORING_ENDPOINT = 'https://cofbot.mawena.online/score-cvs';
+    private const API_URL = 'https://bot.mawena.online//docs#/default/score_cvs_score_cvs_post';
+    private const SCORING_ENDPOINT = 'https://bot.mawena.online/score-cvs';
 
     /**
      * Calculer le score d'un CV pour une offre d'emploi
