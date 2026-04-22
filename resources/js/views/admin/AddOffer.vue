@@ -587,19 +587,35 @@ const saveJob = async () => {
       status: form.value.status
     }
 
+    let response
     if (isEditing.value && editingId.value !== null) {
-      await api.put(`/job_offers/${editingId.value}`, payload)
+      response = await api.put(`/job_offers/${editingId.value}`, payload)
     } else {
-      await api.post('/job_offers', payload)
+      response = await api.post('/job_offers', payload)
+    }
+
+    console.log('Réponse API:', response)
+    console.log('Data reçue:', response.data)
+
+    // Rafraîchir la liste
+    try {
+      await fetchJobOffers()
+    } catch (fetchError) {
+      console.error('Erreur lors du rafraîchissement de la liste:', fetchError)
+      // Continuer quand même, le formulaire était sauvegardé
     }
 
     closeModal()
-    await fetchJobOffers()
   } catch (error: any) {
     console.error('Erreur lors de la sauvegarde', error)
+    console.error('Status:', error.response?.status)
+    console.error('Data complète:', JSON.stringify(error.response?.data, null, 2))
+
     if (error.response?.data?.errors) {
       const errors = error.response.data.errors
       submitError.value = Object.values(errors).flat().join(', ')
+    } else if (error.response?.data?.message) {
+      submitError.value = error.response.data.message
     } else {
       submitError.value = 'Une erreur est survenue. Veuillez réessayer.'
     }

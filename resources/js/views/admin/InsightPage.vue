@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4">
+  <div class="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 py-12 px-4">
     <div class="max-w-7xl mx-auto">
       <!-- Header -->
       <div class="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">

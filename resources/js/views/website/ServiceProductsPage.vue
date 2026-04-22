@@ -38,7 +38,7 @@ onMounted(() => {
     <!-- Hero -->
     <section class="relative h-75 flex items-center bg-[#333] overflow-hidden">
       <div class="absolute inset-0 opacity-40">
-        <img src="../../assets/images/hero_produits.png" alt="Produits COFINA" class="w-full h-full object-cover" />
+        <img src="../../assets/images/hero_produits.jpg" alt="Produits COFINA" class="w-full h-full object-cover" />
       </div>
       <div class="container mx-auto px-6 relative z-10">
         <h1 class="text-white text-3xl font-light italic">

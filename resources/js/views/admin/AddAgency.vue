@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4">
+  <div class="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 py-12 px-4">
     <div class="max-w-5xl mx-auto">
       <!-- En-tête -->
       <div class="mb-8 flex items-center justify-between">
@@ -229,7 +229,7 @@
             @click="saveAgence"
             class="flex-1 px-6 py-3 bg-primary text-white rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all font-semibold shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
           >
-      
+
             {{ isEditing ? 'Sauvegarder les modifications' : 'Ajouter l\'agence' }}
           </button>
         </div>

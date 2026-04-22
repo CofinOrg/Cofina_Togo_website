@@ -4,7 +4,7 @@
     <!-- Hero -->
     <section class="relative h-70 flex items-center overflow-hidden">
       <div class="absolute inset-0">
-        <img src="@/assets/images/hero_produits.png" class="w-full h-full object-cover" />
+        <img src="@/assets/images/hero_produits.jpg" class="w-full h-full object-cover" />
         <div class="absolute inset-0"></div>
       </div>
       <div class="container mx-auto px-6 relative z-10">

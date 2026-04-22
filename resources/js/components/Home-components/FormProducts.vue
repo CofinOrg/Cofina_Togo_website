@@ -371,9 +371,7 @@ const handleSubmit = async () => {
       payload.append('receipt_number', formData.receiptNumber);
     }
 
-    await api.post('/pre_registrations', payload, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
+    await api.post('/pre_registrations', payload);
 
     showSuccess.value = true;
     resetForm();

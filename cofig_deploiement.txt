@@ -1,0 +1,109 @@
+gunicorn - k uvicorn.workers.UvicornWorker--bind 178.18.252.98: 8000 main: app--workers 4
+sudo nano / etc / supervisor / conf.d / chatbot.conf
+
+
+
+[program:chatbot]
+command = /var/www / python / chatbot_client_cofina /.venv / bin / gunicorn - k uvicorn.workers.UvicornWorker--bind 178.18.252.98: 8000 main: app--workers 4
+directory = /var/www / python / chatbot_client_cofina
+autostart = true
+autorestart = true
+stderr_logfile = /var/log / chatbot.err.log
+stdout_logfile = /var/log / chatbot.out.log
+user = www - data
+
+
+sudo supervisorctl reread
+sudo supervisorctl update
+
+
+
+
+sudo nano / etc / nginx / sites - available / chatbot
+
+
+server {
+    listen 80;
+    server_name bot.mawena.online;
+
+    location / {
+        proxy_pass http://127.0.0.1:8000;
+
+            proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
+sudo ln - s / etc / nginx / sites - available/chatbot/ etc / nginx / sites - enabled /
+
+    sudo rm / etc / nginx / sites - enabled /default
+
+
+
+
+server {
+    listen 80;
+    server_name cofina.mawena.online;
+
+    root /var/www/html/cofina_website/public;
+    index index.php index.html;
+
+    add_header X - Frame - Options "SAMEORIGIN";
+    add_header X - Content - Type - Options "nosniff";
+
+    charset utf - 8;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+}
+
+
+
+    error_page 404 / index.php;
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+}
+
+    location ~ /\.(?!well-known).* {
+        deny all;
+    }
+
+
+    server {
+    listen 80;
+    server_name cofina.mawena.online;
+
+    root /var/www/html/cofina_website/public;
+    index index.php index.html;
+
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-Content-Type-Options "nosniff";
+
+    charset utf-8;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    error_page 404 /index.php;
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/var/run/php/php8.2-fpm.sock; # adapte selon ta version PHP
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ /\.(?!well-known).* {
+        deny all;
+    }
+}
+
+#SSl
+sudo certbot --nginx -d cofina.mawena.online
+

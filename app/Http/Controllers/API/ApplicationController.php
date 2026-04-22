@@ -39,6 +39,7 @@ class ApplicationController extends APIController
             return $list->with(['jobOffer', 'cv'])->orderBy('score', 'desc');
         };
         return parent::index($request);
+
     }
 
     /**

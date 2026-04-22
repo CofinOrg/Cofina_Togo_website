@@ -1,11 +1,6 @@
 <template>
   <div v-if="isOpen" class="fixed inset-0 z-100 flex items-center justify-center p-4">
-   <button
-        @click="$emit('close')"
-        :disabled="isSubmitting"
-        class="text-gray-400 hover:text-black text-2xl disabled:opacity-30"
-        >&times;
-    </button>
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="$emit('close')"></div>
 
     <div class="relative bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
       <div class="p-8 md:p-12">
@@ -167,13 +162,11 @@ const submitForm = async () => {
     payload.append('source', formData.value.source);
     payload.append('cv_path', cvFile.value);
 
-    const response = await api.post('/cvs', payload, {
-    });
+    console.log("🚀 Envoi de la candidature spontanée...");
+    const response = await api.post('/cvs', payload);
 
-    console.log("Status:", response.status);
-    console.log("Data:", response.data);
-
-
+    console.log("✅ Status:", response.status);
+    console.log("✅ Data:", response.data);
 
     submitSuccess.value = true;
 
@@ -184,11 +177,21 @@ const submitForm = async () => {
     }, 2000);
 
   } catch (error: any) {
-        console.error('Status:', error.response?.status);
-        console.error('Data:', JSON.stringify(error.response?.data, null, 2));
-    if (error.response?.data?.errors) {
+    console.error('❌ Erreur lors de l\'envoi:', error);
+    console.error('Status:', error.response?.status);
+    console.error('Code erreur:', error.code);
+    console.error('Data:', JSON.stringify(error.response?.data, null, 2));
+
+    // Gérer les différents types d'erreurs
+    if (error.code === 'ECONNABORTED' || error.message?.includes('timeout')) {
+      submitError.value = 'Le serveur met trop de temps à répondre (scoring en cours). Veuillez réessayer dans quelques instants. Votre candidature est en cours de traitement.';
+    } else if (error.code === 'ERR_NETWORK' || error.message?.includes('Network')) {
+      submitError.value = 'Erreur de connexion. Veuillez vérifier votre connexion internet.';
+    } else if (error.response?.data?.errors) {
       const errors = error.response.data.errors;
       submitError.value = Object.values(errors).flat().join(', ');
+    } else if (error.response?.data?.message) {
+      submitError.value = error.response.data.message;
     } else {
       submitError.value = 'Une erreur est survenue. Veuillez réessayer.';
     }

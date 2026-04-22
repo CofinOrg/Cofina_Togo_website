@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4">
+  <div class="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 py-12 px-4">
     <div class="max-w-5xl mx-auto">
       <!-- En-tête -->
       <div class="mb-8 flex items-center justify-between">
@@ -75,7 +75,7 @@
                       alt="Slide"
                       class="w-16 h-10 object-cover rounded"
                     />
-                    <span class="text-sm text-gray-500 truncate max-w-[200px]">{{ }}</span>
+                    <span class="text-sm text-gray-500 truncate max-w-50">{{ }}</span>
                   </div>
                 </td>
                 <td class="px-6 py-4">
@@ -317,14 +317,10 @@ const saveSlider = async () => {
   try {
     if (isEditing.value && editingId.value) {
       formData.append('_method', 'PUT')
-      await api.post(`/sliders/${editingId.value}`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      })
+      await api.post(`/sliders/${editingId.value}`, formData)
       alert('Slide mis à jour avec succès !')
     } else {
-      await api.post('/sliders', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      })
+      await api.post('/sliders', formData)
       alert('Slide ajouté avec succès !')
     }
 

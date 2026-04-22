@@ -22,7 +22,7 @@ const changeCategory = (cat: string) => {
   <main v-if="data" class="min-h-screen">
     <section class="relative h-75 bg-[#333] flex items-center">
       <div class="absolute inset-0 opacity-40">
-        <img src="../../assets/images/hero_produits.png" alt="Produits COFINA" class="w-full h-full object-cover" />
+        <img src="../../assets/images/hero_produits.jpg" alt="Produits COFINA" class="w-full h-full object-cover" />
       </div>
       <div class="container mx-auto px-6 relative z-10">
 

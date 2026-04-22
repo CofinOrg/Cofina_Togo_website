@@ -5,9 +5,9 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use Maravel\Http\Controllers\APIController;
 use Illuminate\Http\UploadedFile;
-use App\Services\ScoringService;
 use App\Models\JobOffer;
 use App\Models\Application;
+use App\Jobs\ScoreSpontaneousApplication;
 /**
  * @group Cv
  *
@@ -16,7 +16,6 @@ use App\Models\Application;
 class CvController extends APIController
 {
     protected string $modelClass = "\App\Models\Cv";
-    protected ScoringService $scoringService;
 
     /**
      * Affiche les Cv
@@ -115,7 +114,8 @@ class CvController extends APIController
                 if ($source === 'offer' && isset($requestData['job_offer_id'])) {
                     $this->handleJobApplicationScoring($model, (int) $requestData['job_offer_id']);
                 } elseif ($source === 'spontaneous') {
-                    $this->handleSpontaneousApplicationScoring($model);
+                    // Dispatcher la tâche de scoring en arrière-plan (asynchrone)
+                    ScoreSpontaneousApplication::dispatch($model);
                 }
             } catch (\Exception $e) {
                 \Log::error("Erreur dans storeAfterCommitFunction: {$e->getMessage()}");
@@ -130,6 +130,7 @@ class CvController extends APIController
 
     /**
      * Cas 1: Gérer le scoring pour une candidature à une offre spécifique
+     * Note: Les candidatures spontanées sont scorées en arrière-plan via ScoreSpontaneousApplication::dispatch()
      */
     private function handleJobApplicationScoring($cv, int $jobOfferId): void
     {
@@ -140,8 +141,8 @@ class CvController extends APIController
                 return;
             }
 
-            $this->scoringService = app(ScoringService::class);
-            $scoreResult = $this->scoringService->scoreCV($cv, $jobOffer);
+            $scoringService = app(\App\Services\ScoringService::class);
+            $scoreResult = $scoringService->scoreCV($cv, $jobOffer);
 
             if ($scoreResult) {
                 Application::create([
@@ -155,41 +156,6 @@ class CvController extends APIController
             }
         } catch (\Exception $e) {
             \Log::error("Erreur scoreCV: {$e->getMessage()}");
-        }
-    }
-
-    /**
-     * Cas 2: Gérer le scoring pour une candidature spontanée
-     */
-    private function handleSpontaneousApplicationScoring($cv): void
-    {
-        try {
-            // Récupérer toutes les offres actives
-            $jobOffers = JobOffer::where('status', 'active')->get();
-
-            if ($jobOffers->isEmpty()) {
-                \Log::info("Aucune offre active disponible");
-                return;
-            }
-
-            $this->scoringService = app(ScoringService::class);
-
-            foreach ($jobOffers as $jobOffer) {
-                $scoreResult = $this->scoringService->scoreCV($cv, $jobOffer);
-
-                if ($scoreResult) {
-                    Application::create([
-                        'cv_id' => $cv->id,
-                        'job_offer_id' => $jobOffer->id,
-                        'score' => (int) ($scoreResult['score'] ?? 0),
-                        'details' => $scoreResult['details'] ?? null,
-                        'raison' => $scoreResult['raison'] ?? null,
-                        'status' => 'pending'
-                    ]);
-                }
-            }
-        } catch (\Exception $e) {
-            \Log::error("Erreur spontaneousScoring: {$e->getMessage()}");
         }
     }
 

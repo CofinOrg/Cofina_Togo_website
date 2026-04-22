@@ -15,7 +15,7 @@ class ChatController extends Controller
         $question = $request->input('question');
         $chatHistory = $request->input('chat_history', []);
 
-        $response = Http::post('http://127.0.0.1:8000/ask-question', [
+        $response = Http::post('https://bot.mawena.online/ask-question', [
             'question' => $question,
             'chat_history' => $chatHistory,
         ]);

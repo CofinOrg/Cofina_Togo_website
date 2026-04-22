@@ -1,8 +1,8 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import identity from '../../assets/images/accueil/27.png'
-import realization from '../../assets/images/accueil/11.png'
-import joinUs from '../../assets/images/accueil/4.png'
+import identity from '../../assets/images/accueil/27.jpg'
+import realization from '../../assets/images/accueil/11.jpg'
+import joinUs from '../../assets/images/accueil/4.jpg'
 import group from '../../assets/logo-groupe.svg'
 
 const router = useRouter()
