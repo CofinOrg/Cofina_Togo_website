@@ -11,7 +11,7 @@
         <p class="text-white/60 text-xs font-semibold uppercase tracking-widest mb-2">Épargne</p>
         <h1 class="text-4xl lg:text-5xl font-black text-white">Simulateur de DAT</h1>
         <p class="text-white/70 mt-2 text-base max-w-xl">
-          Dépôt à terme jusqu'à <span class="text-white font-bold">7,5%</span> de rendement annuel — zéro risque, zéro frais.
+          Dépôt à terme jusqu'à <span class="text-white font-bold">7%</span> de rendement annuel — zéro risque, zéro frais.
         </p>
       </div>
     </section>
@@ -80,12 +80,12 @@
                 </div>
                 <input
                   type="range" v-model.number="taux"
-                  :min="1" :max="7.5" :step="0.5"
-                  :style="sliderStyle(taux, 1, 7.5)"
+                  :min="1" :max="7" :step="0.5"
+                  :style="sliderStyle(taux, 1, 7)"
                   class="slider w-full"
                 />
                 <div class="flex justify-between text-xs text-gray-300 font-medium">
-                  <span>1%</span><span>7,5%</span>
+                  <span>1%</span><span>7%</span>
                 </div>
               </div>
             </div>

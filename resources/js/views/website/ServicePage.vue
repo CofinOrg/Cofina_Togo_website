@@ -1,29 +1,51 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import api from '../../utils/api';
+
 
 const router = useRouter();
 
 const services = ref([]);
+const servicesMap = ref({});
 const loading = ref(false);
 const products = ref([]);
 const loadingProducts = ref(false);
 const customerTypes = ref([]);
 const selectedCustomerType = ref('');
 
+const isCredit = (product) => {
+  return product.name.toLowerCase().includes('crédit') || product.name.toLowerCase().includes('avance') || product.name.toLowerCase().includes('escompte');
+};
+
+const isSavingsPlan = (product) => {
+  return product.name.toLowerCase().includes('épargne') || product.name.toLowerCase().includes('plan') || product.name.toLowerCase().includes('terme');
+};
+
+const packProducts = computed(() => {
+  return products.value.filter(p => !isCredit(p) && !isSavingsPlan(p));
+});
+
+const savingsProducts = computed(() => {
+  return products.value.filter(p => isSavingsPlan(p));
+});
+
+const creditProducts = computed(() => {
+  return products.value.filter(p => isCredit(p));
+});
+
 const fetchServices = async () => {
   loading.value = true;
   try {
     const response = await api.get('/services');
     const data = response.data.data || response.data;
-    // Récupérer TOUS les services (pas seulement pack) qui ont un customer_type
     services.value = data.filter(service => service.customer_type);
 
-    console.log('=== TOUS LES SERVICES AVEC CUSTOMER_TYPE ===');
-    console.table(services.value.map(s => ({ id: s.id, name: s.name, type: s.type, customer_type: s.customer_type })));
+    servicesMap.value = {};
+    data.forEach(service => {
+      servicesMap.value[service.id] = service;
+    });
 
-    // Extraire les types de clients uniques
     const typeSet = new Set();
     services.value.forEach(s => {
       if (s.customer_type) typeSet.add(s.customer_type);
@@ -31,9 +53,6 @@ const fetchServices = async () => {
     const types = Array.from(typeSet).sort();
     customerTypes.value = types;
 
-    console.log('Types de clients disponibles:', types);
-
-    // Sélectionner le premier type de client
     if (types.length > 0) {
       await selectCustomerType(types[0]);
     }
@@ -52,35 +71,17 @@ const selectCustomerType = async (type) => {
   const servicesOfType = services.value.filter(s => s.customer_type === type);
   const serviceIds = servicesOfType.map(s => s.id);
 
-  console.log(`\n=== SÉLECTION TYPE: "${type}" ===`);
-  console.log('Services avec customer_type "' + type + '":', servicesOfType.map(s => ({ id: s.id, name: s.name })));
-  console.log('Service IDs attendus:', serviceIds);
-
   if (serviceIds.length === 0) {
-    console.error('❌ AUCUN service trouvé pour ce type!');
     loadingProducts.value = false;
     return;
   }
 
   try {
-    // Récupérer TOUS les produits (sans pagination)
     const response = await api.get('/service_products?paginate=false');
     const data = response.data.data || response.data;
 
-    console.log('\n📦 TOUS LES PRODUITS reçus de l\'API:');
-    console.table(data.map(p => ({ id: p.id, name: p.name, service_id: p.service_id })));
-
     if (Array.isArray(data)) {
-      // Filtrer par service_id
-      const filtered = data.filter(product => {
-        const match = serviceIds.includes(product.service_id);
-        console.log(`  Produit ${product.id} (service_id=${product.service_id}): ${match ? '✅ MATCH' : '❌ NO MATCH'}`);
-        return match;
-      });
-
-      console.log(`\n✅ RÉSULTAT: ${filtered.length} produit(s) filtré(s)`);
-      console.table(filtered.map(p => ({ id: p.id, name: p.name, service_id: p.service_id })));
-      products.value = filtered;
+      products.value = data.filter(product => serviceIds.includes(product.service_id));
     }
   } catch (error) {
     console.error('Erreur lors du chargement des produits', error);
@@ -91,11 +92,6 @@ const selectCustomerType = async (type) => {
 
 const getCustomerTypeLabel = (type) => {
   return type === 'entreprise' ? 'Entreprise' : 'Particulier';
-};
-
-const isCredit = (product) => {
-  // Vérifier si le nom du produit contient "crédit" ou "avance"
-  return product.name.toLowerCase().includes('crédit') || product.name.toLowerCase().includes('avance');
 };
 
 const goToSubscribe = (productId) => {
@@ -160,50 +156,120 @@ onMounted(() => {
       </div>
 
       <div v-else-if="products.length > 0">
-        <h2 class="text-2xl font-black text-gray-800 uppercase mb-8 text-center">
-          {{ getCustomerTypeLabel(selectedCustomerType) }}
-        </h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div v-for="product in products" :key="product.id"
-               class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-shadow">
+        <!-- PACKS -->
+        <div v-if="packProducts.length > 0" class="mb-16">
+          <h2 class="text-2xl font-black text-gray-800 uppercase mb-8 text-center">
+            <span v-if="selectedCustomerType === 'entreprise'">Nos packs pour les Entreprises</span>
+            <span v-else>Nos packs pour les Particuliers</span>
+          </h2>
 
-            <div class="h-1.5 bg-primary w-full"></div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div v-for="product in packProducts" :key="product.id"
+                 class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-shadow">
 
-            <div class="p-8 flex flex-col h-full">
-              <h3 class="text-xl font-black text-gray-700 uppercase mb-4">{{ product.name }}</h3>
+              <div class="h-1.5 bg-primary w-full"></div>
 
-              <div v-if="product.advantage" class="mb-4">
-                <p class="text-xs font-semibold text-gray-400 uppercase mb-1">Avantages</p>
-                <p class="text-gray-600 text-sm leading-relaxed">{{ product.advantage }}</p>
+              <div class="p-8 flex flex-col h-full">
+                <h3 class="text-xl font-black text-gray-700 uppercase mb-4">{{ product.name }}</h3>
+
+                <div v-if="product.advantage" class="mb-4">
+                  <p class="text-xs font-semibold text-gray-400 uppercase mb-1">Avantages</p>
+                  <p class="text-gray-600 text-sm leading-relaxed">{{ product.advantage }}</p>
+                </div>
+
+                <div v-if="product.deposit_at_opening" class="mb-6">
+                  <p class="text-xs font-semibold text-gray-400 uppercase mb-1">Dépôt à l'ouverture</p>
+                  <p class="text-primary font-black text-xl">
+                    {{ Number(product.deposit_at_opening).toLocaleString('fr-FR') }} FCFA
+                  </p>
+                </div>
+
+                <button
+                  @click="goToSubscribe(product.id)"
+                  class="mt-auto w-full text-center border border-primary text-primary py-3 rounded-lg font-bold hover:bg-primary hover:text-white transition-colors uppercase text-sm cursor-pointer"
+                >
+                  Pré-souscrire
+                </button>
               </div>
-
-              <div v-if="product.deposit_at_opening" class="mb-6">
-                <p class="text-xs font-semibold text-gray-400 uppercase mb-1">Dépôt à l'ouverture</p>
-                <p class="text-primary font-black text-xl">
-                  {{ Number(product.deposit_at_opening).toLocaleString('fr-FR') }} FCFA
-                </p>
-              </div>
-
-              <button
-                v-if="!isCredit(product)"
-                @click="goToSubscribe(product.id)"
-                class="mt-auto w-full text-center border border-primary text-primary py-3 rounded-lg font-bold hover:bg-primary hover:text-white transition-colors uppercase text-sm cursor-pointer"
-              >
-                Pré-souscrire
-              </button>
-                  <router-link
-              v-else
-              to="/simulateurs"
-              class="mt-auto block w-full text-center px-6 py-3 rounded-lg text-sm font-bold text-primary border-2 border-primary hover:bg-primary hover:text-white transition-all duration-300"
-            >
-              Simuler le crédit
-            </router-link>
 
             </div>
-
           </div>
         </div>
+
+        <!-- CRÉDITS -->
+        <div v-if="creditProducts.length > 0" class="mb-16">
+          <h2 class="text-2xl font-black text-gray-800 uppercase mb-8 text-center">
+            <span v-if="selectedCustomerType === 'entreprise'">Nos offres de crédit pour les Entreprises</span>
+            <span v-else>Nos offres de crédit pour les Particuliers</span>
+          </h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div v-for="product in creditProducts" :key="product.id"
+                 class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-shadow">
+
+              <div class="h-1.5 bg-primary w-full"></div>
+
+              <div class="p-8 flex flex-col h-full">
+                <h3 class="text-xl font-black text-gray-700 uppercase mb-4">{{ product.name }}</h3>
+
+                <div v-if="product.advantage" class="mb-4">
+                  <p class="text-xs font-semibold text-gray-400 uppercase mb-1">Avantages</p>
+                  <p class="text-gray-600 text-sm leading-relaxed">{{ product.advantage }}</p>
+                </div>
+
+                <router-link
+                  to="/simulateurs"
+                  class="mt-auto block w-full text-center px-6 py-3 rounded-lg text-sm font-bold text-primary border-2 border-primary hover:bg-primary hover:text-white transition-all duration-300"
+                >
+                  Simuler le crédit
+                </router-link>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- SOLUTIONS D'ÉPARGNE -->
+        <div v-if="savingsProducts.length > 0" class="mb-16">
+          <h2 class="text-2xl font-black text-gray-800 uppercase mb-8 text-center">
+            <span v-if="selectedCustomerType === 'entreprise'">Nos solutions d'épargne pour les Entreprises</span>
+            <span v-else>Nos solutions d'épargne pour les Particuliers</span>
+          </h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div v-for="product in savingsProducts" :key="product.id"
+                 class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition-shadow">
+
+              <div class="h-1.5 bg-primary w-full"></div>
+
+              <div class="p-8 flex flex-col h-full">
+                <h3 class="text-xl font-black text-gray-700 uppercase mb-4">{{ product.name }}</h3>
+
+                <div v-if="product.advantage" class="mb-4">
+                  <p class="text-xs font-semibold text-gray-400 uppercase mb-1">Avantages</p>
+                  <p class="text-gray-600 text-sm leading-relaxed">{{ product.advantage }}</p>
+                </div>
+
+                <div v-if="product.deposit_at_opening" class="mb-6">
+                  <p class="text-xs font-semibold text-gray-400 uppercase mb-1">Dépôt minimum</p>
+                  <p class="text-primary font-black text-xl">
+                    {{ Number(product.deposit_at_opening).toLocaleString('fr-FR') }} FCFA
+                  </p>
+                </div>
+
+                <button
+                  @click="goToSubscribe(product.id)"
+                  class="mt-auto w-full text-center border border-primary text-primary py-3 rounded-lg font-bold hover:bg-primary hover:text-white transition-colors uppercase text-sm cursor-pointer"
+                >
+                  Pré-souscrire
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <div v-else-if="!loadingProducts" class="text-center py-20">

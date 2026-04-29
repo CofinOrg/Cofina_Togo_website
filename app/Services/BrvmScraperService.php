@@ -46,6 +46,7 @@ class BrvmScraperService
             throw new \Exception("HTTP {$response->status()}");
         }
 
+
         $crawler = new Crawler($response->body());
         $rows = $crawler->filter('table.activity tbody tr');
 

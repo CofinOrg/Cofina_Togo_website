@@ -194,51 +194,166 @@ onMounted(() => {
     </section>
 
     <div class="bg-primary py-4 text-center text-white font-bold text-xl uppercase tracking-widest shadow-lg">
-      Notre Engagement
+      Notre Engagement RSE
     </div>
 
-    <section class="max-w-6xl mx-auto py-10 px-6 grid md:grid-cols-2 gap-12 items-center">
-      <div class="rounded-lg overflow-hidden shadow-2xl transition-transform hover:-rotate-1">
-        <img src="../../assets/images/about_images/interviewer-holding-meeting-with-job-candidate-doing-greeting-handshake-closeup.jpg" alt="Engagement" />
-      </div>
-      <div class="text-sm text-gray-600 leading-relaxed text-justify space-y-4">
-        <p>Face aux réalités et aux besoins des pays africains, la création d'un réseau régional destiné à promouvoir et accompagner le développement économique semble tant opportun qu'approprié.</p>
-        <p>COFINA Togo s'engage à créer, selon les standards internationaux, un modèle de finance inclusive offrant à sa clientèle, des micro-crédits, des produits de micro-assurance/bancassurance, des produits de m-banking et e-banking, des financements de logements sociaux ainsi que des financements structurés.</p>
+    <!-- Section Citation -->
+    <section class="bg-linear-to-r from-primary/10 to-transparent py-10 px-6">
+      <div class="max-w-4xl mx-auto text-center">
+        <p class="text-2xl md:text-3xl font-bold text-primary italic">
+          « Nous sommes la mésofinance innovante et responsable »
+        </p>
       </div>
     </section>
 
-    <section class="max-w-6xl mx-auto py-10 px-6">
-      <h2 class="text-center text-2xl font-bold mb-16 uppercase">RSE <span class="text-gray-400 text-lg font-normal ml-2">(Responsabilité Sociétale des Entreprises)</span></h2>
+    <!-- Section Présentation RSE -->
+    <section class="max-w-6xl mx-auto py-10 px-6 grid md:grid-cols-2 gap-12 items-center">
+      <div class="rounded-lg overflow-hidden shadow-2xl transition-transform hover:-rotate-1">
+        <img src="../../assets/images/about_images/interviewer-holding-meeting-with-job-candidate-doing-greeting-handshake-closeup.jpg" alt="Engagement RSE" />
+      </div>
+      <div class="text-sm text-gray-600 leading-relaxed text-justify space-y-4">
+        <p class="font-semibold text-gray-800">
+          La démarche RSE du Groupe Cofina s'inscrit dans une optique volontariste qui vise à répondre aux exigences environnementales, sociales (E&S) et de bonne gouvernance vis-à-vis de nos clients, nos partenaires, nos actionnaires, nos collaborateurs et toutes nos parties prenantes.
+        </p>
+        <p>
+          Afin de concrétiser sa mission et les engagements d'impact intrinsèque à son cœur de métier, le Groupe COFINA a adopté une Politique de gestion E&S formalisant son intention d'avoir un impact positif interne et externe et spécifiant ses engagements clés.
+        </p>
+     
+      </div>
+    </section>
 
-      <div class="grid md:grid-cols-2 gap-16 mb-24 items-center">
-        <div class="space-y-6">
-          <h3 class="text-primary font-bold text-lg italic flex items-center gap-2">
-            <span class="w-8 h-0.5 bg-primary"></span> Notre mission RSE
-          </h3>
-          <ul class="space-y-6">
-            <li v-for="task in rseTasks" :key="task" class="flex gap-4 text-sm group">
-              <CheckCircleIcon class="w-6 h-6 text-primary shrink-0 group-hover:scale-110 transition-transform" />
-              <span class="text-gray-700 leading-snug">{{ task }}</span>
-            </li>
-          </ul>
+    <!-- Section Engagements clés -->
+    <section class="max-w-6xl mx-auto py-12 px-6">
+      <h3 class="text-center text-2xl font-bold mb-12 uppercase">Nos <span class="text-primary">Engagements Clés</span></h3>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="group border-l-4 border-primary pl-6 py-4 hover:bg-gray-50 transition-colors rounded-r-lg">
+          <div class="flex items-start gap-4">
+            <CheckCircleIcon class="w-6 h-6 text-primary shrink-0 mt-1 group-hover:scale-110 transition-transform" />
+            <p class="text-sm text-gray-700 leading-snug font-medium">
+              Respecter, protéger et défendre la dignité des individus en positionnant les Droits de l'Homme et la lutte contre les inégalités au cœur de la politique RSE.
+            </p>
+          </div>
         </div>
-        <div class="relative group">
-            <img src="../../assets/images/about_images/black-manager-reviews-company-strategy-with-her-team-members.jpg" class="rounded-xl shadow-xl transition-all group-hover:brightness-110" alt="RSE" />
+        <div class="group border-l-4 border-primary pl-6 py-4 hover:bg-gray-50 transition-colors rounded-r-lg">
+          <div class="flex items-start gap-4">
+            <CheckCircleIcon class="w-6 h-6 text-primary shrink-0 mt-1 group-hover:scale-110 transition-transform" />
+            <p class="text-sm text-gray-700 leading-snug font-medium">
+              Agir contre tous les facteurs d'isolement sociétal et familial consécutifs à la discrimination et la stigmatisation.
+            </p>
+          </div>
+        </div>
+        <div class="group border-l-4 border-primary pl-6 py-4 hover:bg-gray-50 transition-colors rounded-r-lg">
+          <div class="flex items-start gap-4">
+            <CheckCircleIcon class="w-6 h-6 text-primary shrink-0 mt-1 group-hover:scale-110 transition-transform" />
+            <p class="text-sm text-gray-700 leading-snug font-medium">
+              Participer à la préservation des patrimoines environnementaux et culturels locaux.
+            </p>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="grid md:grid-cols-2 gap-16 items-center">
-        <img src="../../assets/images/about_images/people-office-work-day.jpg" class="rounded-xl shadow-xl order-2 md:order-1" alt="Inclusion" />
-        <div class="order-1 md:order-2 space-y-6">
-          <h2 class="text-3xl font-bold text-primary">Inclusion financière</h2>
-          <p class="text-gray-600 leading-relaxed text-justify">
-            Participer à la construction d'un environnement stable, juste et équitable pour tous, par une approche globale de lutte contre tous les facteurs de pauvreté, d'instabilité, d'inégalité en favorisant et promouvant l'accès à l'autonomie des populations (économiques, structurels, éducationnels, sanitaires).
+    <!-- Section Performance Globale -->
+    <section class="max-w-6xl mx-auto py-12 px-6 bg-gray-50 rounded-lg">
+      <h3 class="text-2xl font-bold mb-8 uppercase text-center">Performance Globale <span class="text-primary">Interne et Externe</span></h3>
+      <p class="text-sm text-gray-600 mb-8 text-center font-semibold">L'engagement RSE du Groupe COFINA se manifeste ainsi à travers une double perspective d'impact positif :</p>
+
+      <div class="grid md:grid-cols-2 gap-12">
+        <div class="space-y-4">
+          <h4 class="text-lg font-bold text-primary flex items-center gap-2">
+            <span class="inline-block w-3 h-3 bg-primary rounded-full"></span> En Interne
+          </h4>
+          <p class="text-sm text-gray-700 leading-relaxed">
+            Une organisation respectueuse et inclusive, ancrée dans l'égalité des genres, la formation continue, l'emploi de qualité, la préservation de l'environnement, une offre de produits et services qui assurent notre performance sociale.
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <h4 class="text-lg font-bold text-primary flex items-center gap-2">
+            <span class="inline-block w-3 h-3 bg-primary rounded-full"></span> En Externe
+          </h4>
+          <p class="text-sm text-gray-700 leading-relaxed">
+            La culture de relations fondées sur l'inclusivité, la protection des clients, l'évaluation de l'impact environnemental et social, la sensibilisation, la coopération avec nos clients, fournisseurs et autres parties prenantes et l'engagement pour le développement local.
           </p>
         </div>
       </div>
     </section>
 
-    <section class="py-1 px-6 bg-white border-t border-gray-100">
+    <!-- Section 5 Engagements de la Politique E&S -->
+    <section class="max-w-6xl mx-auto py-12 px-6">
+      <h3 class="text-2xl font-bold mb-8 uppercase text-center">Politique de Gestion <span class="text-primary">E&S</span></h3>
+      <p class="text-sm text-gray-600 mb-12 text-center">La politique de gestion E&S du Groupe COFINA comprend 5 engagements clés :</p>
+
+      <div class="space-y-6">
+        <div class="border-l-4 border-primary pl-6 py-4 hover:bg-gray-50 transition-colors rounded-r-lg">
+          <h4 class="font-bold text-gray-800 mb-2">1. Conditions de Travail</h4>
+          <p class="text-sm text-gray-700">Améliorer continuellement les conditions de travail de nos collaborateurs, en optimisant leur environnement professionnel et en favorisant leur épanouissement global.</p>
+        </div>
+
+        <div class="border-l-4 border-primary pl-6 py-4 hover:bg-gray-50 transition-colors rounded-r-lg">
+          <h4 class="font-bold text-gray-800 mb-2">2. Représentation des Femmes</h4>
+          <p class="text-sm text-gray-700">Accroître la représentation des femmes au sein des instances de direction et des portefeuilles de nos entités financières, tout en contribuant à leur autonomisation.</p>
+        </div>
+
+        <div class="border-l-4 border-primary pl-6 py-4 hover:bg-gray-50 transition-colors rounded-r-lg">
+          <h4 class="font-bold text-gray-800 mb-2">3. Inclusion Financière et Sociale</h4>
+          <p class="text-sm text-gray-700">Promouvoir l'inclusion financière et sociale au sein des communautés desservies par les entités du Groupe COFINA.</p>
+        </div>
+
+        <div class="border-l-4 border-primary pl-6 py-4 hover:bg-gray-50 transition-colors rounded-r-lg">
+          <h4 class="font-bold text-gray-800 mb-2">4. Résilience et Gestion des Risques</h4>
+          <p class="text-sm text-gray-700">Renforcer la résilience de nos clients face aux défis économiques et au changement climatique, tout en améliorant notre capacité à comprendre, surveiller et gérer les risques environnementaux et sociaux au sein de nos opérations.</p>
+        </div>
+
+        <div class="border-l-4 border-primary pl-6 py-4 hover:bg-gray-50 transition-colors rounded-r-lg">
+          <h4 class="font-bold text-gray-800 mb-2">5. Responsabilités Sociétales</h4>
+          <p class="text-sm text-gray-700">Encourager nos clients à assumer leurs responsabilités sociétales envers leurs parties prenantes et participer au développement local.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5 Thématiques d'Impact -->
+    <section class="max-w-6xl mx-auto py-12 px-6 bg-gray-50 rounded-lg">
+      <h3 class="text-2xl font-bold mb-8 uppercase text-center">Nos 5 Thématiques <span class="text-primary">d'Impact</span></h3>
+      <p class="text-sm text-gray-600 mb-12 text-center">Notre démarche RSE s'articule autour de 3 axes : Économique, Social et Environnemental</p>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-primary">
+          <h4 class="font-bold text-lg text-primary mb-2">Emplois et Conditions de Travail</h4>
+          <p class="text-sm text-gray-700 leading-relaxed">
+            Le Groupe COFINA s'engage fermement à combattre le déficit d'emplois garantissant un minimum décent. Nous considérons la création d'emplois comme une thématique clé du développement durable, visant à créer des emplois de qualité avec un minimum décent, la productivité, le bien-être et l'attractivité.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-primary">
+          <h4 class="font-bold text-lg text-primary mb-2">Genre</h4>
+          <p class="text-sm text-gray-700 leading-relaxed">
+            Le Groupe COFINA reconnaît l'importance cruciale de l'égalité des genres. En accord avec notre ambition de devenir le modèle panafricain de la finance inclusive, nous nous engageons à jouer un rôle actif dans la promotion de l'émancipation des femmes et de l'égalité des chances.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-primary">
+          <h4 class="font-bold text-lg text-primary mb-2">Changement Climatique</h4>
+          <p class="text-sm text-gray-700 leading-relaxed">
+            Le changement climatique et ses risques pour les activités entrepreneuriales africaines sont des réalités incontournables. Le Groupe Cofina s'engage à renforcer la résilience de ses clients face à ces défis.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-primary">
+          <h4 class="font-bold text-lg text-primary mb-2">Inclusion Financière</h4>
+          <p class="text-sm text-gray-700 leading-relaxed">
+            L'accès difficile au financement pour de nombreux entrepreneurs est la raison de la création de COFINA. Notre ambition est de promouvoir l'inclusion financière sur le continent africain chaque jour davantage.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-primary md:col-span-2">
+          <h4 class="font-bold text-lg text-primary mb-2">Engagement Sociétal</h4>
+          <p class="text-sm text-gray-700 leading-relaxed">
+            La responsabilité sociétale et la gestion de la performance globale sont cruciales pour passer de « ne pas nuire » à « faire du bien ». Chez COFINA, cet engagement se concrétise quotidiennement par notre proximité avec nos collaborateurs, clients, parties prenantes et communautés locales.
+          </p>
+        </div>
+      </div>
+    </section>
       <div class="text-center mb-4">
         <h2 class="text-4xl font-black text-gray-900 uppercase tracking-tighter">
           Notre Empreinte <span class="text-primary">Panafricaine</span>
@@ -250,7 +365,6 @@ onMounted(() => {
         </p>
       </div>
       <PanAfricanMap></PanAfricanMap>
-    </section>
 
   </div>
 </template>

@@ -1,6 +1,6 @@
 {
   "node_modules/.pnpm/canvg@3.0.11/node_modules/canvg/lib/index.es.js": {
-    "file": "assets/index.es-BaqiJ6UJ.js",
+    "file": "assets/index.es-Drkkgu4Q.js",
     "name": "index.es",
     "src": "node_modules/.pnpm/canvg@3.0.11/node_modules/canvg/lib/index.es.js",
     "isDynamicEntry": true,
@@ -25,7 +25,7 @@
     "src": "public/images/Ellipse-removebg-preview.png"
   },
   "resources/css/app.css": {
-    "file": "assets/app-BDawSJgb.css",
+    "file": "assets/app-CrGhtyor.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
@@ -49,10 +49,6 @@
     "file": "assets/african-american-business-woman-holding-laptop-standing-by-window-DTL5-svw.jpg",
     "src": "resources/js/assets/images/about_images/african-american-business-woman-holding-laptop-standing-by-window.jpg"
   },
-  "resources/js/assets/images/about_images/black-manager-reviews-company-strategy-with-her-team-members.jpg": {
-    "file": "assets/black-manager-reviews-company-strategy-with-her-team-members-SvtvRWch.jpg",
-    "src": "resources/js/assets/images/about_images/black-manager-reviews-company-strategy-with-her-team-members.jpg"
-  },
   "resources/js/assets/images/about_images/business-hands-joined-together-teamwork.jpg": {
     "file": "assets/business-hands-joined-together-teamwork-DzdCm59R.jpg",
     "src": "resources/js/assets/images/about_images/business-hands-joined-together-teamwork.jpg"
@@ -60,10 +56,6 @@
   "resources/js/assets/images/about_images/interviewer-holding-meeting-with-job-candidate-doing-greeting-handshake-closeup.jpg": {
     "file": "assets/interviewer-holding-meeting-with-job-candidate-doing-greeting-handshake-closeup-Dco2TSsE.jpg",
     "src": "resources/js/assets/images/about_images/interviewer-holding-meeting-with-job-candidate-doing-greeting-handshake-closeup.jpg"
-  },
-  "resources/js/assets/images/about_images/people-office-work-day.jpg": {
-    "file": "assets/people-office-work-day-Br27zp46.jpg",
-    "src": "resources/js/assets/images/about_images/people-office-work-day.jpg"
   },
   "resources/js/assets/images/about_images/successful-happy-business-team.jpg": {
     "file": "assets/successful-happy-business-team-Cla90lEu.jpg",
@@ -154,7 +146,7 @@
     "src": "resources/js/assets/logo-groupe.svg"
   },
   "resources/js/main.js": {
-    "file": "assets/main-CvNDevV7.js",
+    "file": "assets/main-Dlzfq1Iu.js",
     "name": "main",
     "src": "resources/js/main.js",
     "isEntry": true,
@@ -164,7 +156,7 @@
       "node_modules/.pnpm/canvg@3.0.11/node_modules/canvg/lib/index.es.js"
     ],
     "css": [
-      "assets/main-inMGzh2A.css"
+      "assets/main-ClWTkx5R.css"
     ],
     "assets": [
       "assets/cofina-mobile_-QGJ-n2O7.webp",
@@ -184,8 +176,6 @@
       "assets/business-hands-joined-together-teamwork-DzdCm59R.jpg",
       "assets/successful-happy-business-team-Cla90lEu.jpg",
       "assets/interviewer-holding-meeting-with-job-candidate-doing-greeting-handshake-closeup-Dco2TSsE.jpg",
-      "assets/black-manager-reviews-company-strategy-with-her-team-members-SvtvRWch.jpg",
-      "assets/people-office-work-day-Br27zp46.jpg",
       "assets/cofina_petit_logo-CH00ieIz.png",
       "assets/hero_produits-CqVpKuaV.png",
       "assets/confident-black-lady-sitting-holding-wad-cash-isolated-background(1)-ziRkHTJn.jpg",

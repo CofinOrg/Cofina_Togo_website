@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import {
   TrendingUp, TrendingDown, BarChart3, Globe,
   ArrowUpRight, ArrowDownLeft, Briefcase,
@@ -13,6 +13,34 @@ import { financeService, type NewsItem } from '@/data/financeService'
 const loading     = ref(true)
 const error       = ref('')
 const usdToXofRate = ref(610)
+
+const marketColors = {
+  bullish: {
+    text: 'text-emerald-400',
+    bg: 'bg-emerald-500/10',
+    border: 'border-emerald-500/30'
+  },
+  bearish: {
+    text: 'text-red-400',
+    bg: 'bg-red-500/10',
+    border: 'border-red-500/30'
+  },
+  neutral: {
+    text: 'text-gray-400',
+    bg: 'bg-gray-500/10',
+    border: 'border-gray-500/20'
+  }
+}
+
+
+
+const getMarketStyle = (value: number) => {
+  if (value > 0) return marketColors.bullish
+  if (value < 0) return marketColors.bearish
+  return marketColors.neutral
+}
+
+
 
 const goldPrices = ref({
   current: 0, change: 0, changePercent: 0,
@@ -108,30 +136,183 @@ const fetchData = async () => {
   }
 }
 
+const heroCanvas = ref<HTMLCanvasElement | null>(null)
+let animFrame: number | null = null
+
+const tickers = [
+  { symbol: 'XAU/USD', price: '3 312.40', change: '+0.87%', up: true },
+  { symbol: 'BRVM-CI', price: '185.30',   change: '+1.24%', up: true },
+  { symbol: 'EUR/XOF', price: '655.96',   change: '0.00%',  up: true },
+  { symbol: 'USD/XOF', price: '611.20',   change: '-0.32%', up: false },
+  { symbol: 'BTC/USD', price: '94 200',   change: '+2.10%', up: true },
+  { symbol: 'PETROLE', price: '83.45',    change: '-0.55%', up: false },
+  { symbol: 'ARGENT',  price: '32.18',    change: '+1.75%', up: true },
+  { symbol: 'NSIA-CI', price: '6 100',    change: '+0.43%', up: true },
+]
+
+const drawHeroChart = () => {
+  const canvas = heroCanvas.value
+  if (!canvas) return
+
+  const ctx = canvas.getContext('2d')
+  if (!ctx) return
+
+  // Forcer la taille réelle du canvas (évite le canvas 0x0)
+  const rect = canvas.getBoundingClientRect()
+  canvas.width  = rect.width  || canvas.offsetWidth  || 1200
+  canvas.height = rect.height || canvas.offsetHeight || 400
+
+  const W = canvas.width
+  const H = canvas.height
+  if (W === 0 || H === 0) {
+    animFrame = requestAnimationFrame(drawHeroChart)
+    return
+  }
+
+  ctx.clearRect(0, 0, W, H)
+
+  const t = Date.now() / 1000
+
+  const drawCurve = (
+    seed: number, ampY: number, baseY: number,
+    color: string, lineW: number, drift: number
+  ) => {
+    const pts = Array.from({ length: 120 }, (_, i) => ({
+      x: (i / 119) * W,
+      y: baseY * H
+        + Math.sin(i * 0.12 + t * 0.25 + seed) * ampY * H
+        + Math.sin(i * 0.05 + t * 0.1  + seed) * ampY * 0.5 * H
+        - i * drift
+    }))
+
+    // Remplissage
+    const grad = ctx.createLinearGradient(0, 0, 0, H)
+    grad.addColorStop(0, color.replace(')', ', 0.12)').replace('rgb', 'rgba'))
+    grad.addColorStop(1, 'rgba(0,0,0,0)')
+    ctx.beginPath()
+    pts.forEach((p, i) => i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y))
+    ctx.lineTo(pts[pts.length - 1].x, H)
+    ctx.lineTo(0, H)
+    ctx.closePath()
+    ctx.fillStyle = grad
+    ctx.fill()
+
+    // Ligne
+    ctx.beginPath()
+    pts.forEach((p, i) => i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y))
+    ctx.strokeStyle = color
+    ctx.lineWidth = lineW
+    ctx.shadowColor = color
+    ctx.shadowBlur = 8
+    ctx.stroke()
+    ctx.shadowBlur = 0
+  }
+
+  drawCurve(0.0, 0.08, 0.60, 'rgb(234, 179, 8)',   2.0, 0.0012) // or/jaune
+  drawCurve(1.2, 0.06, 0.72, 'rgb(20, 184, 166)',  1.2, 0.0006) // teal
+  drawCurve(2.5, 0.05, 0.50, 'rgb(99, 102, 241)',  1.0, 0.0008) // violet
+
+  // Mini bougies décoratives sur la courbe principale
+  for (let i = 5; i < 115; i += 8) {
+    const x = (i / 119) * W
+    const y = 0.60 * H
+      + Math.sin(i * 0.12 + t * 0.25) * 0.08 * H
+      + Math.sin(i * 0.05 + t * 0.1)  * 0.04 * H
+      - i * 0.0012
+    const up = Math.sin(i * 0.7 + t * 0.3) > 0
+    ctx.fillStyle = up ? 'rgba(74,222,128,0.35)' : 'rgba(248,113,113,0.35)'
+    ctx.fillRect(x - 2, up ? y - 6 : y, 4, 6)
+    ctx.strokeStyle = up ? 'rgba(74,222,128,0.6)' : 'rgba(248,113,113,0.6)'
+    ctx.lineWidth = 1
+    ctx.beginPath()
+    ctx.moveTo(x, up ? y - 9 : y + 9)
+    ctx.lineTo(x, up ? y - 6 : y + 6)
+    ctx.stroke()
+  }
+
+  animFrame = requestAnimationFrame(drawHeroChart)
+}
+
+onUnmounted(() => { if (animFrame) cancelAnimationFrame(animFrame) })
+
 // ── 5. Lifecycle ──────────────────────────────────────────────────────────────
-onMounted(fetchData)
+onMounted(() => {
+  fetchData()
+  // Attendre que le DOM soit peint avant de démarrer le canvas
+  setTimeout(() => {
+    drawHeroChart()
+  }, 100)
+})
 </script>
 
 <template>
-  <div class="bg-[#060D1A] min-h-screen overflow-hidden font-sans">
+  <div class="bg-[#121212] min-h-screen overflow-hidden font-sans">
+    <section class="relative pt-20 pb-12 overflow-hidden text-center min-h-105">
 
-    <section class="relative pt-20 pb-12 overflow-hidden text-center">
-      <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute -top-40 left-1/4 w-200 h-100 bg-yellow-500/8 rounded-full blur-3xl" />
-        <div class="absolute inset-0 opacity-[0.015]" style="background-image: linear-gradient(#D4AF37 1px, transparent 1px), linear-gradient(90deg, #D4AF37 1px, transparent 1px); background-size: 60px 60px;" />
-      </div>
+        <!-- Canvas animé -->
+      <!--   <canvas ref="heroCanvas"
+        class="absolute inset-0 w-full h-full opacity-50 pointer-events-none"
+        style="display: block; width: 100%; height: 100%;">
+        </canvas> -->
 
-      <div class="relative z-10 max-w-7xl mx-auto px-4 lg:px-8">
-        <ScrollReveal animation="fade-up" :duration="600">
-          <span class="inline-flex items-center gap-2 bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-6">
-            <Sparkles :size="14" />
-            Marchés & Investissements
-          </span>
-          <h1 class="text-5xl lg:text-7xl font-black text-white leading-tight mb-6">
-            Suivez les <span class="text-transparent bg-clip-text bg-linear-to-r from-yellow-300 via-yellow-400 to-yellow-500">marchés en temps réel</span>
-          </h1>
-        </ScrollReveal>
-      </div>
+        <!-- Grille terminal -->
+        <div class="absolute inset-0 pointer-events-none opacity-[0.04]"
+            style="background-image: linear-gradient(#D4AF37 1px, transparent 1px),
+                    linear-gradient(90deg, #D4AF37 1px, transparent 1px);
+                    background-size: 50px 50px;">
+        </div>
+
+  <!-- Halo jaune -->
+        <div class="absolute -top-40 left-1/4 w-200 h-100 bg-yellow-500/8
+                    rounded-full blur-3xl pointer-events-none" />
+
+        <!-- Ticker défilant -->
+     <!--    <div class="absolute top-0 left-0 right-0 h-9 bg-black/70
+                    border-b border-yellow-500/20 overflow-hidden flex items-center z-20">
+            <div class="flex gap-10 text-xs font-mono whitespace-nowrap"
+                style="animation: tickerScroll 35s linear infinite;">
+            <span v-for="tick in [...tickers, ...tickers]" :key="Math.random()"
+                    class="flex items-center gap-1.5 shrink-0">
+                <span class="text-gray-500">{{ tick.symbol }}</span>
+                <span :class="tick.up ? 'text-yellow-400' : 'text-red-400'" class="font-bold">
+                {{ tick.price }}
+                </span>
+                <span :class="tick.up ? 'text-green-400' : 'text-red-500'" class="text-[10px]">
+                {{ tick.up ? '▲' : '▼' }} {{ tick.change }}
+                </span>
+            </span>
+            </div>
+        </div>
+ -->
+        <!-- Badge LIVE -->
+        <div class="absolute top-12 right-6 z-10 hidden md:flex flex-col gap-2 items-end">
+            <span class="inline-flex items-center gap-1.5 bg-green-500/15
+                        border border-green-500/30 text-green-400
+                        text-xs font-mono px-3 py-1.5 rounded-full">
+            <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse inline-block"></span>
+            LIVE
+            </span>
+        </div>
+
+        <!-- Contenu centré -->
+        <div class="relative z-10 max-w-7xl mx-auto px-4 lg:px-8 mt-6">
+            <ScrollReveal animation="fade-up" :duration="600">
+            <span class="inline-flex items-center gap-2 bg-yellow-500/10
+                        border border-yellow-500/30 text-yellow-400
+                        text-xs font-bold uppercase tracking-widest
+                        px-4 py-2 rounded-full mb-6">
+                <Sparkles :size="14" />
+                Marchés & Investissements
+            </span>
+            <h1 class="text-5xl lg:text-7xl font-black text-white leading-tight mb-6">
+                Suivez les
+                <span class="text-transparent bg-clip-text
+                            bg-linear-to-r from-yellow-300 via-yellow-400 to-yellow-500">
+                marchés en temps réel
+                </span>
+            </h1>
+            </ScrollReveal>
+        </div>
     </section>
 
     <div v-if="loading" class="py-24 text-center">
@@ -156,10 +337,17 @@ onMounted(fetchData)
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div v-for="(indicator, i) in keyIndicators" :key="i" class="bg-white/3 border border-white/10 rounded-2xl p-6">
             <div class="flex items-center justify-between mb-4">
-              <div class="w-10 h-10 rounded-lg bg-yellow-500/10 flex items-center justify-center">
-                <component :is="indicator.icon" :size="18" class="text-yellow-400" />
-              </div>
-              <div :class="`flex items-center gap-1 px-2 py-1 rounded-lg ${indicator.change >= 0 ? 'bg-green-500/10 text-green-400' : 'bg-red-500/10 text-red-400'}`">
+            <div
+                :class="`w-10 h-10 rounded-lg flex items-center justify-center ${getMarketStyle(indicator.change).bg}`"
+            >
+                <component
+                    :is="indicator.icon"
+                    :size="18"
+                    :class="getMarketStyle(indicator.change).text"
+                />
+            </div>
+              <div :class="`flex items-center gap-1 px-2 py-1 rounded-lg ${getMarketStyle(indicator.change).bg} ${getMarketStyle(indicator.change).text}`"
+              >
                 <component :is="indicator.change >= 0 ? TrendingUp : TrendingDown" :size="14" />
                 <span class="text-xs font-bold">{{ indicator.change >= 0 ? '+' : '' }}{{ indicator.change }}%</span>
               </div>
@@ -391,9 +579,9 @@ onMounted(fetchData)
 </template>
 
 <style scoped>
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
 .line-clamp-2 {
