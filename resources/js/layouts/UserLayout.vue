@@ -444,7 +444,7 @@ onMounted(async () => {
 
 
     <!-- Chatbot -->
-    <ChatBot />
+    <!-- <ChatBot /> -->
 
     <!-- Footer Cofina -->
     <footer class="bg-black text-white relative">
