@@ -1,24 +1,24 @@
-name: Announcement
+name: ServiceProduct
 description: |-
 
-  EndPoints pour gérer les Announcement
+  EndPoints pour gérer les ServiceProduct
 endpoints:
   -
     custom: []
     httpMethods:
       - GET
-    uri: api/announcements
+    uri: api/service_products
     metadata:
       custom: []
-      groupName: Announcement
+      groupName: ServiceProduct
       groupDescription: |-
 
-        EndPoints pour gérer les Announcement
+        EndPoints pour gérer les ServiceProduct
       subgroup: ''
       subgroupDescription: ''
-      title: 'Affiche les Announcement'
+      title: 'Affiche les ServiceProduct'
       description: ''
-      authenticated: true
+      authenticated: false
       deprecated: false
     headers:
       Content-Type: application/json
@@ -26,35 +26,46 @@ endpoints:
     urlParameters: []
     cleanUrlParameters: []
     queryParameters:
-      content:
+      name:
         custom: []
-        name: content
-        description: "Description de l'attribut.\t\t\t\t\t\t\t\t\t\t\t\t\t Je suis"
+        name: name
+        description: "Description de l'attribut."
         required: false
-        example: architecto
+        example: null
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      is_published:
+      advantage:
         custom: []
-        name: is_published
-        description: "Description de l'attribut.\t\t\t\t\t\t\t\t\t\t\t\t\t true"
+        name: advantage
+        description: "Description de l'attribut."
         required: false
-        example: architecto
+        example: null
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      with_user:
+      deposit_at_opening:
         custom: []
-        name: with_user
+        name: deposit_at_opening
+        description: "Description de l'attribut."
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      with_relation:
+        custom: []
+        name: with_relation
         description: 'Afficher la relation.'
         required: false
-        example: 0
-        type: integer
+        example: 'false'
+        type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: false
@@ -71,9 +82,7 @@ endpoints:
         nullable: false
         deprecated: false
     cleanQueryParameters:
-      content: architecto
-      is_published: architecto
-      with_user: 0
+      with_relation: 'false'
       paginate: 'false'
     bodyParameters: []
     cleanBodyParameters: []
@@ -93,92 +102,17 @@ endpoints:
   -
     custom: []
     httpMethods:
-      - POST
-    uri: api/announcements
-    metadata:
-      custom: []
-      groupName: Announcement
-      groupDescription: |-
-
-        EndPoints pour gérer les Announcement
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Créer un nouveau Announcement'
-      description: ''
-      authenticated: false
-      deprecated: false
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      user_id:
-        custom: []
-        name: user_id
-        description: "L'attribut."
-        required: false
-        example: 1
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      content:
-        custom: []
-        name: content
-        description: "L'attribut."
-        required: false
-        example: value
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      is_published:
-        custom: []
-        name: is_published
-        description: "L'attribut."
-        required: false
-        example: false
-        type: boolean
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-    cleanBodyParameters:
-      user_id: 1
-      content: value
-      is_published: false
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 200
-        content: '{}'
-        headers: []
-        description: ''
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
       - GET
-    uri: 'api/announcements/{id}'
+    uri: 'api/service_products/{id}'
     metadata:
       custom: []
-      groupName: Announcement
+      groupName: ServiceProduct
       groupDescription: |-
 
-        EndPoints pour gérer les Announcement
+        EndPoints pour gérer les ServiceProduct
       subgroup: ''
       subgroupDescription: ''
-      title: 'Affiche un Announcement'
+      title: 'Affiche un ServiceProduct'
       description: ''
       authenticated: false
       deprecated: false
@@ -189,7 +123,7 @@ endpoints:
       id:
         custom: []
         name: id
-        description: 'Le Announcement.'
+        description: 'Le ServiceProduct.'
         required: false
         example: 1
         type: integer
@@ -200,19 +134,19 @@ endpoints:
     cleanUrlParameters:
       id: 1
     queryParameters:
-      with_user:
+      with_relation:
         custom: []
-        name: with_user
+        name: with_relation
         description: 'Afficher la relation.'
         required: false
-        example: 0
-        type: integer
+        example: 'false'
+        type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         deprecated: false
     cleanQueryParameters:
-      with_user: 0
+      with_relation: 'false'
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
@@ -231,17 +165,92 @@ endpoints:
   -
     custom: []
     httpMethods:
-      - PUT
-    uri: 'api/announcements/{id}'
+      - POST
+    uri: api/service_products
     metadata:
       custom: []
-      groupName: Announcement
+      groupName: ServiceProduct
       groupDescription: |-
 
-        EndPoints pour gérer les Announcement
+        EndPoints pour gérer les ServiceProduct
       subgroup: ''
       subgroupDescription: ''
-      title: 'Met à jour un Announcement'
+      title: 'Créer un nouveau ServiceProduct'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        custom: []
+        name: name
+        description: "L'attribut."
+        required: false
+        example: woezon
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      advantage:
+        custom: []
+        name: advantage
+        description: "L'attribut."
+        required: false
+        example: super
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      deposit_at_opening:
+        custom: []
+        name: deposit_at_opening
+        description: "L'attribut."
+        required: false
+        example: '500000'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      name: woezon
+      advantage: super
+      deposit_at_opening: '500000'
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/service_products/{id}'
+    metadata:
+      custom: []
+      groupName: ServiceProduct
+      groupDescription: |-
+
+        EndPoints pour gérer les ServiceProduct
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Met à jour un ServiceProduct'
       description: ''
       authenticated: false
       deprecated: false
@@ -252,7 +261,7 @@ endpoints:
       id:
         custom: []
         name: id
-        description: 'Le Announcement.'
+        description: 'Le ServiceProduct.'
         required: false
         example: 1
         type: integer
@@ -265,9 +274,9 @@ endpoints:
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      content:
+      name:
         custom: []
-        name: content
+        name: name
         description: "L'attribut."
         required: false
         example: value
@@ -276,20 +285,32 @@ endpoints:
         exampleWasSpecified: true
         nullable: false
         deprecated: false
-      is_published:
+      advantage:
         custom: []
-        name: is_published
+        name: advantage
         description: "L'attribut."
         required: false
-        example: true
-        type: boolean
+        example: value
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      deposit_at_opening:
+        custom: []
+        name: deposit_at_opening
+        description: "L'attribut."
+        required: false
+        example: value
+        type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      content: value
-      is_published: true
+      name: value
+      advantage: value
+      deposit_at_opening: value
     fileParameters: []
     responses:
       -
@@ -307,16 +328,16 @@ endpoints:
     custom: []
     httpMethods:
       - DELETE
-    uri: 'api/announcements/{id}'
+    uri: 'api/service_products/{id}'
     metadata:
       custom: []
-      groupName: Announcement
+      groupName: ServiceProduct
       groupDescription: |-
 
-        EndPoints pour gérer les Announcement
+        EndPoints pour gérer les ServiceProduct
       subgroup: ''
       subgroupDescription: ''
-      title: 'Supprime un Announcement'
+      title: 'Supprime un ServiceProduct'
       description: ''
       authenticated: false
       deprecated: false
@@ -327,7 +348,7 @@ endpoints:
       id:
         custom: []
         name: id
-        description: 'Le Announcement.'
+        description: 'Le ServiceProduct.'
         required: false
         example: 1
         type: integer

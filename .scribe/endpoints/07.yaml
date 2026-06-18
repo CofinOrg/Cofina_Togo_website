@@ -1,22 +1,22 @@
-name: Slider
+name: Service
 description: |-
 
-  EndPoints pour gérer les Slider
+  EndPoints pour gérer les Service
 endpoints:
   -
     custom: []
     httpMethods:
       - GET
-    uri: api/sliders
+    uri: api/services
     metadata:
       custom: []
-      groupName: Slider
+      groupName: Service
       groupDescription: |-
 
-        EndPoints pour gérer les Slider
+        EndPoints pour gérer les Service
       subgroup: ''
       subgroupDescription: ''
-      title: 'Affiche les Slider'
+      title: 'Affiche les Service'
       description: ''
       authenticated: false
       deprecated: false
@@ -26,31 +26,42 @@ endpoints:
     urlParameters: []
     cleanUrlParameters: []
     queryParameters:
-      slide_path:
+      name:
         custom: []
-        name: slide_path
+        name: name
         description: "Description de l'attribut."
         required: false
-        example: /storage
+        example: null
         type: string
         enumValues: []
-        exampleWasSpecified: true
+        exampleWasSpecified: false
         nullable: false
         deprecated: false
-      is_published:
+      description:
         custom: []
-        name: is_published
+        name: description
         description: "Description de l'attribut."
         required: false
-        example: false
-        type: boolean
+        example: null
+        type: string
         enumValues: []
-        exampleWasSpecified: true
+        exampleWasSpecified: false
         nullable: false
         deprecated: false
-      with_user:
+      type:
         custom: []
-        name: with_user
+        name: type
+        description: "Description de l'attribut."
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      with_relation:
+        custom: []
+        name: with_relation
         description: 'Afficher la relation.'
         required: false
         example: 'false'
@@ -71,9 +82,7 @@ endpoints:
         nullable: false
         deprecated: false
     cleanQueryParameters:
-      slide_path: /storage
-      is_published: false
-      with_user: 'false'
+      with_relation: 'false'
       paginate: 'false'
     bodyParameters: []
     cleanBodyParameters: []
@@ -93,17 +102,80 @@ endpoints:
   -
     custom: []
     httpMethods:
-      - POST
-    uri: api/sliders
+      - GET
+    uri: 'api/services/{id}'
     metadata:
       custom: []
-      groupName: Slider
+      groupName: Service
       groupDescription: |-
 
-        EndPoints pour gérer les Slider
+        EndPoints pour gérer les Service
       subgroup: ''
       subgroupDescription: ''
-      title: 'Créer un nouveau Slider'
+      title: 'Affiche un Service'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'Le Service.'
+        required: false
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters:
+      with_user:
+        custom: []
+        name: with_user
+        description: 'Afficher la relation.'
+        required: false
+        example: 'false'
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanQueryParameters:
+      with_user: 'false'
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/services
+    metadata:
+      custom: []
+      groupName: Service
+      groupDescription: |-
+
+        EndPoints pour gérer les Service
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Créer un nouveau Service'
       description: ''
       authenticated: false
       deprecated: false
@@ -126,95 +198,44 @@ endpoints:
         exampleWasSpecified: true
         nullable: false
         deprecated: false
-      slide_path:
+      name:
         custom: []
-        name: slide_path
+        name: name
         description: "L'attribut."
         required: false
-        example: /local
+        example: 'Pack entreprise'
         type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         deprecated: false
-      is_published:
+      description:
         custom: []
-        name: is_published
+        name: description
         description: "L'attribut."
         required: false
-        example: false
-        type: boolean
+        example: value
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      type:
+        custom: []
+        name: type
+        description: "L'attribut."
+        required: false
+        example: pack
+        type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         deprecated: false
     cleanBodyParameters:
       user_id: 1
-      slide_path: /local
-      is_published: false
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 200
-        content: '{}'
-        headers: []
-        description: ''
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - GET
-    uri: 'api/sliders/{id}'
-    metadata:
-      custom: []
-      groupName: Slider
-      groupDescription: |-
-
-        EndPoints pour gérer les Slider
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Affiche un Slider'
-      description: ''
-      authenticated: false
-      deprecated: false
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        custom: []
-        name: id
-        description: 'Le Slider.'
-        required: false
-        example: 1
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-    cleanUrlParameters:
-      id: 1
-    queryParameters:
-      with_relation:
-        custom: []
-        name: with_relation
-        description: 'Afficher la relation.'
-        required: false
-        example: 'false'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-    cleanQueryParameters:
-      with_relation: 'false'
-    bodyParameters: []
-    cleanBodyParameters: []
+      name: 'Pack entreprise'
+      description: value
+      type: pack
     fileParameters: []
     responses:
       -
@@ -232,16 +253,16 @@ endpoints:
     custom: []
     httpMethods:
       - PUT
-    uri: 'api/sliders/{id}'
+    uri: 'api/services/{id}'
     metadata:
       custom: []
-      groupName: Slider
+      groupName: Service
       groupDescription: |-
 
-        EndPoints pour gérer les Slider
+        EndPoints pour gérer les Service
       subgroup: ''
       subgroupDescription: ''
-      title: 'Met à jour un Slider'
+      title: 'Met à jour un Service'
       description: ''
       authenticated: false
       deprecated: false
@@ -252,7 +273,7 @@ endpoints:
       id:
         custom: []
         name: id
-        description: 'Le Slider.'
+        description: 'Le Service.'
         required: false
         example: 1
         type: integer
@@ -265,31 +286,43 @@ endpoints:
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      slide_path:
+      name:
         custom: []
-        name: slide_path
+        name: name
         description: "L'attribut."
         required: false
-        example: /storage
+        example: 'packs solo'
         type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         deprecated: false
-      is_published:
+      description:
         custom: []
-        name: is_published
+        name: description
         description: "L'attribut."
         required: false
-        example: true
-        type: boolean
+        example: value
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      type:
+        custom: []
+        name: type
+        description: "L'attribut."
+        required: false
+        example: financial_solution
+        type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      slide_path: /storage
-      is_published: true
+      name: 'packs solo'
+      description: value
+      type: financial_solution
     fileParameters: []
     responses:
       -
@@ -307,16 +340,16 @@ endpoints:
     custom: []
     httpMethods:
       - DELETE
-    uri: 'api/sliders/{id}'
+    uri: 'api/services/{id}'
     metadata:
       custom: []
-      groupName: Slider
+      groupName: Service
       groupDescription: |-
 
-        EndPoints pour gérer les Slider
+        EndPoints pour gérer les Service
       subgroup: ''
       subgroupDescription: ''
-      title: 'Supprime un Slider'
+      title: 'Supprime un Service'
       description: ''
       authenticated: false
       deprecated: false
@@ -327,7 +360,7 @@ endpoints:
       id:
         custom: []
         name: id
-        description: 'Le Slider.'
+        description: 'Le Service.'
         required: false
         example: 1
         type: integer

@@ -1,22 +1,22 @@
-name: Agence
+name: Slider
 description: |-
 
-  EndPoints pour gérer les Agence
+  EndPoints pour gérer les Slider
 endpoints:
   -
     custom: []
     httpMethods:
       - GET
-    uri: api/agences
+    uri: api/sliders
     metadata:
       custom: []
-      groupName: Agence
+      groupName: Slider
       groupDescription: |-
 
-        EndPoints pour gérer les Agence
+        EndPoints pour gérer les Slider
       subgroup: ''
       subgroupDescription: ''
-      title: 'Affiche les Agence'
+      title: 'Affiche les Slider'
       description: ''
       authenticated: false
       deprecated: false
@@ -26,70 +26,26 @@ endpoints:
     urlParameters: []
     cleanUrlParameters: []
     queryParameters:
-      name:
+      slide_path:
         custom: []
-        name: name
-        description: "Description de l'attribut.\t\t\t\t\t\t\t\t\t\t\t\t\tAgoe"
+        name: slide_path
+        description: "Description de l'attribut."
         required: false
-        example: architecto
+        example: /storage
         type: string
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         deprecated: false
-      latitude:
+      is_published:
         custom: []
-        name: latitude
-        description: "Description de l'attribut.\t\t\t\t\t\t\t\t\t\t\t\t\t18526.102"
+        name: is_published
+        description: "Description de l'attribut."
         required: false
-        example: architecto
-        type: string
+        example: false
+        type: boolean
         enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      longitude:
-        custom: []
-        name: longitude
-        description: "Description de l'attribut.\t\t\t\t\t\t\t\t\t\t\t\t\t125896.12"
-        required: false
-        example: architecto
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      adress:
-        custom: []
-        name: adress
-        description: "Description de l'attribut.\t\t\t\t\t                                Agoe"
-        required: false
-        example: architecto
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      type:
-        custom: []
-        name: type
-        description: "Description de l'attribut.\t\t\t\t\t                                Agence"
-        required: false
-        example: architecto
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      contact:
-        custom: []
-        name: contact
-        description: "Description de l'attribut.\t\t\t\t\t                                22315680"
-        required: false
-        example: architecto
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         deprecated: false
       with_user:
@@ -97,8 +53,8 @@ endpoints:
         name: with_user
         description: 'Afficher la relation.'
         required: false
-        example: 0
-        type: integer
+        example: 'false'
+        type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: false
@@ -115,13 +71,9 @@ endpoints:
         nullable: false
         deprecated: false
     cleanQueryParameters:
-      name: architecto
-      latitude: architecto
-      longitude: architecto
-      adress: architecto
-      type: architecto
-      contact: architecto
-      with_user: 0
+      slide_path: /storage
+      is_published: false
+      with_user: 'false'
       paginate: 'false'
     bodyParameters: []
     cleanBodyParameters: []
@@ -141,128 +93,17 @@ endpoints:
   -
     custom: []
     httpMethods:
-      - POST
-    uri: api/agences
-    metadata:
-      custom: []
-      groupName: Agence
-      groupDescription: |-
-
-        EndPoints pour gérer les Agence
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Créer un nouveau Agence'
-      description: ''
-      authenticated: false
-      deprecated: false
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      user_id:
-        custom: []
-        name: user_id
-        description: "L'attribut."
-        required: false
-        example: 0
-        type: integer
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      name:
-        custom: []
-        name: name
-        description: "L'attribut."
-        required: false
-        example: Dekon
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      latitude:
-        custom: []
-        name: latitude
-        description: "L'attribut."
-        required: false
-        example: '12580.3'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      longitude:
-        custom: []
-        name: longitude
-        description: "L'attribut."
-        required: false
-        example: '1382.56'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      adress:
-        custom: []
-        name: adress
-        description: "L'attribut."
-        required: false
-        example: Dekon
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      contact:
-        custom: []
-        name: contact
-        description: "L'attribut."
-        required: false
-        example: '90132560'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-    cleanBodyParameters:
-      user_id: 0
-      name: Dekon
-      latitude: '12580.3'
-      longitude: '1382.56'
-      adress: Dekon
-      contact: '90132560'
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 200
-        content: '{}'
-        headers: []
-        description: ''
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
       - GET
-    uri: 'api/agences/{id}'
+    uri: 'api/sliders/{id}'
     metadata:
       custom: []
-      groupName: Agence
+      groupName: Slider
       groupDescription: |-
 
-        EndPoints pour gérer les Agence
+        EndPoints pour gérer les Slider
       subgroup: ''
       subgroupDescription: ''
-      title: 'Affiche un Agence'
+      title: 'Affiche un Slider'
       description: ''
       authenticated: false
       deprecated: false
@@ -273,7 +114,7 @@ endpoints:
       id:
         custom: []
         name: id
-        description: 'Le Agence.'
+        description: 'Le Slider.'
         required: false
         example: 1
         type: integer
@@ -284,19 +125,19 @@ endpoints:
     cleanUrlParameters:
       id: 1
     queryParameters:
-      with_user:
+      with_relation:
         custom: []
-        name: with_user
+        name: with_relation
         description: 'Afficher la relation.'
         required: false
-        example: 0
-        type: integer
+        example: 'false'
+        type: string
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         deprecated: false
     cleanQueryParameters:
-      with_user: 0
+      with_relation: 'false'
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
@@ -315,17 +156,92 @@ endpoints:
   -
     custom: []
     httpMethods:
-      - PUT
-    uri: 'api/agences/{id}'
+      - POST
+    uri: api/sliders
     metadata:
       custom: []
-      groupName: Agence
+      groupName: Slider
       groupDescription: |-
 
-        EndPoints pour gérer les Agence
+        EndPoints pour gérer les Slider
       subgroup: ''
       subgroupDescription: ''
-      title: 'Met à jour un Agence'
+      title: 'Créer un nouveau Slider'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      user_id:
+        custom: []
+        name: user_id
+        description: "L'attribut."
+        required: false
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      slide_path:
+        custom: []
+        name: slide_path
+        description: "L'attribut."
+        required: false
+        example: /local
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      is_published:
+        custom: []
+        name: is_published
+        description: "L'attribut."
+        required: false
+        example: false
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      user_id: 1
+      slide_path: /local
+      is_published: false
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{}'
+        headers: []
+        description: ''
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/sliders/{id}'
+    metadata:
+      custom: []
+      groupName: Slider
+      groupDescription: |-
+
+        EndPoints pour gérer les Slider
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Met à jour un Slider'
       description: ''
       authenticated: false
       deprecated: false
@@ -336,7 +252,7 @@ endpoints:
       id:
         custom: []
         name: id
-        description: 'Le Agence.'
+        description: 'Le Slider.'
         required: false
         example: 1
         type: integer
@@ -349,79 +265,31 @@ endpoints:
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      name:
+      slide_path:
         custom: []
-        name: name
-        description: "L'attribut.\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tAgoe"
+        name: slide_path
+        description: "L'attribut."
         required: false
-        example: architecto
+        example: /storage
         type: string
         enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         deprecated: false
-      latitude:
+      is_published:
         custom: []
-        name: latitude
-        description: "L'attribut.\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t1258.12"
+        name: is_published
+        description: "L'attribut."
         required: false
-        example: architecto
-        type: string
+        example: true
+        type: boolean
         enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      longitude:
-        custom: []
-        name: longitude
-        description: "L'attribut.\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t1250.12"
-        required: false
-        example: architecto
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      adress:
-        custom: []
-        name: adress
-        description: "L'attribut.\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLome"
-        required: false
-        example: architecto
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      type:
-        custom: []
-        name: type
-        description: "L'attribut.\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tagence"
-        required: false
-        example: architecto
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      contact:
-        custom: []
-        name: contact
-        description: "L'attribut.\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t98123025"
-        required: false
-        example: architecto
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
+        exampleWasSpecified: true
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      name: architecto
-      latitude: architecto
-      longitude: architecto
-      adress: architecto
-      type: architecto
-      contact: architecto
+      slide_path: /storage
+      is_published: true
     fileParameters: []
     responses:
       -
@@ -439,16 +307,16 @@ endpoints:
     custom: []
     httpMethods:
       - DELETE
-    uri: 'api/agences/{id}'
+    uri: 'api/sliders/{id}'
     metadata:
       custom: []
-      groupName: Agence
+      groupName: Slider
       groupDescription: |-
 
-        EndPoints pour gérer les Agence
+        EndPoints pour gérer les Slider
       subgroup: ''
       subgroupDescription: ''
-      title: 'Supprime un Agence'
+      title: 'Supprime un Slider'
       description: ''
       authenticated: false
       deprecated: false
@@ -459,7 +327,7 @@ endpoints:
       id:
         custom: []
         name: id
-        description: 'Le Agence.'
+        description: 'Le Slider.'
         required: false
         example: 1
         type: integer

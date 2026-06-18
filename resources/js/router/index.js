@@ -37,6 +37,7 @@ import ScoringStats from '../views/admin/ScoringStats.vue'
 import Notifications from '../views/admin/Notifications.vue'
 import InsightPage from '../views/admin/InsightPage.vue'
 import BusinessClubMembers from '../views/admin/BusinessClubMembers.vue'
+import ChangePassword from '../views/admin/ChangePassword.vue'
 import NotFoundPage from '../views/website/NotFoundPage.vue'
 import PremiumPage from '../views/website/PremiumPage.vue'
 import FinancialMarketPage from '../views/website/FinancialMarketPage.vue'
@@ -275,6 +276,12 @@ const router = createRouter({
                     name: "admin-business-club-members",
                     component: BusinessClubMembers,
                     meta: { subject: 'businessclubmember', action: 'menu' }
+                },
+                {
+                    path: 'change-password',
+                    name: "admin-change-password",
+                    component: ChangePassword,
+                    meta: { requiresAuth: true }
                 }
 
             ]
@@ -308,6 +315,14 @@ router.beforeEach((to, _from, next) => {
         if (!authStore.isAuthenticated) {
             // Pas de token, rediriger vers login
             return next({ path: '/Cofinoistg@admin/login', query: { redirect: to.fullPath } })
+        }
+
+
+        if (
+            authStore.user?.password_change_required &&
+            to.path !== '/Cofinoistg@admin/change-password'
+        ) {
+            return next({ path: '/Cofinoistg@admin/change-password' })
         }
 
         // Vérifier les permissions si la route a un subject/action

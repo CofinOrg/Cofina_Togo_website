@@ -1,22 +1,18 @@
-name: SpontaneousApplication
-description: |-
-
-  EndPoints pour gérer les SpontaneousApplication
+name: Endpoints
+description: ''
 endpoints:
   -
     custom: []
     httpMethods:
-      - GET
-    uri: api/spontaneous_applications
+      - POST
+    uri: api/chat
     metadata:
       custom: []
-      groupName: SpontaneousApplication
-      groupDescription: |-
-
-        EndPoints pour gérer les SpontaneousApplication
+      groupName: Endpoints
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Affiche les SpontaneousApplication'
+      title: ''
       description: ''
       authenticated: false
       deprecated: false
@@ -25,97 +21,12 @@ endpoints:
       Accept: application/json
     urlParameters: []
     cleanUrlParameters: []
-    queryParameters:
-      name:
-        custom: []
-        name: name
-        description: "Description de l'attribut."
-        required: false
-        example: null
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      email:
-        custom: []
-        name: email
-        description: "Description de l'attribut."
-        required: false
-        example: null
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      desired_position:
-        custom: []
-        name: desired_position
-        description: "Description de l'attribut."
-        required: false
-        example: null
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      motivation_message:
-        custom: []
-        name: motivation_message
-        description: "Description de l'attribut."
-        required: false
-        example: null
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      cv_path:
-        custom: []
-        name: cv_path
-        description: "Description de l'attribut."
-        required: false
-        example: null
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-      with_relation:
-        custom: []
-        name: with_relation
-        description: 'Afficher la relation.'
-        required: false
-        example: 'false'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      paginate:
-        custom: []
-        name: paginate
-        description: 'Utiliser la pagination.'
-        required: false
-        example: 'false'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-    cleanQueryParameters:
-      with_relation: 'false'
-      paginate: 'false'
+    queryParameters: []
+    cleanQueryParameters: []
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 200
-        content: '{}'
-        headers: []
-        description: ''
+    responses: []
     responseFields: []
     auth: []
     controller: null
@@ -124,17 +35,55 @@ endpoints:
   -
     custom: []
     httpMethods:
-      - POST
-    uri: api/spontaneous_applications
+      - GET
+    uri: api/news
     metadata:
       custom: []
-      groupName: SpontaneousApplication
-      groupDescription: |-
-
-        EndPoints pour gérer les SpontaneousApplication
+      groupName: Endpoints
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Créer un nouveau SpontaneousApplication'
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"success":true,"data":[{"title":"La BRVM recrute pour BRVM Academy !","url":"https:\/\/www.brvm.org\/fr\/mediacentre\/actualites\/la-brvm-recrute-pour-brvm-academy","description":"Vous \u00eates passionn\u00e9(e) par la formation, le d\u00e9veloppement des comp\u00e9tences et les march\u00e9s financiers ? C''est peut-\u00eatre l''opportunit\u00e9 que vous attendiez !\n\tLa Bourse R\u00e9gionale des Valeurs Mobili\u00e8res (BRVM) lance un appel \u00e0 candidatures pour deux postes strat\u00e9giques au sein de BRVM Academy :\n\u2022 Responsable de la Formation BRVM Academy ;\n\t\u2022&nbsp; &nbsp; Assistant Ex\u00e9cutif (H\/F) BRVM Academy\nCes postes s''adressent \u00e0 des professionnels motiv\u00e9s, d\u00e9sireux de contribuer au d\u00e9veloppement du capital humain et \u00e0 la promotion de la culture boursi\u00e8re dans l''espace UEMOA.\n\n\tDate limite de candidature : 15 juillet 2026 \u00e0 17h00\nLien de t\u00e9l\u00e9chargement de l''offre :&nbsp;https:\/\/shorturl.at\/42NLO\n\n\tLes dossiers de candidature (CV, lettre de motivation, dipl\u00f4mes et r\u00e9f\u00e9rences professionnelles) sont \u00e0 envoyer \u00e0 : recrutement@brvm.org.\n\tN''h\u00e9sitez pas \u00e0 partager cette opportunit\u00e9 avec votre r\u00e9seau.","date":"Tue, 16 Jun 2026 15:14:17 +0000","timestamp":1781622857,"source":"www.brvm.org","image":"https:\/\/www.brvm.org\/sites\/default\/files\/styles\/large\/public\/banner_brvm_academy.jpg?itok=_W_TwLe3"},{"title":"APPEL \u00c0 CANDIDATURES : PRIX DE LA RECHERCHE DU 30\u00e8me ANNIVERSAIRE DE LA BRVM","url":"https:\/\/www.brvm.org\/fr\/mediacentre\/actualites\/appel-candidatures-prix-de-la-recherche-du-30eme-anniversaire-de-la-brvm","description":"Dans le cadre de la c\u00e9l\u00e9bration de ses 30 ans, la Bourse R\u00e9gionale des Valeurs Mobili\u00e8res (BRVM) lance le Prix de la Recherche du 30\u00e8me anniversaire de la BRVM, destin\u00e9 \u00e0 promouvoir l''excellence acad\u00e9mique et \u00e0 encourager la r\u00e9flexion scientifique sur les enjeux du march\u00e9 financier r\u00e9gional.\n\n\n\n\t\tCette initiative vise \u00e0 stimuler la production de travaux originaux et \u00e0 renforcer les liens entre les chercheurs, les professionnels et les institutions du march\u00e9 financier de l''UEMOA.\n\n\t\tTh\u00e9matiques de recherche (non exhaustives) :\n\n\t\tLes candidats sont invit\u00e9s \u00e0 soumettre des travaux portant notamment sur les axes suivants, sans s\u2019y limiter :\n\n\t\t\u2022 Anomalies de march\u00e9, conditions \u00e9conomiques et pr\u00e9diction des rendements boursiers ;\n\n\t\t\u2022 D\u00e9veloppement du march\u00e9 financier et inclusion financi\u00e8re ;\n\n\t\t\u2022 Int\u00e9gration des Bourses en Afrique ;\n\n\t\t\u2022 Innovation financi\u00e8re et digitalisation des op\u00e9rations de march\u00e9 (fintech, blockchain, tokenisation, IA) ;\n\n\t\t\u2022 Gouvernance des entreprises cot\u00e9es ;\n\n\t\t\u2022 Produits financiers et diversification des instruments cot\u00e9s en bourse ;\n\n\t\t\u2022 R\u00e9gulation, transparence, stabilit\u00e9 et s\u00e9curit\u00e9 des march\u00e9s ;\n\n\t\t\u2022 Finance durable et investissements ESG ;\n\n\t\t\u2022 Inclusion financi\u00e8re et culture boursi\u00e8re des couches vuln\u00e9rables (femmes, jeunes) ;\n\n\t\t\u2022 Financement des PME et des start-up par la Bourse ;\n\n\t\t\u2022 Capitaux priv\u00e9s et sortie par la bourse ;\n\n\t\t\u2022 Stabilit\u00e9 financi\u00e8re et gestion des risques ;\n\n\t\t\u2022 Microstructure des march\u00e9s financiers et boursiers ;\n\n\t\t\u2022 Gestion d\u2019actifs ;\n\n\t\t\u2022 Financement \u00e0 long terme via les march\u00e9s ;\n\n\t\t\u2022 Liquidit\u00e9 des march\u00e9s ;\n\n\t\t\u2022 Valorisation des instruments financiers.\n\n\t\tQui peut candidater ?\n\n\t\tTous les chercheurs travaillant sur les probl\u00e9matiques li\u00e9es au march\u00e9 financier, au march\u00e9 boursier et \u00e0 l''innovation financi\u00e8re dans l''espace UEMOA.\n\n\t\tDate limite de soumission des candidatures : 15 octobre 2026\n\n\t\tPublication des r\u00e9sultats : 15 novembre 2026\n\n\t\tC\u00e9r\u00e9monie de remise du Prix : 18 d\u00e9cembre 2026\n\n\t\tLes dossiers de candidature sont \u00e0 transmettre \u00e0 : prixrecherchebrvm30ans@brvm.org avec pour objet : \u00ab Prix de la Recherche, 30 ans de la BRVM \u00bb.\n\n\t\t\u00c0 travers cette initiative, la BRVM confirme son ambition de contribuer au d\u00e9veloppement de la recherche appliqu\u00e9e au service d''un financement durable, innovant et inclusif dans l''espace UEMOA.\n\n\n\n\t\tLien de t\u00e9l\u00e9chargement de l''Appel \u00e0 candidatures ici : https:\/\/shorturl.at\/hJy83\n\n\n\n\t\t#BRVM30Ans #PrixDeLaRecherche #BRVM #UEMOA #RechercheScientifique #Finance #Innovation #March\u00e9Financier #FinanceDurable #Afrique\n\n&nbsp;","date":"Mon, 15 Jun 2026 20:12:43 +0000","timestamp":1781554363,"source":"www.brvm.org","image":"https:\/\/www.brvm.org\/sites\/default\/files\/styles\/large\/public\/banner_appel_doffres.jpg?itok=w1qhX9sX"},{"title":"LANCEMENT DU CHAPTER UEMOA : FEDERER LES TALENTS POUR ACCELERER LE DEVELOPPEMENT DES MARCHES DE CAPITAUX REGIONAUX","url":"https:\/\/www.brvm.org\/fr\/mediacentre\/actualites\/lancement-du-chapter-uemoa-federer-les-talents-pour-accelerer-le","description":"Ce jeudi 11 juin 2026 \u00e0 Abidjan, la BRVM, en partenariat avec l\u2019IFC (International Finance Corporation) et Paris EUROPLACE, a accueilli le lancement officiel du Chapter UEMOA du r\u00e9seau des Alumni du programme IFC\u2013Paris EUROPLACE, une initiative strat\u00e9gique destin\u00e9e \u00e0 renforcer le capital humain et structurer une communaut\u00e9 d\u2019experts engag\u00e9s dans le d\u00e9veloppement des march\u00e9s de capitaux de l\u2019Union.\nDans son allocution de bienvenue, le Directeur G\u00e9n\u00e9ral de la BRVM, Dr Edoh Kossi AMENOUNVE, a soulign\u00e9 que le d\u00e9veloppement durable des march\u00e9s financiers repose sur deux piliers essentiels : la professionnalisation accrue des acteurs du march\u00e9 et le renforcement de l\u2019\u00e9ducation financi\u00e8re. Il a rappel\u00e9 que les \u00e9conomies des pays de l\u2019Union ont besoin de professionnels de haut niveau, capables de concevoir et de mettre en \u0153uvre des solutions innovantes r\u00e9pondant aux attentes des \u00e9metteurs, des investisseurs et des pouvoirs publics.\nLa c\u00e9r\u00e9monie a \u00e9galement \u00e9t\u00e9 marqu\u00e9e par une keynote de M. Kossi TENOU, Pr\u00e9sident de l\u2019Autorit\u00e9 des March\u00e9s Financiers de l\u2019UMOA (AMF-UMOA), autour du th\u00e8me : \u00ab Professionnalisation des m\u00e9tiers de la finance et \u00e9ducation boursi\u00e8re : les enjeux pour le d\u00e9veloppement des march\u00e9s de capitaux \u00bb. Cette intervention a mis en lumi\u00e8re l\u2019importance du renforcement des comp\u00e9tences pour soutenir la transformation financi\u00e8re de la r\u00e9gion.\nLes travaux se sont poursuivis avec un panel de haut niveau consacr\u00e9 au th\u00e8me : \u00ab Quel march\u00e9 de capitaux pour l\u2019UEMOA ? Attentes des \u00e9metteurs et des investisseurs \u00bb. Cette discussion a permis d\u2019\u00e9changer sur les d\u00e9fis et les opportunit\u00e9s li\u00e9s au financement de l\u2019\u00e9conomie r\u00e9gionale ainsi qu\u2019au renforcement de l\u2019attractivit\u00e9 du march\u00e9 financier. M. S\u00e9bastien KADIO-MOROKRO, Pr\u00e9sident-Directeur G\u00e9n\u00e9ral de PETRO IVOIRE, a partag\u00e9 son exp\u00e9rience du march\u00e9, notamment \u00e0 travers l\u2019op\u00e9ration d\u2019appel public \u00e0 l\u2019\u00e9pargne r\u00e9alis\u00e9e sur le march\u00e9 obligataire de la BRVM. Mme Patricia ZOUNDI-YAO, Pr\u00e9sidente du Mouvement des PME, a quant \u00e0 elle port\u00e9 la voix des petites et moyennes entreprises et mis en exergue leurs attentes vis-\u00e0-vis du march\u00e9 financier r\u00e9gional.\nL\u2019apr\u00e8s-midi a \u00e9t\u00e9 consacr\u00e9 \u00e0 trois sessions d\u2019\u00e9changes th\u00e9matiques particuli\u00e8rement riches :\nSession 1 : Accroissement de l\u2019offre \u2013 Comment amener plus d\u2019\u00e9metteurs sur le march\u00e9 ?\nLes participants ont explor\u00e9 les m\u00e9canismes permettant d\u2019encourager davantage d\u2019entreprises et d\u2019institutions \u00e0 recourir au march\u00e9 financier pour financer leur croissance.\nSession 2 : Demande et liquidit\u00e9 \u2013 Comment mobiliser les investisseurs ?\nLes r\u00e9flexions ont port\u00e9 sur les leviers susceptibles de renforcer la participation des investisseurs institutionnels et individuels afin d\u2019am\u00e9liorer la profondeur et la liquidit\u00e9 du march\u00e9.\nSession 3 : Quel mod\u00e8le de march\u00e9 pour la r\u00e9gion UEMOA ?\nCette derni\u00e8re s\u00e9quence a permis d\u2019ouvrir une r\u00e9flexion prospective sur l\u2019\u00e9volution de l\u2019\u00e9cosyst\u00e8me financier r\u00e9gional, son positionnement international et les innovations n\u00e9cessaires pour r\u00e9pondre aux besoins futurs de financement.\n\u00c0 travers la cr\u00e9ation du Chapter UEMOA, les Alumni du programme IFC\u2013Paris EUROPLACE entendent constituer une v\u00e9ritable force de proposition aupr\u00e8s des bourses, des r\u00e9gulateurs, des gouvernements et de l\u2019ensemble des acteurs du secteur financier. Comme l\u2019a soulign\u00e9 le Directeur G\u00e9n\u00e9ral de la BRVM, ce r\u00e9seau s\u2019inscrit dans une dynamique de construction d\u2019une finance africaine moderne, \u00e9thique, performante et souveraine, port\u00e9e par une nouvelle g\u00e9n\u00e9ration de leaders capables d\u2019influencer positivement l\u2019avenir des march\u00e9s de capitaux du continent.\n\u00c0 l\u2019issue de la c\u00e9r\u00e9monie de lancement, Dr Edoh Kossi AMENOUNVE a \u00e9t\u00e9 d\u00e9sign\u00e9 Parrain du Chapter UEMOA.\n&nbsp;","date":"Fri, 12 Jun 2026 11:00:52 +0000","timestamp":1781262052,"source":"www.brvm.org","image":"https:\/\/www.brvm.org\/sites\/default\/files\/styles\/large\/public\/brvm-bannire-site-web-02_18.jpg?itok=9dWrFWMe"},{"title":"La BRVM et l\u2019Etat ivoirien, \u00e0 travers le Minist\u00e8re D\u00e9l\u00e9gu\u00e9, charg\u00e9 de l\u2019Int\u00e9gration Africaine et des Ivoiriens de l\u2019Ext\u00e9rieur, unissent leurs efforts pour mobiliser l\u2019\u00e9pargne de la diaspora","url":"https:\/\/www.brvm.org\/fr\/mediacentre\/actualites\/la-brvm-et-letat-ivoirien-travers-le-ministere-delegue-charge-de-lintegration","description":"Ce mercredi 10 juin 2026 \u00e0 Abidjan, la Bourse R\u00e9gionale des Valeurs Mobili\u00e8res (BRVM) et le Minist\u00e8re D\u00e9l\u00e9gu\u00e9 aupr\u00e8s du Minist\u00e8re d''\u00c9tat, Minist\u00e8re des Affaires \u00c9trang\u00e8res et de la Coop\u00e9ration Internationale, charg\u00e9 de l\u2019Int\u00e9gration Africaine et des Ivoiriens de l\u2019Ext\u00e9rieur, ont pos\u00e9 les jalons d\u2019une coop\u00e9ration historique par la signature d\u2019un Protocole d\u2019Entente visant \u00e0 renforcer la contribution de la diaspora ivoirienne au d\u00e9veloppement \u00e9conomique national.\nCette initiative s\u2019inscrit dans une vision claire : transformer le formidable potentiel financier de la diaspora en un v\u00e9ritable levier d\u2019investissement productif au service de la croissance, de la cr\u00e9ation d\u2019emplois et du financement des projets structurants en C\u00f4te d\u2019Ivoire.\nEn effet, chaque ann\u00e9e, les Ivoiriens \u00e9tablis \u00e0 l\u2019\u00e9tranger d\u00e9montrent leur attachement \u00e0 leur pays \u00e0 travers des transferts financiers. En 2025, ceux-ci ont atteint pr\u00e8s de 938 milliards de FCFA. Au-del\u00e0 de leur impact social ind\u00e9niable sur les m\u00e9nages, ces ressources repr\u00e9sentent \u00e9galement une opportunit\u00e9 exceptionnelle pour soutenir durablement le d\u00e9veloppement du pays.\nSelon le Ministre Adama DOSSO : \u00ab Nous voulons que chaque Ivoirienne et chaque Ivoirien de l\u2019Ext\u00e9rieur soit non seulement un acteur du rayonnement de notre pays, mais \u00e9galement un investisseur, un partenaire strat\u00e9gique et un v\u00e9ritable acteur de son d\u00e9veloppement. \u00bb\nPour la BRVM, ce partenariat ouvre un nouvel axe dans la mobilisation de l\u2019\u00e9pargne africaine. Il s\u2019agit de permettre aux membres de la diaspora d\u2019acc\u00e9der \u00e0 des opportunit\u00e9s d\u2019investissement transparentes, s\u00e9curis\u00e9es et rentables, tout en participant directement \u00e0 la transformation \u00e9conomique de leur pays.\nLe Directeur G\u00e9n\u00e9ral de la BRVM, Dr Edoh Kossi AMENOUNVE, a r\u00e9sum\u00e9 cette ambition en une formule forte : \u00ab Avec ce protocole, nous op\u00e9rons un v\u00e9ritable changement de paradigme : nous passons de l\u2019envoi d\u2019argent \u00e0 l\u2019investissement citoyen. \u00bb\nConcr\u00e8tement, cette collaboration permettra notamment (i) de renforcer l\u2019information et la sensibilisation de la diaspora sur les opportunit\u00e9s offertes par le march\u00e9 financier r\u00e9gional ; (ii) d\u2019explorer la mise en place d\u2019instruments innovants tels que les Diaspora Bonds et d\u2019autres v\u00e9hicules d\u2019investissement adapt\u00e9s ; (iii) de faciliter l\u2019acc\u00e8s aux produits financiers gr\u00e2ce \u00e0 des solutions digitales permettant d\u2019investir depuis l\u2019\u00e9tranger&nbsp; et (iv) d\u2019encourager une participation accrue de la diaspora au financement des projets publics et priv\u00e9s \u00e0 fort impact \u00e9conomique et social.\nAvec ses 47 soci\u00e9t\u00e9s cot\u00e9es, plus de 200 lignes obligataires et une capitalisation globale avoisinant 29 000 milliards de FCFA, la BRVM offre aujourd\u2019hui un cadre solide pour accueillir cette nouvelle dynamique d\u2019investissement.\nLa signature de ce Protocole d\u2019Entente n\u2019est pas une finalit\u00e9. Elle constitue le point de d\u00e9part d\u2019une coop\u00e9ration ambitieuse visant \u00e0 faire de la diaspora r\u00e9gionale un acteur central du financement du d\u00e9veloppement de l\u2019UEMOA.\n&nbsp;","date":"Thu, 11 Jun 2026 10:42:34 +0000","timestamp":1781174554,"source":"www.brvm.org","image":"https:\/\/www.brvm.org\/sites\/default\/files\/styles\/large\/public\/brvm-bannire-site-web-02_17.jpg?itok=u3yhFi8B"},{"title":"RIGA 2026 : Le Directeur G\u00e9n\u00e9ral de la BRVM partage son expertise et l''exp\u00e9rience de l''UEMOA","url":"https:\/\/www.brvm.org\/fr\/mediacentre\/actualites\/riga-2026-le-directeur-general-de-la-brvm-partage-son-expertise-et","description":"Le Directeur G\u00e9n\u00e9ral de la BRVM, Dr Edoh Kossi AMENOUNVE, partage \u00e0 Riga, en Lettonie, son expertise et l\u2019exp\u00e9rience de l\u2019UEMOA en mati\u00e8re de march\u00e9 financier r\u00e9gional avec les pays baltiques : l\u2019Estonie, la Lituanie et la Lettonie.\n\n\t\u00c0 l\u2019invitation de la Banque Europ\u00e9enne pour la Reconstruction et le D\u00e9veloppement (BERD), Dr Edoh Kossi AMENOUNVE a eu l\u2019honneur de participer, ce 5 juin 2026, \u00e0 la 35\u00e8me Assembl\u00e9e annuelle et au Forum des affaires.\n\tCette rencontre a \u00e9t\u00e9 l\u2019opportunit\u00e9 pour le Directeur G\u00e9n\u00e9ral de la BRVM d\u2019\u00e9changer avec plusieurs d\u00e9cideurs de haut niveau, notamment M. Kristupas Vaitiek\u016bnas, Ministre des Finances de la Lituanie, autour des enjeux li\u00e9s \u00e0 la construction de march\u00e9s de capitaux r\u00e9gionaux int\u00e9gr\u00e9s.\n\tAu cours de ces discussions, anim\u00e9es par Mme Katie Martin, journaliste au Financial Times, Dr Edoh Kossi AMENOUNVE a partag\u00e9 l\u2019exp\u00e9rience de l\u2019Union \u00c9conomique et Mon\u00e9taire Ouest-Africaine (UEMOA) dans la cr\u00e9ation et le d\u00e9veloppement d\u2019un march\u00e9 financier r\u00e9gional construit autour des principaux atouts ci-apr\u00e8s : une banque centrale unique (BCEAO), une monnaie commune (FCFA), une int\u00e9gration \u00e9conomique engag\u00e9e depuis 1994 (UEMOA), ainsi qu\u2019un cadre juridique harmonis\u00e9 (OHADA).\n\tLe Directeur G\u00e9n\u00e9ral de la BRVM a pr\u00e9sent\u00e9 les principaux d\u00e9fis qui ont \u00e9t\u00e9 relev\u00e9s pour b\u00e2tir ce mod\u00e8le r\u00e9gional :\n\t\u2022 la mise en place d\u2019une autorit\u00e9 r\u00e9gionale de r\u00e9gulation (AMF-UMOA) et la cr\u00e9ation d\u2019institutions priv\u00e9es d\u00e9mutualis\u00e9es, notamment la BRVM et le D\u00e9positaire Central\/Banque de R\u00e8glement (DC\/BR), gr\u00e2ce \u00e0 la mobilisation d\u2019investisseurs institutionnels et particuliers issus des pays de l\u2019Union afin de constituer le capital aux c\u00f4t\u00e9s des \u00c9tats membres ;\n\t\u2022 les enjeux technologiques li\u00e9s \u00e0 l\u2019interconnexion des huit pays, avec une \u00e9galit\u00e9 d\u2019acc\u00e8s au march\u00e9 pour tous les courtiers et investisseurs, quel que soit leur pays de r\u00e9sidence ;\n\t\u2022 la migration des soci\u00e9t\u00e9s historiquement cot\u00e9es \u00e0 la Bourse des Valeurs d\u2019Abidjan (BVA) vers la BRVM avant le lancement officiel des transactions, le 16 septembre 1998.\n\tAujourd\u2019hui, avec 47 soci\u00e9t\u00e9s totalisant une capitalisation de 16 966 milliards de FCFA, soit 30,03 milliards de dollars, et 205 lignes obligataires repr\u00e9sentant 12 029 milliards de FCFA, soit 21,3 milliards de dollars, la BRVM, cinqui\u00e8me bourse d\u2019Afrique, est consid\u00e9r\u00e9e comme un succ\u00e8s politique, technologique et \u00e9conomique.\n\tL\u2019audience a manifest\u00e9 un vif int\u00e9r\u00eat pour la solidit\u00e9 et la cr\u00e9dibilit\u00e9 des infrastructures de march\u00e9 de l\u2019UEMOA, notamment leur interconnexion, ainsi que pour l\u2019\u00e9volution, au fil des ann\u00e9es, de la base d\u2019investisseurs institutionnels et particuliers. Ces sujets constituent \u00e9galement des d\u00e9fis majeurs pour les trois pays baltiques.\n\n\tDr Edoh Kossi AMENOUNVE a \u00e9galement pr\u00e9sent\u00e9 les r\u00e9formes et actions en cours visant \u00e0 renforcer le dynamisme de la BRVM : la poursuite des privatisations dans les pays de l\u2019Union, l\u2019encouragement des sorties de fonds de private equity par la bourse, les admissions volontaires des champions nationaux et des PME, l\u2019am\u00e9lioration de la liquidit\u00e9 du march\u00e9 par des r\u00e9formes de microstructure (\u00e9largissement du flottant, fractionnement des titres, mise en place de market makers, allongement des heures de cotation, etc.), ainsi que le renforcement de l\u2019\u00e9ducation financi\u00e8re des populations.\n\n\tL\u2019exp\u00e9rience des privatisations et des introductions en bourse (IPO) qui s\u2019en sont suivies sur le march\u00e9 financier r\u00e9gional de l\u2019UEMOA, ainsi que les efforts d\u00e9ploy\u00e9s en mati\u00e8re d\u2019\u00e9ducation financi\u00e8re, constituent des sources d\u2019inspiration pour les pays baltiques.\n\tLe Directeur G\u00e9n\u00e9ral de la BRVM a enfin partag\u00e9 avec l\u2019auditoire la vision strat\u00e9gique de l\u2019institution \u00e0 l\u2019horizon 2030, fond\u00e9e notamment sur deux axes majeurs :\n\t\u2022 l\u2019int\u00e9gration des nouvelles technologies, en particulier l\u2019intelligence artificielle, dans les processus boursiers ;\n\t\u2022 le d\u00e9veloppement de la finance durable afin de positionner davantage la BRVM comme une place financi\u00e8re de r\u00e9f\u00e9rence en Afrique.\n\tLa BRVM se r\u00e9jouit de la convergence des probl\u00e9matiques et des r\u00e9flexions qui ouvrent la voie \u00e0 des perspectives de coop\u00e9ration susceptibles de na\u00eetre entre l\u2019UEMOA et les pays baltiques afin d\u2019acc\u00e9l\u00e9rer leur d\u00e9veloppement gr\u00e2ce \u00e0 une contribution accrue des march\u00e9s de capitaux et \u00e0 une coop\u00e9ration renforc\u00e9e avec des institutions internationales, notamment la BERD.\n\n\t\u00c0 ce jour, la BERD dispose d\u2019un capital de base de 34 milliards d\u2019euros et a investi plus de 210 milliards d\u2019euros dans pr\u00e8s de 7 000 projets. Depuis quelques ann\u00e9es, elle poursuit son expansion sur le continent africain, avec un accent particulier sur le d\u00e9veloppement du secteur priv\u00e9, des infrastructures durables et des march\u00e9s de capitaux. Elle a ouvert, en 2025, des bureaux \u00e0 Abidjan, Dakar et Cotonou.\n\tLes trois pays baltiques repr\u00e9sentent, quant \u00e0 eux, environ 6 millions d\u2019habitants pour un PIB cumul\u00e9 de pr\u00e8s de 180 milliards de dollars am\u00e9ricains. Ils disposent de bourses nationales mais sont regroup\u00e9s au sein du Nasdaq Baltic, dont la capitalisation boursi\u00e8re cumul\u00e9e est estim\u00e9e \u00e0 plus de 11,46 milliards d\u2019euros pour 70 soci\u00e9t\u00e9s cot\u00e9es. La Lituanie constitue la plus grande \u00e9conomie de la r\u00e9gion, tandis que l\u2019Estonie se distingue par son leadership technologique et num\u00e9rique.\n\t&nbsp;","date":"Fri, 05 Jun 2026 14:34:29 +0000","timestamp":1780670069,"source":"www.brvm.org","image":"https:\/\/www.brvm.org\/sites\/default\/files\/styles\/large\/public\/050626_riga_2026.jpg?itok=whr4tVWW"},{"title":"BRVM AWARDS 2026","url":"https:\/\/www.brvm.org\/fr\/mediacentre\/actualites\/brvm-awards-2026","description":"La Bourse R\u00e9gionale des Valeurs Mobili\u00e8res (BRVM) a organis\u00e9, les 26 et 27 mars 2026 \u00e0 Dakar, la 7\u00e8me \u00e9dition des BRVM Awards, consacrant l\u2019excellence et les meilleures performances du march\u00e9 financier r\u00e9gional de l\u2019UEMOA.\n&nbsp;\nCet \u00e9v\u00e9nement de r\u00e9f\u00e9rence a r\u00e9uni les principaux acteurs du march\u00e9 financier r\u00e9gional, notamment l''Autorit\u00e9 de r\u00e9gulation (AMF-UMOA) les soci\u00e9t\u00e9s cot\u00e9es, les Soci\u00e9t\u00e9s de Gestion et d\u2019Interm\u00e9diation (SGI), les soci\u00e9t\u00e9s de gestion d\u2019actifs, les investisseurs institutionnels ainsi que les partenaires et m\u00e9dias sp\u00e9cialis\u00e9s.\n&nbsp;\nLes laur\u00e9ats de l''\u00e9dition 2026\n&nbsp;\n\u00c0 l\u2019issue des travaux du jury ind\u00e9pendant pr\u00e9sid\u00e9 par Monsieur Didier Acouetey, les distinctions suivantes ont \u00e9t\u00e9 attribu\u00e9es :\n&nbsp;\n1. Soci\u00e9t\u00e9 cot\u00e9e de l\u2019ann\u00e9e : ECOBANK C\u00f4te d\u2019Ivoire\n2. Soci\u00e9t\u00e9 de Gestion et d\u2019Interm\u00e9diation (SGI) de l\u2019ann\u00e9e : CGF Bourse\n3. Soci\u00e9t\u00e9 de Gestion des OPC (SGO) de l\u2019ann\u00e9e :&nbsp; NSIA Asset Management\n4. Op\u00e9ration de l\u2019ann\u00e9e \u2013 Obligations : Emprunt obligataire TPCI 5,90% 2025-2030 (TPCI.O95) \u00c9tat de C\u00f4te d\u2019Ivoire\n5. Op\u00e9ration de l\u2019ann\u00e9e \u2013 Actions (IPO \/ FO \/ Admission) : Banque Internationale pour l\u2019Industrie et le Commerce (BIIC B\u00e9nin)\n6. Op\u00e9ration innovante de l\u2019ann\u00e9e : Social Bond CRRH-UEMOA 6,00 % (CRRH.O11)\n7. M\u00e9dia financier de l\u2019ann\u00e9e : Sika Finance\n8. Organisme de Placement Collectif (OPC) de l\u2019ann\u00e9e :&nbsp; SICAV Attijari Oblig (Attijari Asset Management)\n9. Fonds Commun de Titrisation de Cr\u00e9ances (FCTC) de l\u2019ann\u00e9e : FCTC SENELEC 2025-2030\n10. Arrangeur de l\u2019ann\u00e9e : Invictus Capital &amp; Finance\n&nbsp;\nCes distinctions r\u00e9compensent les acteurs qui se sont illustr\u00e9s par leurs performances, leur gouvernance, leur capacit\u00e9 d\u2019innovation ainsi que leur contribution significative au d\u00e9veloppement du march\u00e9 financier r\u00e9gional au cours de l\u2019ann\u00e9e boursi\u00e8re 2025.\n&nbsp;\nUne \u00e9dition marqu\u00e9e par l\u2019innovation et la diversification.\n&nbsp;\nCette 7\u00e8me \u00e9dition des BRVM Awards se distingue par l\u2019introduction de nouvelles cat\u00e9gories, li\u00e9es notamment aux Organismes de Placement Collectif (OPC), aux Fonds Communs de Titrisation de cr\u00e9ances (FCTC) et \u00e0 l''arrangeur de l''ann\u00e9e, traduisant la transformation progressive du march\u00e9 financier r\u00e9gional.\n&nbsp;\nElle confirme \u00e9galement la dynamique de croissance de la BRVM, port\u00e9e par :\n- une diversification accrue des instruments financiers,\n- une participation plus accrue des investisseurs particuliers,\n- un renforcement des exigences en mati\u00e8re de gouvernance et de transparence.\n&nbsp;\nLa 7\u00e8me \u00e9dition des BRVM Awards a \u00e9t\u00e9 l\u2019occasion de d\u00e9cerner un prix sp\u00e9cial \u00e0&nbsp; la Banque Arabe pour le D\u00e9veloppement \u00c9conomique en Afrique (BADEA) et le Grand Prix d''honneur a \u00e9t\u00e9 attribu\u00e9 \u00e0 Son Excellence Monsieur Bassirou Diomaye FAYE, Pr\u00e9sident de la R\u00e9publique du S\u00e9n\u00e9gal.\n&nbsp;\n\u00c0 propos des BRVM Awards\n&nbsp;\nLes BRVM Awards, institu\u00e9s en 2020, visent \u00e0 promouvoir l\u2019excellence sur le march\u00e9 financier r\u00e9gional de l\u2019UEMOA en distinguant chaque ann\u00e9e les acteurs les plus performants et les initiatives les plus structurantes.\n&nbsp;","date":"Sat, 28 Mar 2026 18:47:03 +0000","timestamp":1774723623,"source":"www.brvm.org","image":"https:\/\/www.brvm.org\/sites\/default\/files\/styles\/large\/public\/news.jpg?itok=_84Y12rt"},{"title":"LA BRVM SONNE LA CLOCHE POUR L\u2019\u00c9GALIT\u00c9 DES GENRES ET APPELLE \u00c0 DAVANTAGE D\u2019ACTIONS EN FAVEUR DE L\u2019INCLUSION DES FEMMES","url":"https:\/\/www.brvm.org\/fr\/mediacentre\/actualites\/la-brvm-sonne-la-cloche-pour-legalite-des-genres-et-appelle-davantage","description":"La Bourse R\u00e9gionale des Valeurs Mobili\u00e8res (BRVM) a organis\u00e9, ce lundi 9 mars 2026 \u00e0 son si\u00e8ge \u00e0 Abidjan, la c\u00e9r\u00e9monie de \u00ab Ring the Bell for Gender Equality \u00bb, une initiative internationale qui mobilise les places boursi\u00e8res \u00e0 travers le monde pour promouvoir l\u2019\u00e9galit\u00e9 entre les femmes et les hommes dans la sph\u00e8re \u00e9conomique et financi\u00e8re.\n\n\t\t&nbsp;\n\n\n\n\t\tSouhaitant la bienvenue aux invit\u00e9s du jour, le Directeur G\u00e9n\u00e9ral de la BRVM, Dr Edoh Kossi AMENOUNVE, a rappel\u00e9 que l\u2019\u00e9galit\u00e9 des genres constitue aujourd\u2019hui un enjeu \u00e9conomique majeur et non plus uniquement une question sociale. Il a soulign\u00e9 qu\u2019une \u00e9conomie qui exclut les femmes se prive de plus de la moiti\u00e9 de sa force de travail, de son \u00e9nergie et de son potentiel, ce qui repr\u00e9sente un manque \u00e0 gagner estim\u00e9 \u00e0 95 milliards de dollars par an pour l\u2019Afrique.\n\n\t\t&nbsp;\n\n\n\n\t\tPlac\u00e9e sous le th\u00e8me \u00ab Droits. Justice. Action. Pour toutes les femmes et les filles \u00bb, cette \u00e9dition a \u00e9t\u00e9 l\u2019occasion de rappeler la n\u00e9cessit\u00e9 d\u2019aller au-del\u00e0 des engagements de principe pour promouvoir des actions concr\u00e8tes en faveur de l\u2019\u00e9galit\u00e9. Comme l\u2019a indiqu\u00e9 le Directeur G\u00e9n\u00e9ral de la BRVM, les entreprises qui valorisent la diversit\u00e9 dans leurs \u00e9quipes dirigeantes sont plus innovantes et plus performantes, tandis que les pays qui investissent dans l\u2019autonomisation des femmes enregistrent une croissance \u00e9conomique plus rapide.\n\n\t\t&nbsp;\n\n\n\n\t\tLe Directeur G\u00e9n\u00e9ral a \u00e9galement mis en lumi\u00e8re les d\u00e9fis persistants dans les march\u00e9s financiers, o\u00f9 les femmes demeurent encore sous-repr\u00e9sent\u00e9es dans l\u2019investissement, la gouvernance des entreprises cot\u00e9es et certaines fonctions de direction. Il a \u00e9galement rappel\u00e9 que de nombreuses femmes leaders \u00e0 l\u2019\u00e9chelle mondiale illustrent la capacit\u00e9 des femmes \u00e0 transformer les organisations et \u00e0 diriger des institutions majeures.\n\n\t\t&nbsp;\n\n\n\n\t\tDans ce contexte, la BRVM r\u00e9affirme son engagement \u00e0 contribuer activement \u00e0 la promotion de l\u2019\u00e9galit\u00e9 des genres dans les march\u00e9s financiers, notamment en encourageant davantage de femmes \u00e0 investir sur le march\u00e9 financier r\u00e9gional, en promouvant leur pr\u00e9sence dans les instances dirigeantes des entreprises cot\u00e9es et en soutenant l\u2019entrepreneuriat f\u00e9minin, reconnu comme un moteur essentiel de transformation \u00e9conomique en Afrique.\n\n\t\t&nbsp;\n\n\n\n\t\tLa c\u00e9r\u00e9monie a enregistr\u00e9 la participation de plusieurs personnalit\u00e9s de haut niveau, dont Son Excellence Madame Sandra CHOUFANI, Ambassadrice du Canada pr\u00e8s la R\u00e9publique de C\u00f4te d\u2019Ivoire, conf\u00e9renci\u00e8re invit\u00e9e, Madame Marie-H\u00e9l\u00e8ne FADIGA, Inspectrice G\u00e9n\u00e9rale des Finances de C\u00f4te d\u2019Ivoire, ainsi que Madame Adjaratou Fatou N\u2019DIAYE, Repr\u00e9sentante r\u00e9sidente de ONU Femmes en C\u00f4te d\u2019Ivoire, partenaire de longue date de la BRVM dans l\u2019organisation de cette initiative.\n\n\t\t&nbsp;\n\n\n\n\t\tUn panel de discussion anim\u00e9 par Mesdames Manon KARAMOKO, Pr\u00e9sidente du WIC C\u00f4te d\u2019Ivoire, Roselyne ABE, Pr\u00e9sidente de l\u2019APSGI, et Patricia ZOUNDI-YAO, Pr\u00e9sidente de MPME, sous la mod\u00e9ration de Mme Nabou FALL, a permis de mener des \u00e9changes sur des m\u00e9tiers autrefois consid\u00e9r\u00e9s comme r\u00e9serv\u00e9s aux hommes, dans lesquels les femmes s\u2019illustrent aujourd\u2019hui avec succ\u00e8s. Les intervenantes ont partag\u00e9 leurs exp\u00e9riences et lanc\u00e9 un appel \u00e0 l\u2019action, rappelant que les comp\u00e9tences n\u2019ont pas de genre.\n\n\t\t&nbsp;\n\n\n\n\t\t\u00c0 travers la c\u00e9r\u00e9monie \u00ab Ring the Bell for Gender Equality \u00bb, la BRVM r\u00e9affirme ainsi son engagement \u00e0 faire du march\u00e9 financier r\u00e9gional de l\u2019UEMOA l\u2019un des leviers d\u2019inclusion et de d\u00e9veloppement durable.\n\n&nbsp;","date":"Wed, 11 Mar 2026 12:01:55 +0000","timestamp":1773230515,"source":"www.brvm.org","image":"https:\/\/www.brvm.org\/sites\/default\/files\/styles\/large\/public\/brvm-bannire-site-web-02_16.jpg?itok=bs3QAS1i"},{"title":"LA BRVM ACCENTUE SON DYNAMISME EN CE D\u00c9BUT D\u2019ANN\u00c9E","url":"https:\/\/www.brvm.org\/fr\/mediacentre\/actualites\/la-brvm-accentue-son-dynamisme-en-ce-debut-dannee","description":"La capitalisation boursi\u00e8re du march\u00e9 des actions de la BRVM s\u2019\u00e9l\u00e8ve, au 30 janvier 2026, \u00e0 14 069 658 676 033 FCFA, contre 13 330 711 875 596 FCFA au 31 d\u00e9cembre 2025, soit une progression de 5,54 %, correspondant \u00e0 une variation positive de 738,95 milliards FCFA.\nCette progression est essentiellement tir\u00e9e par la hausse de certains titres, notamment UNILEVER CI (+35,57 %), SONATEL SN (+3,18 %), ECOBANK CI (+6,28 %), SIB CI (+9,57 %) et ORANGE CI (+1,68 %).\nDe mani\u00e8re g\u00e9n\u00e9rale, plusieurs soci\u00e9t\u00e9s du march\u00e9 Actions de la BRVM enregistrent des performances positives depuis le d\u00e9but de l\u2019ann\u00e9e 2026, soit 39 soci\u00e9t\u00e9s sur 47.\nAu cours de la p\u00e9riode du 02 au 30 janvier 2026, la valeur totale des transactions s\u2019est \u00e9tablie \u00e0 31 179 075 413 FCFA pour 33 508 191 titres \u00e9chang\u00e9s, repr\u00e9sentant une hausse de 160,55 % par rapport au mois de janvier 2025.\n\u00c0 la date du 30 janvier 2026, la moyenne journali\u00e8re des transactions atteint 1 484 717 876,81 FCFA pour 1 595 628 titres \u00e9chang\u00e9s, contre 533,14 millions FCFA pour 500 791 titres \u00e0 la m\u00eame p\u00e9riode de l\u2019ann\u00e9e pr\u00e9c\u00e9dente.\nL\u2019\u00e9volution de la capitalisation est port\u00e9e par un niveau d\u2019activit\u00e9 soutenu, comme en t\u00e9moigne la hausse significative des volumes et des valeurs \u00e9chang\u00e9s.","date":"Fri, 30 Jan 2026 20:53:21 +0000","timestamp":1769806401,"source":"www.brvm.org","image":"https:\/\/www.brvm.org\/sites\/default\/files\/styles\/large\/public\/whatsapp_image_2026-01-30_at_18.59.28.jpeg?itok=IEHYBGc4"},{"title":"BILAN 2025 DE LA BRVM : DES PERFORMANCES CONSOLIDEES ET UNE VISION STRATEGIQUE TOURNEE VERS L\u2019HORIZON 2030","url":"https:\/\/www.brvm.org\/fr\/mediacentre\/actualites\/bilan-2025-de-la-brvm-des-performances-consolidees-et-une-vision-strategique","description":"La Bourse R\u00e9gionale des Valeurs Mobili\u00e8res (BRVM) a tenu sa conf\u00e9rence de presse annuelle de pr\u00e9sentation du bilan de ses activit\u00e9s 2025, ce mardi 20 janvier 2026 \u00e0 son si\u00e8ge \u00e0 Abidjan.\nCette conf\u00e9rence plac\u00e9e sous le th\u00e8me : \u00ab De la consolidation des performances \u00e0 la conqu\u00eate du futur \u00bb, a vu la participation des m\u00e9dias nationaux et internationaux, des acteurs du March\u00e9 Financier R\u00e9gional et des partenaires institutionnels.\nCette c\u00e9r\u00e9monie a permis au Directeur G\u00e9n\u00e9ral de la BRVM, Dr Edoh Kossi AMENOUNVE de pr\u00e9senter les principaux r\u00e9sultats enregistr\u00e9s en 2025, ainsi que la vision strat\u00e9gique de la BRVM \u00e0 l\u2019horizon 2030.\nDans sa pr\u00e9sentation, le Directeur G\u00e9n\u00e9ral a rappel\u00e9 que l\u2019ann\u00e9e 2025 s\u2019est inscrite dans un contexte international marqu\u00e9 par la fragmentation \u00e9conomique, la persistance des risques g\u00e9opolitiques, le retour de la guerre \u00e9conomique et une croissance mondiale mod\u00e9r\u00e9e estim\u00e9e \u00e0 3,2 %.\nIl a par ailleurs soulign\u00e9 que le March\u00e9 Financier R\u00e9gional (MFR) a jou\u00e9 pleinement son r\u00f4le dans la mobilisation de l\u2019\u00e9pargne locale et le financement des \u00e9conomies de l\u2019UEMOA. En 2025, 4 204,7 milliards FCFA de ressources ont \u00e9t\u00e9 mobilis\u00e9s, un niveau historique depuis la cr\u00e9ation du march\u00e9, domin\u00e9 par les \u00e9missions obligataires souveraines.\nLe march\u00e9 secondaire a \u00e9galement enregistr\u00e9 des performances remarquables telles que :\n\u2022 Hausse de 25,26 % de l\u2019indice BRVM Composite, qui a franchi un nouveau seuil historique \u00e0 345,75 points ;\n\u2022 Progression cumul\u00e9e de pr\u00e8s de 100 % sur cinq ans, traduisant la maturit\u00e9 et l\u2019attractivit\u00e9 croissante du march\u00e9 ;\n\u2022 Capitalisation boursi\u00e8re totale de 24 781,3 milliards FCFA, repr\u00e9sentant 18,37 % du PIB de l\u2019UEMOA ;\n\u2022 Confirmation de la BRVM comme 5\u00e8me bourse africaine et 2\u00e8me place africaine de cotation des social bonds.\nLe Directeur G\u00e9n\u00e9ral a \u00e9galement fait savoir que l\u2019ann\u00e9e 2025 a \u00e9t\u00e9 marqu\u00e9e par plusieurs actions structurantes, notamment (i) la cr\u00e9ation de nouveaux indices sectoriels pour renforcer la lisibilit\u00e9 du march\u00e9, (ii) le d\u00e9veloppement de produits innovants, dont les obligations th\u00e9matiques et la promotion de la finance durable, (iii) l\u2019introduction en bourse d\u2019une grande banque r\u00e9gionale, l\u2019une des plus importantes IPO de l\u2019histoire du march\u00e9 et (iv) le renforcement de la s\u00e9curit\u00e9, de la r\u00e9silience technologique et du plan de continuit\u00e9 des activit\u00e9s.\nEn perspective, Dr Edoh Kossi AMENOUNVE a pr\u00e9sent\u00e9 la vision BRVM Horizon 2030, ax\u00e9e sur : (i) la transformation technologique (intelligence artificielle, big data, blockchain), (ii) le d\u00e9veloppement de nouveaux produits financiers, notamment les ETF et les produits d\u00e9riv\u00e9s, (iii) le renforcement de la finance durable et inclusive, (iv) l\u2019approfondissement du march\u00e9 pour le rendre plus liquide, plus profond et plus attractif et (v) la promotion de l\u2019\u00e9ducation boursi\u00e8re au sein de l\u2019UEMOA.\nEn conclusion, le Directeur G\u00e9n\u00e9ral a r\u00e9affirm\u00e9 l\u2019engagement de la BRVM \u00e0 accompagner les \u00c9tats, les entreprises et les investisseurs dans la transformation \u00e9conomique de la sous-r\u00e9gion, en faisant du March\u00e9 Financier R\u00e9gional un levier strat\u00e9gique de financement durable, inclusif et de cr\u00e9ation de valeur au service du d\u00e9veloppement de l\u2019UEMOA.","date":"Tue, 20 Jan 2026 17:56:39 +0000","timestamp":1768931799,"source":"www.brvm.org","image":"https:\/\/www.brvm.org\/sites\/default\/files\/styles\/large\/public\/brvm-bannire-site-web-02_15.jpg?itok=T3ueYbNe"},{"title":"LE BULLETIN OFFICIEL DE LA COTE DE LA BRVM : DES EVOLUTIONS MAJEURES POUR UNE MEILLEURE LISIBILITE DU MARCHE","url":"https:\/\/www.brvm.org\/fr\/mediacentre\/actualites\/le-bulletin-officiel-de-la-cote-de-la-brvm-des-evolutions-majeures-pour-une-0","description":"Depuis le 2 janvier 2026, la Bourse R\u00e9gionale des Valeurs Mobili\u00e8res (BRVM) a introduit plusieurs \u00e9volutions structurantes dans son Bulletin Officiel de la Cote (BOC). Ces innovations visent un double objectif : renforcer la transparence du march\u00e9 et am\u00e9liorer la compr\u00e9hension des informations boursi\u00e8res par l\u2019ensemble des investisseurs, qu\u2019ils soient institutionnels ou particuliers.\nTrois \u00e9volutions majeures m\u00e9ritent une attention particuli\u00e8re&nbsp;: (i) Une clarification des cat\u00e9gories de titres obligataires, (ii) le remplacement des anciens indices sectoriels par de nouveaux indices et (iii) l\u2019institution d\u2019un indice Total Return.\n1. Une clarification renforc\u00e9e des cat\u00e9gories de titres obligataires\nLe nouveau format du BOC apporte une classification plus lisible et plus coh\u00e9rente des titres obligataires cot\u00e9s \u00e0 la BRVM.\nD\u00e9sormais, les obligations sont regroup\u00e9es selon des cat\u00e9gories clairement identifi\u00e9es, permettant aux investisseurs de mieux appr\u00e9cier la nature des instruments, leur finalit\u00e9 et leur profil de risque.\nOn distingue les classifications suivantes&nbsp;:\n\n\n\t\tObligations classiques&nbsp;:\n\n\n\n\t\tObligations souveraines&nbsp;;\n\n\t\tObligations d\u2019institutions financi\u00e8res r\u00e9gionales et internationales&nbsp;;\n\n\t\tObligations d\u2019entreprises.\n\n\n\n\t\tObligations Vertes, Socialement responsables et durables&nbsp;:\n\n\n\n\t\tObligations souveraines GSS&nbsp;;\n\n\t\tObligations GSS d\u2019institutions financi\u00e8res r\u00e9gionales et internationales&nbsp;;\n\n\t\tObligations GSS d\u2019entreprises.\n\n\n\n\t\tFonds Communs de Titrisation de Cr\u00e9ances (FCTC)&nbsp;:\n\n\n\n\t\tFCTC d\u2019Etat et d\u2019Institutions \u00e0 participation majoritaire publique&nbsp;;\n\n\t\tFCTC d\u2019Institutions Financi\u00e8res R\u00e9gionales et Internationales&nbsp;;\n\n\t\tFCTC d\u2019Entreprises.\n\n\n\n\t\tSUKUK et titres assimiles&nbsp;:\n\n\n\n\t\tSUKUK d\u2019Etat et d\u2019Institutions \u00e0 participation majoritaire publique&nbsp;;\n\n\t\tSUKUK d\u2019Institutions Financi\u00e8res R\u00e9gionales et Internationales&nbsp;;\n\n\t\tSUKUK d\u2019Entreprises.\n\n\n\n\t\tObligations convertibles en Actions\n\nFocus sur les obligations GSS (Green, Social &amp; Sustainability)\nUne innovation notable r\u00e9side dans la mise en \u00e9vidence sp\u00e9cifique des obligations GSS, \u00e0 savoir :\n\n\n\t\tObligations vertes (Green Bonds)\n\n\t\tObligations socialement responsables (Social Bonds)\n\n\t\tObligations durables (Sustainability Bonds)\n\nCette distinction permet de :\n\n\n\t\tidentifier rapidement les instruments de financement \u00e0 impact environnemental et social ;\n\n\t\tr\u00e9pondre aux attentes croissantes des investisseurs sensibles aux crit\u00e8res ESG (Environnement, Social, Gouvernance) ;\n\n\t\trenforcer l\u2019attractivit\u00e9 du march\u00e9 r\u00e9gional pour les financements durables.\n\nLe BOC devient ainsi un outil cl\u00e9 pour accompagner le d\u00e9veloppement de la finance durable dans l\u2019espace UEMOA.\n2. Le remplacement des anciens indices sectoriels par de nouveaux indices plus repr\u00e9sentatifs\nAutre \u00e9volution majeure au BOC : le remplacement des anciens indices sectoriels par de nouveaux indices, con\u00e7us pour mieux refl\u00e9ter la structure actuelle du march\u00e9 et la r\u00e9alit\u00e9 \u00e9conomique des entreprises cot\u00e9es.\nLes nouveaux indices sont les suivants&nbsp;:\n\n\n\t\tBrvm\u2013T\u00e9l\u00e9communications&nbsp;;\n\n\t\tBRVM\u2013consommation discr\u00e9tionnaire&nbsp;;\n\n\t\tBRVM\u2013Services Financiers&nbsp;;\n\n\t\tBRVM-Consommation de Base&nbsp;;\n\n\t\tBRVM\u2013Industriels&nbsp;;\n\n\t\tBRVM-Energie&nbsp;;\n\n\t\tBRVM\u2013Services Publics.\n\nPourquoi ce changement ?\nLes nouveaux indices sectoriels :\n\n\n\t\treposent sur une m\u00e9thodologie actualis\u00e9e ;\n\n\t\toffrent une meilleure repr\u00e9sentativit\u00e9 des secteurs d\u2019activit\u00e9 ;\n\n\t\tpermettent une analyse plus fine de la performance sectorielle.\n\nPour les investisseurs, cela se traduit par :\n\n\n\t\tune lecture plus pertinente des dynamiques sectorielles ;\n\n\t\tun meilleur outil de comparaison des performances ;\n\n\t\tune aide renforc\u00e9e \u00e0 la prise de d\u00e9cision en mati\u00e8re d\u2019allocation d\u2019actifs.\n\n3. L\u2019indice Total Return : comprendre sa signification et son int\u00e9r\u00eat\nParmi les indicateurs d\u00e9sormais mieux valoris\u00e9s dans le BOC figure l\u2019indice Total Return, encore peu connu du grand public.\nQu\u2019est-ce qu\u2019un indice Total Return ?\nContrairement \u00e0 un indice classique qui mesure uniquement l\u2019\u00e9volution des prix des titres, l\u2019indice Total Return int\u00e8gre :\n\n\n\t\tla variation des cours\n\n\t\tles revenus distribu\u00e9s, notamment les dividendes, en supposant leur r\u00e9investissement.\n\nIl offre ainsi une vision plus compl\u00e8te de la performance r\u00e9elle d\u2019un investissement boursier.\nPourquoi est-il important pour les investisseurs ?\nL\u2019indice Total Return permet :\n\n\n\t\td\u2019\u00e9valuer le rendement global d\u2019un portefeuille ;\n\n\t\tde comparer plus justement des strat\u00e9gies d\u2019investissement \u00e0 long terme ;\n\n\t\tde mieux appr\u00e9cier l\u2019impact des dividendes sur la cr\u00e9ation de valeur.\n\nSa mise en avant dans le BOC contribue \u00e0 \u00e9lever le niveau de culture financi\u00e8re des investisseurs et \u00e0 promouvoir une approche plus globale de la performance boursi\u00e8re.\nUn BOC modernis\u00e9 au service de la transparence et de la p\u00e9dagogie financi\u00e8re\nAvec ces \u00e9volutions introduites depuis le 2 janvier 2026, le Bulletin Officiel de la Cote de la BRVM s\u2019affirme comme :\n\n\n\t\tun outil d\u2019information plus clair et structur\u00e9 ;\n\n\t\tun support p\u00e9dagogique pour les investisseurs ;\n\n\t\tun levier de modernisation et d\u2019attractivit\u00e9 du march\u00e9 financier r\u00e9gional.\n\nEn renfor\u00e7ant la lisibilit\u00e9 des donn\u00e9es, la BRVM confirme sa volont\u00e9 d\u2019accompagner la mont\u00e9e en comp\u00e9tence des acteurs du march\u00e9 et de soutenir le d\u00e9veloppement d\u2019un \u00e9cosyst\u00e8me financier plus inclusif, durable et performant.\n&nbsp;","date":"Fri, 16 Jan 2026 17:34:32 +0000","timestamp":1768584872,"source":"www.brvm.org","image":"https:\/\/www.brvm.org\/sites\/default\/files\/styles\/large\/public\/siege_brvm_0.jpg?itok=ngoOVnKt"}]}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/analytics/overview
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
       description: ''
       authenticated: false
       deprecated: false
@@ -146,75 +95,33 @@ endpoints:
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      name:
+      period:
         custom: []
-        name: name
-        description: "L'attribut."
+        name: period
+        description: ''
         required: false
-        example: value
+        example: 7d
         type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      email:
-        custom: []
-        name: email
-        description: "L'attribut."
-        required: false
-        example: value
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      desired_position:
-        custom: []
-        name: desired_position
-        description: "L'attribut."
-        required: false
-        example: value
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      motivation_message:
-        custom: []
-        name: motivation_message
-        description: "L'attribut."
-        required: false
-        example: value
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-      cv_path:
-        custom: []
-        name: cv_path
-        description: "L'attribut."
-        required: false
-        example: value
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
+        enumValues:
+          - 7d
+          - 30d
+          - 90d
+        exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      name: value
-      email: value
-      desired_position: value
-      motivation_message: value
-      cv_path: value
+      period: 7d
     fileParameters: []
     responses:
       -
         custom: []
-        status: 200
-        content: '{}'
-        headers: []
-        description: ''
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
     responseFields: []
     auth: []
     controller: null
@@ -224,16 +131,54 @@ endpoints:
     custom: []
     httpMethods:
       - GET
-    uri: 'api/spontaneous_applications/{id}'
+    uri: api/cv_extractors
     metadata:
       custom: []
-      groupName: SpontaneousApplication
-      groupDescription: |-
-
-        EndPoints pour gérer les SpontaneousApplication
+      groupName: Endpoints
+      groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Affiche un SpontaneousApplication'
+      title: "Extraire le texte de tous les CVs d'un dossier"
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/cv_extractors/{cvId}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: "Extraire le texte d'un CV spécifique par ID"
       description: ''
       authenticated: false
       deprecated: false
@@ -241,43 +186,77 @@ endpoints:
       Content-Type: application/json
       Accept: application/json
     urlParameters:
-      id:
+      cvId:
         custom: []
-        name: id
-        description: 'Le SpontaneousApplication.'
-        required: false
-        example: 1
-        type: integer
+        name: cvId
+        description: ''
+        required: true
+        example: architecto
+        type: string
         enumValues: []
-        exampleWasSpecified: true
+        exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 1
-    queryParameters:
-      with_relation:
-        custom: []
-        name: with_relation
-        description: 'Afficher la relation.'
-        required: false
-        example: 'false'
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        deprecated: false
-    cleanQueryParameters:
-      with_relation: 'false'
+      cvId: architecto
+    queryParameters: []
+    cleanQueryParameters: []
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
     responses:
       -
         custom: []
-        status: 200
-        content: '{}'
-        headers: []
-        description: ''
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/cv_extractors/upload
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: "Extraire le texte d'un CV uploadé directement"
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      cv:
+        custom: []
+        name: cv
+        description: 'Must be a file. Must not be greater than 5120 kilobytes.'
+        required: true
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters: []
+    fileParameters:
+      cv: null
+    responses: []
     responseFields: []
     auth: []
     controller: null

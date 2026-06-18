@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4">
+  <div class="min-h-screen bg-linear-to-br from-gray-50 to-gray-100 py-12 px-4">
     <div class="max-w-3xl mx-auto">
       <!-- En-tête -->
       <div class="mb-8">
@@ -13,7 +13,7 @@
 
         <div class="flex items-center gap-6 mb-8">
           <!-- Avatar avec initiales -->
-          <div class="w-15 h-15 rounded-full bg-gradient-to-br from-background/50 to-primary flex items-center justify-center text-white font-bold text-2xl flex-shrink-0">
+          <div class="w-15 h-15 rounded-full bg-linear-to-br from-background/50 to-primary flex items-center justify-center text-white font-bold text-2xl shrink-0">
             {{ userInitials }}
           </div>
           <div>
@@ -48,7 +48,7 @@
         <!-- Message de succès -->
         <div v-if="successMessage" class="bg-green-50 border border-green-200 rounded-xl p-4">
           <div class="flex items-center gap-2">
-            <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 text-green-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
             </svg>
             <p class="text-sm text-green-700 font-medium">{{ successMessage }}</p>
