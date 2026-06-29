@@ -299,8 +299,8 @@
         </div>
       </div>
 
-      <!-- Formulaire Produit -->
-      <div v-if="selectedService" ref="productFormSection" class="bg-white rounded-2xl shadow-xl p-8 space-y-8">
+      <!-- Formulaire Produit --><!-- Remplacer la ligne 128 par celle-ci : -->
+    <div v-if="selectedService" ref="productsSection" class="bg-white rounded-2xl shadow-xl p-8 mb-8">
         <div class="flex items-center justify-between">
           <div>
             <h2 class="text-xl font-bold text-gray-900">
@@ -406,6 +406,7 @@ const serviceFilterType = ref('all')
 
 const isEditingService = ref(false)
 const editingServiceId = ref<number | null>(null)
+const productsSection = ref<HTMLElement | null>(null)
 
 const serviceForm = ref({
   name: '',
@@ -420,8 +421,8 @@ const filteredServices = computed(() => {
   return services.value.filter(s => {
     const matchesSearch = (s.name || '').toLowerCase().includes(serviceSearchQuery.value.toLowerCase())
     const matchesType = serviceFilterType.value === 'all' || s.type === serviceFilterType.value
-    const matchesCustomerType = serviceFilterType.value === 'all' || s.customer_type === serviceFilterType.value
-    return matchesSearch && matchesType && matchesCustomerType
+    // Supprimé le conflit avec customer_type ici
+    return matchesSearch && matchesType
   })
 })
 
@@ -513,8 +514,16 @@ const selectedService = ref<any | null>(null)
 const selectService = async (item: any) => {
   selectedService.value = item
   await fetchProducts()
-}
 
+  // Le setTimeout garantit que le v-if s'est activé et que l'élément existe dans le DOM
+  setTimeout(() => {
+    if (productsSection.value) {
+      productsSection.value.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    } else {
+      console.warn("La section produit n'a pas été trouvée dans le DOM. Vérifiez la présence de ref='productsSection'.")
+    }
+  }, 100)
+}
 const deselectService = () => {
   selectedService.value = null
   products.value = []

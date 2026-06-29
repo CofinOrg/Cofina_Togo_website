@@ -90,7 +90,7 @@
               </div>
 
               <!-- CTA tableau -->
-              <div class="flex gap-3 pt-2">
+              <!-- <div class="flex gap-3 pt-2">
                 <button
                   @click="afficherTableau = true"
                   class="flex-1 border-2 border-primary text-primary py-3 rounded-xl font-bold text-sm hover:bg-primary hover:text-white transition-all duration-200 cursor-pointer"
@@ -107,7 +107,7 @@
                   </svg>
                   PDF
                 </button>
-              </div>
+              </div> -->
             </div>
 
             <!-- Results -->
