@@ -517,7 +517,7 @@ onMounted(async () => {
 
                 <!-- Colonne 5: Vous êtes -->
                 <div>
-                    <h3 class="text-white text-base font-bold mb-4 uppercase">
+                    <!-- <h3 class="text-white text-base font-bold mb-4 uppercase">
                          Légal
                     </h3>
                     <ul class="space-y-2.5">
@@ -530,13 +530,13 @@ onMounted(async () => {
                             <a href="/mentions-legales" class="text-white text-sm hover:text-accent transition-colors duration-300">
                                 Mentions légales
                             </a>
-                        </li>
+                        </li> -->
                      <!--    <li>
                             <a href="/cookies" class="text-white text-sm hover:text-accent transition-colors duration-300">
                                 Cookies & données
                             </a>
                         </li> -->
-                    </ul>
+                    <!-- </ul> -->
                 </div>
 
                 <!-- Colonne 4: Contacts -->

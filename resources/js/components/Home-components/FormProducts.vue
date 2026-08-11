@@ -215,7 +215,7 @@
             </div>
 
             <!-- Consentement -->
-            <div class="mb-8">
+            <!-- <div class="mb-8">
               <label class="flex items-start gap-3 cursor-pointer">
                 <input
                   v-model="formData.accepteConditions"
@@ -228,7 +228,7 @@
                   et la <a href="#" class="text-[#D10000] font-bold hover:underline">politique de confidentialité</a> *
                 </span>
               </label>
-            </div>
+            </div> -->
 
             <!-- Bouton de soumission -->
             <div class="flex justify-center">
