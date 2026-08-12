@@ -1,8 +1,8 @@
 <template>
-  <main class="min-h-screen bg-gradient-to-br from-[#0A1628] via-[#0F1E33] to-[#0A1628]">
+  <main class="min-h-screen bg-linear-to-br from-[#0A1628] via-[#0F1E33] to-[#0A1628]">
     <!-- Hero -->
-    <section class="relative h-[260px] flex items-center overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-r from-[#0A1628] to-[#1a2a44] opacity-90" />
+    <section class="relative h-65 flex items-center overflow-hidden">
+      <div class="absolute inset-0 bg-linear-to-r from-[#0A1628] to-[#1a2a44] opacity-90" />
       <div class="absolute inset-0 opacity-10">
         <div class="absolute top-0 left-0 w-96 h-96 bg-[#D4AF37] rounded-full blur-3xl" />
         <div class="absolute bottom-0 right-0 w-96 h-96 bg-[#D4AF37] rounded-full blur-3xl" />
@@ -37,7 +37,7 @@
     <!-- Formulaire -->
     <section class="pb-20 container mx-auto px-6">
       <div class="max-w-4xl mx-auto">
-        <div class="bg-gradient-to-br from-[#D4AF37]/40 to-[#D4AF37]/5 backdrop-blur-sm p-8 md:p-12 rounded-3xl border border-[#D4AF37]/30">
+        <div class="bg-linear-to-br from-[#D4AF37]/40 to-[#D4AF37]/5 backdrop-blur-sm p-8 md:p-12 rounded-3xl border border-[#D4AF37]/30">
 
           <form :key="formKey" @submit.prevent="handleSubmit">
             <div class="mb-10">

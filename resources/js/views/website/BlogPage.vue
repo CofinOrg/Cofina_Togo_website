@@ -113,8 +113,8 @@ const goBack = () => {
         </div>
 
         <!-- Bandeau rouge superposé en bas de l'image -->
-        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-primary to-secondary text-white py-6 md:py-8">
-          <div class="max-w-[1200px] mx-auto px-4 lg:px-8">
+        <div class="absolute bottom-0 left-0 right-0 bg-linear-to-r from-primary to-secondary text-white py-6 md:py-8">
+          <div class="max-w-300 mx-auto px-4 lg:px-8">
             <!-- Boutons d'action en haut -->
             <div class="flex items-center justify-between mb-4">
               <button
@@ -150,7 +150,7 @@ const goBack = () => {
 
       <!-- Contenu de l'article sur fond blanc -->
       <div class="bg-white">
-        <div class="max-w-[1200px] mx-auto px-4 lg:px-8 py-12">
+        <div class="max-w-300 mx-auto px-4 lg:px-8 py-12">
           <article class="max-w-4xl mx-auto">
             <div class="article-content text-gray-700 text-base leading-relaxed" v-html="article.content"></div>
           </article>
@@ -159,7 +159,7 @@ const goBack = () => {
 
       <!-- Section articles similaires sur fond gris -->
       <section v-if="relatedArticles.length" class="bg-gray-50 py-12 md:py-16">
-        <div class="max-w-[1200px] mx-auto px-4 lg:px-8">
+        <div class="max-w-300 mx-auto px-4 lg:px-8">
           <h2 class="text-gray-900 text-2xl md:text-3xl font-bold mb-8">
             AUTRES ARTICLES
           </h2>
@@ -246,7 +246,7 @@ const goBack = () => {
 
 .line-clamp-2 {
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
