@@ -454,12 +454,12 @@ onMounted(async () => {
         <div class="max-w-350 mx-auto px-4 lg:px-8 py-8 lg:py-10">
             <!-- Contenu principal du footer -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-11">
-                <!-- Colonne 1: Cofina TOGO --> 
+                <!-- Colonne 1: Cofina TOGO -->
                 <div>
                    <img src="../assets/images/accueil/loge_dark.png" alt="Logo Cofina" class="w-48 mb-4" />
-                    <p class="text-gray-400 text-sm leading-relaxed">
+                 <!--   <p class="text-gray-400 text-sm leading-relaxed">
                         COFINA, Compagnie Financière Africaine crée en 2014, est une institution opérant dans le secteur de la méso finance.
-                    </p>
+                    </p> -->
                 </div>
 
                 <!-- Colonne 2: Navigation -->
